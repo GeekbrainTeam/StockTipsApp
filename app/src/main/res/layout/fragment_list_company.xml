@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ListCompanyFragment"
+    android:id="@+id/constraint_external">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/constraint_internal">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="@+id/constraint_internal"
+            app:layout_constraintStart_toStartOf="@+id/constraint_internal"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_internal"
+            android:id="@+id/recyclerview_companies"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+
+        android:id="@+id/bottom_navigation_sort_company"
+        style="@style/bottom_navigation"
+        app:layout_constraintTop_toTopOf="@+id/constraint_external"
+        app:layout_constraintBottom_toBottomOf="@+id/constraint_external"
+        app:layout_constraintStart_toStartOf="@+id/constraint_external"
+        app:layout_constraintEnd_toStartOf="@+id/bottom_navigation_filter"
+        app:layout_constraintVertical_bias="0.95"
+        android:layout_margin="@dimen/margin_8"
+        app:layout_constraintHorizontal_weight="0.8"
+        app:menu="@menu/bottom_navigation_company_menu"
+        />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+
+        android:id="@+id/bottom_navigation_filter"
+        style="@style/bottom_navigation"
+        android:layout_margin="@dimen/margin_8"
+        app:layout_constraintTop_toTopOf="@+id/constraint_external"
+        app:layout_constraintBottom_toBottomOf="@+id/constraint_external"
+        app:layout_constraintStart_toEndOf="@+id/bottom_navigation_sort_company"
+        app:layout_constraintEnd_toEndOf="@+id/constraint_external"
+        app:layout_constraintVertical_bias="0.95"
+        app:layout_constraintHorizontal_weight="0.2"
+        app:menu="@menu/bottom_navigation_company_menu"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+        android:id="@+id/sort_by_change_half_year"
+        android:enabled="true"
+        android:title="@string/half_year"/>
+    <item
+        android:id="@+id/sort_by_change_day"
+        android:enabled="true"
+        android:title="@string/day"/>
+    <item
+        android:id="@+id/sort_by_price"
+        android:enabled="true"
+        android:title="@string/change_price"/>
+    <item
+        android:id="@+id/sort_by_name"
+        android:enabled="true"
+        android:title="@string/name_company"/>
+</menu>
