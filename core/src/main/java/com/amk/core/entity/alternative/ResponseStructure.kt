@@ -27,7 +27,7 @@ data class HistoryMetadata(
     val tradeDate: TypeBytesMaxSize,
 
     @field:SerializedName("SHORTNAME")
-    val shortname: TypeBytesMaxSize,
+    val shortName: TypeBytesMaxSize,
 
     @field:SerializedName("SECID")
     val secId: TypeBytesMaxSize,
@@ -48,10 +48,10 @@ data class HistoryMetadata(
     val high: Type,
 
     @field:SerializedName("LEGALCLOSEPRICE")
-    val legalcloseprice: Type,
+    val legalClosePrice: Type,
 
     @field:SerializedName("WAPRICE")
-    val waprice: Type,
+    val waPrice: Type,
 
     @field:SerializedName("CLOSE")
     val close: Type,
