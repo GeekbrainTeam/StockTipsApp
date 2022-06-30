@@ -2,7 +2,7 @@ package com.amk.core.retrofit
 
 import com.google.gson.annotations.SerializedName
 
-data class GsonCompanyResponseStructure(
+data class GsonCompaniesPageResponseStructure(
     val history: History,
 
     @field:SerializedName("history.cursor")
@@ -13,7 +13,7 @@ data class GsonCompanyResponseStructure(
 data class History(
     val metadata: HistoryMetadata,
     val columns: List<String>,
-    val data: List<List<String>> //data список компаний, вложенный список(одна компания) из 21го элемента для одной компании, описанные в метадате
+    val data: List<List<String?>> //data список компаний, вложенный список(одна компания) из 21го элемента для одной компании, описанные в метадате
 )
 
 data class HistoryMetadata(

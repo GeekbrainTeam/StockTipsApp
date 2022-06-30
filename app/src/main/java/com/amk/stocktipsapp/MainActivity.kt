@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.amk.core.entity.Company
 import com.amk.core.repository.Repository
 import com.amk.core.repository.View
 
@@ -19,13 +20,13 @@ class MainActivity : AppCompatActivity(), View {
 
         textView = findViewById(R.id.text_view)
         findViewById<Button>(R.id.button).setOnClickListener {
-            repository.getData()
+            repository.getAllCompany()
         }
 
     }
 
-    override fun showResult(result: String) {
-        runOnUiThread { textView.text = result }
+    override fun showResult(companiesList: MutableList<Company>) {
+        runOnUiThread { textView.text = companiesList.toString() }
     }
 
     override fun showError(error: String) {
