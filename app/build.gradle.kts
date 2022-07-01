@@ -56,4 +56,6 @@ dependencies {
     implementation("io.insert-koin:koin-core:3.1.2")
     implementation("io.insert-koin:koin-android:3.1.2")
 
+    implementation("androidx.fragment:fragment-ktx:1.4.1")
+
 }

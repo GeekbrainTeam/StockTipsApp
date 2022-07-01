@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,50 +7,41 @@
     tools:context=".ListCompanyFragment"
     android:id="@+id/constraint_external">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_companies"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/constraint_internal">
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="@+id/constraint_internal"
-            app:layout_constraintStart_toStartOf="@+id/constraint_internal"
-            app:layout_constraintEnd_toEndOf="@+id/constraint_internal"
-            android:id="@+id/recyclerview_companies"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-
-        android:id="@+id/bottom_navigation_sort_company"
-        style="@style/bottom_navigation"
-        app:layout_constraintTop_toTopOf="@+id/constraint_external"
-        app:layout_constraintBottom_toBottomOf="@+id/constraint_external"
-        app:layout_constraintStart_toStartOf="@+id/constraint_external"
-        app:layout_constraintEnd_toStartOf="@+id/bottom_navigation_filter"
-        app:layout_constraintVertical_bias="0.95"
-        android:layout_margin="@dimen/margin_8"
-        app:layout_constraintHorizontal_weight="0.8"
-        app:menu="@menu/bottom_navigation_company_menu"
-        />
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-
-        android:id="@+id/bottom_navigation_filter"
-        style="@style/bottom_navigation"
-        android:layout_margin="@dimen/margin_8"
-        app:layout_constraintTop_toTopOf="@+id/constraint_external"
-        app:layout_constraintBottom_toBottomOf="@+id/constraint_external"
-        app:layout_constraintStart_toEndOf="@+id/bottom_navigation_sort_company"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="@+id/constraint_external"
-        app:layout_constraintVertical_bias="0.95"
-        app:layout_constraintHorizontal_weight="0.2"
-        app:menu="@menu/bottom_navigation_company_menu"
-        />
+        app:layout_constraintStart_toStartOf="@+id/constraint_external"
+        app:layout_constraintTop_toTopOf="@+id/constraint_external" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/bottom_sort_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        app:layout_anchor="@id/recycler_view_companies"
+        app:layout_anchorGravity="bottom|left|end"
+        android:layout_margin="@dimen/margin_16"
+        android:backgroundTint="@color/background_navigation"
+        android:text="@string/sorting"
+        app:strokeColor="@color/line_navigation"
+        app:strokeWidth="3sp" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/bottom_filter_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        app:layout_anchor="@id/recycler_view_companies"
+        app:layout_anchorGravity="bottom|right|end"
+        android:layout_margin="@dimen/margin_16"
+        android:src="@drawable/ic_filter"
+        app:strokeColor="@color/line_navigation"
+        app:strokeWidth="3sp" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

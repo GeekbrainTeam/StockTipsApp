@@ -1,59 +1,79 @@
 package com.amk.stocktipsapp
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.amk.stocktipsapp.adapters.ListCompaniesAdapter
+import com.amk.stocktipsapp.databinding.FragmentListCompanyBinding
+import com.amk.stocktipsapp.model.DialogSorting
+import com.amk.stocktipsapp.model.FakeModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ListCompanyFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ListCompanyFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentListCompanyBinding? = null
+    private val binding get() = _binding!!
+    val fakeList  = mutableListOf<FakeModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_company, container, false)
+    ): View {
+        _binding = FragmentListCompanyBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ListCompanyFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ListCompanyFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initData()
+        setRecyclerView(fakeList)
+        binding.bottomSortCompany.setOnClickListener {
+            val dialog = DialogSorting()
+
+            dialog.show(childFragmentManager, "ok")
+        }
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+    private fun setRecyclerView(list: List<FakeModel>) {
+        val recyclerView: RecyclerView = binding.recyclerViewCompanies
+        recyclerView.layoutManager = LinearLayoutManager(
+            activity,
+            LinearLayoutManager.VERTICAL, false
+        )
+        val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
+            object : ListCompaniesAdapter.OnStateClickListener {
+                override fun onStateClick(fakeModel: FakeModel, position: Int) {
+                    Toast.makeText(activity, "Выбрана ${fakeModel.fakeName} копмания", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
+
+        recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener)
     }
+    private fun initData () {
+        fakeList.add(FakeModel("ddddd1", 1.0, false))
+        fakeList.add(FakeModel("ddddd2", 1.0, true))
+        fakeList.add(FakeModel("ddddd3", 1.0, false))
+        fakeList.add(FakeModel("ddddd4", 1.0, true))
+        fakeList.add(FakeModel("ddddd5", 1.0, false))
+        fakeList.add(FakeModel("ddddd6", 1.0, true))
+        fakeList.add(FakeModel("ddddd7", 1.0, false))
+        fakeList.add(FakeModel("ddddd8", 1.0, false))
+        fakeList.add(FakeModel("ddddd9", 1.0, false))
+        fakeList.add(FakeModel("ddddd10", 1.0, false))
+        fakeList.add(FakeModel("ddddd11", 1.0, false))
+    }
+
 }
