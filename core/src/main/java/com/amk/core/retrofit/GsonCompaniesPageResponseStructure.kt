@@ -9,11 +9,10 @@ data class GsonCompaniesPageResponseStructure(
     val historyCursor: HistoryCursor
 )
 
-
 data class History(
     val metadata: HistoryMetadata,
     val columns: List<String>,
-    val data: List<List<String?>> //data список компаний, вложенный список(одна компания) из 21го элемента для одной компании, описанные в метадате
+    val data: List<List<String>>
 )
 
 data class HistoryMetadata(
