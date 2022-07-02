@@ -20,9 +20,10 @@
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/bottom_sort_company"
-        android:layout_width="wrap_content"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|left"
+        android:gravity="center"
         app:layout_anchor="@id/recycler_view_companies"
         app:layout_anchorGravity="bottom|left|end"
         android:layout_margin="@dimen/margin_16"

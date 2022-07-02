@@ -22,7 +22,6 @@ class DialogSorting : DialogFragment(), View.OnClickListener, AdapterView.OnItem
             val spinner: Spinner = view.findViewById(R.id.up_down)
             spinner.onItemSelectedListener = this
 
-
             radioGroup.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
                     R.id.radio_change_half_year -> addToast = "по половине года"

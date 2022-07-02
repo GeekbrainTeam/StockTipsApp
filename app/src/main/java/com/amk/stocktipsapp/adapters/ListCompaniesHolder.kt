@@ -8,13 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.amk.stocktipsapp.R
 import com.amk.stocktipsapp.model.FakeModel
 
-
 class ListCompaniesHolder(inflater: LayoutInflater, parent: ViewGroup) :
     RecyclerView.ViewHolder(inflater.inflate(R.layout.item_company, parent, false)) {
 
     private val nameCompany: TextView = itemView.findViewById (R.id.name_company)
     private val nominalPrice: TextView = itemView.findViewById (R.id.nominal_price)
-
     private var checkBoxFavorite: CheckBox = itemView.findViewById(R.id.checkBox_favorite)
 
 

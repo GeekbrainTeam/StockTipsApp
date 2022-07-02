@@ -17,9 +17,7 @@ import com.amk.stocktipsapp.model.FakeModel
 class ListCompanyFragment : Fragment() {
     private var _binding: FragmentListCompanyBinding? = null
     private val binding get() = _binding!!
-    val fakeList  = mutableListOf<FakeModel>()
-
-
+    private val fakeList  = mutableListOf<FakeModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +44,7 @@ class ListCompanyFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
     private fun setRecyclerView(list: List<FakeModel>) {
         val recyclerView: RecyclerView = binding.recyclerViewCompanies
         recyclerView.layoutManager = LinearLayoutManager(
@@ -61,6 +60,24 @@ class ListCompanyFragment : Fragment() {
             }
 
         recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener)
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0 ||dy<0 && binding.bottomSortCompany.isShown)
+                {
+                    binding.bottomSortCompany.hide()
+                    binding.bottomFilterCompany.hide()
+                }
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE)
+                {
+                    binding.bottomSortCompany.show()
+                    binding.bottomFilterCompany.show()
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        })
     }
     private fun initData () {
         fakeList.add(FakeModel("ddddd1", 1.0, false))
