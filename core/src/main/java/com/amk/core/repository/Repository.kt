@@ -24,7 +24,6 @@ class Repository(
         activity.showError(error.toString())
     }
 
-
     fun getCompanies() {
         job?.cancel()
         job = scope.launch {
