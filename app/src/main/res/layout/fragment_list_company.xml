@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ListCompanyFragment"
+    android:id="@+id/constraint_external">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_companies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/constraint_external"
+        app:layout_constraintStart_toStartOf="@+id/constraint_external"
+        app:layout_constraintTop_toTopOf="@+id/constraint_external" />
+
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/bottom_sort_company"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:gravity="center"
+        app:layout_anchor="@id/recycler_view_companies"
+        app:layout_anchorGravity="bottom|left|end"
+        android:layout_margin="@dimen/margin_16"
+        android:backgroundTint="@color/background_navigation"
+        android:text="@string/sorting"
+        app:strokeColor="@color/line_navigation"
+        app:strokeWidth="3sp" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/bottom_filter_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        app:layout_anchor="@id/recycler_view_companies"
+        app:layout_anchorGravity="bottom|right|end"
+        android:layout_margin="@dimen/margin_16"
+        android:src="@drawable/ic_filter"
+        app:strokeColor="@color/line_navigation"
+        app:strokeWidth="3sp" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
