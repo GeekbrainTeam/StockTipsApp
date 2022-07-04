@@ -12,9 +12,14 @@
     <string name="text_brief_name_company">Краткое название</string>
     <string name="text_change_price">0 Р (0%)</string>
     <string name="checkbox_add_favorite">Добавить в избранное</string>
+    <string name="home">Домой</string>
+    <string name="settings">Настройки</string>
+    <string name="favorite">Избранное</string>
 
     <string-array name="direction">
         <item>По возрастанию</item>
         <item>По убыванию</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
