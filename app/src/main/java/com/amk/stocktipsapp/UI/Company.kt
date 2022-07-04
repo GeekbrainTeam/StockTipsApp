@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import com.amk.stocktipsapp.R
 import com.amk.stocktipsapp.databinding.FragmentCompanyBinding
 import com.amk.stocktipsapp.databinding.FragmentFavoriteBinding
+import com.amk.stocktipsapp.setSupportActionBarOneItem
 import com.google.android.material.bottomappbar.BottomAppBar
 
 class Company : Fragment() {
@@ -26,18 +27,10 @@ class Company : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        setSupportActionBar(binding.bottomAppBar)
-    }
-
-    private fun setSupportActionBar(toolbarMain: BottomAppBar) {
-        toolbarMain.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.go_to_home3 -> {
-                    navController.navigate(R.id.action_company_to_listCompanyFragment)
-                    true
-                }
-                else -> false
-            }
-        }
+        setSupportActionBarOneItem (
+            binding.bottomAppBar,
+            navController,
+            R.id.go_to_home3,
+            R.id.action_company_to_listCompanyFragment)
     }
 }

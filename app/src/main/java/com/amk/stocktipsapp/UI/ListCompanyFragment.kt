@@ -14,7 +14,6 @@ import com.amk.stocktipsapp.adapters.ListCompaniesAdapter
 import com.amk.stocktipsapp.databinding.FragmentListCompanyBinding
 import com.amk.stocktipsapp.model.DialogSorting
 import com.amk.stocktipsapp.model.FakeModel
-import com.google.android.material.bottomappbar.BottomAppBar
 
 
 class ListCompanyFragment : Fragment() {
@@ -35,7 +34,14 @@ class ListCompanyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        setSupportActionBar(binding.bottomAppBar)
+        com.amk.stocktipsapp.setSupportActionBarTwoItem(
+            binding.bottomAppBar,
+            navController,
+            R.id.favorite,
+            R.id.action_listCompanyFragment_to_favorite2,
+            R.id.settings,
+            R.id.action_listCompanyFragment_to_settings2
+        )
         initData()
         setRecyclerView(fakeList)
         binding.bottomSortCompany.setOnClickListener {
@@ -91,21 +97,5 @@ class ListCompanyFragment : Fragment() {
         fakeList.add(FakeModel("ddddd9", 1.0, false))
         fakeList.add(FakeModel("ddddd10", 1.0, false))
         fakeList.add(FakeModel("ddddd11", 1.0, false))
-    }
-
-    private fun setSupportActionBar(toolbarMain: BottomAppBar) {
-        toolbarMain.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.favorite -> {
-                    navController.navigate(R.id.action_listCompanyFragment_to_favorite2)
-                    true
-                }
-                R.id.settings -> {
-                    navController.navigate(R.id.action_listCompanyFragment_to_settings2)
-                    true
-                }
-                else -> false
-            }
-        }
     }
 }

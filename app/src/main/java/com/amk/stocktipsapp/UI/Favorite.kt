@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.amk.stocktipsapp.R
 import com.amk.stocktipsapp.databinding.FragmentFavoriteBinding
-import com.google.android.material.bottomappbar.BottomAppBar
+import com.amk.stocktipsapp.setSupportActionBarTwoItem
 
 
 class Favorite : Fragment() {
@@ -27,22 +27,12 @@ class Favorite : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        setSupportActionBar(binding.bottomAppBar)
-    }
-
-    private fun setSupportActionBar(toolbarMain: BottomAppBar) {
-        toolbarMain.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.go_to_home -> {
-                    navController.navigate(R.id.action_favorite2_to_listCompanyFragment)
-                    true
-                }
-                R.id.settings2 -> {
-                    navController.navigate(R.id.action_favorite2_to_settings2)
-                    true
-                }
-                else -> false
-            }
-        }
+        setSupportActionBarTwoItem(binding.bottomAppBar,
+            navController,
+            R.id.go_to_home,
+            R.id.action_favorite2_to_listCompanyFragment,
+            R.id.settings2,
+            R.id.action_favorite2_to_settings2
+        )
     }
 }
