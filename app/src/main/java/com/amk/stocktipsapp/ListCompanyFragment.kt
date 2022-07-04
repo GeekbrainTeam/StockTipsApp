@@ -8,16 +8,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.amk.core.entity.Company
+import com.amk.core.repository.Repository
 import com.amk.stocktipsapp.adapters.ListCompaniesAdapter
 import com.amk.stocktipsapp.databinding.FragmentListCompanyBinding
 import com.amk.stocktipsapp.model.DialogSorting
-import com.amk.stocktipsapp.model.FakeModel
 
-
-class ListCompanyFragment : Fragment() {
+class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
     private var _binding: FragmentListCompanyBinding? = null
     private val binding get() = _binding!!
-    private val fakeList  = mutableListOf<FakeModel>()
+    private val repository = Repository(this)
+    private val companiesList = mutableListOf<Company>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,8 +31,8 @@ class ListCompanyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initData()
-        setRecyclerView(fakeList)
+        repository.getCompanies()
+        //setRecyclerView(companiesList)
         binding.bottomSortCompany.setOnClickListener {
             val dialog = DialogSorting()
 
@@ -45,7 +46,7 @@ class ListCompanyFragment : Fragment() {
         _binding = null
     }
 
-    private fun setRecyclerView(list: List<FakeModel>) {
+    override fun setRecyclerView(list: MutableList<Company>) {
         val recyclerView: RecyclerView = binding.recyclerViewCompanies
         recyclerView.layoutManager = LinearLayoutManager(
             activity,
@@ -53,8 +54,8 @@ class ListCompanyFragment : Fragment() {
         )
         val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
             object : ListCompaniesAdapter.OnStateClickListener {
-                override fun onStateClick(fakeModel: FakeModel, position: Int) {
-                    Toast.makeText(activity, "Выбрана ${fakeModel.fakeName} копмания", Toast.LENGTH_SHORT)
+                override fun onStateClick(company: Company, position: Int) {
+                    Toast.makeText(activity, "Выбрана ${company.secId} копмания", Toast.LENGTH_LONG)
                         .show()
                 }
             }
@@ -62,16 +63,14 @@ class ListCompanyFragment : Fragment() {
         recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener)
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0 ||dy<0 && binding.bottomSortCompany.isShown)
-                {
+                if (dy > 0 || dy < 0 && binding.bottomSortCompany.isShown) {
                     binding.bottomSortCompany.hide()
                     binding.bottomFilterCompany.hide()
                 }
             }
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE)
-                {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     binding.bottomSortCompany.show()
                     binding.bottomFilterCompany.show()
                 }
@@ -79,18 +78,8 @@ class ListCompanyFragment : Fragment() {
             }
         })
     }
-    private fun initData () {
-        fakeList.add(FakeModel("ddddd1", 1.0, false))
-        fakeList.add(FakeModel("ddddd2", 1.0, true))
-        fakeList.add(FakeModel("ddddd3", 1.0, false))
-        fakeList.add(FakeModel("ddddd4", 1.0, true))
-        fakeList.add(FakeModel("ddddd5", 1.0, false))
-        fakeList.add(FakeModel("ddddd6", 1.0, true))
-        fakeList.add(FakeModel("ddddd7", 1.0, false))
-        fakeList.add(FakeModel("ddddd8", 1.0, false))
-        fakeList.add(FakeModel("ddddd9", 1.0, false))
-        fakeList.add(FakeModel("ddddd10", 1.0, false))
-        fakeList.add(FakeModel("ddddd11", 1.0, false))
-    }
 
+    override fun showError(error: String) {
+        Toast.makeText(activity, error, Toast.LENGTH_LONG).show()
+    }
 }

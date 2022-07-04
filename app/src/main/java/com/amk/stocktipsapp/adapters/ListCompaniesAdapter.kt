@@ -1,20 +1,19 @@
 package com.amk.stocktipsapp.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
-import com.amk.stocktipsapp.model.FakeModel
+import com.amk.core.entity.Company
 
 
 class ListCompaniesAdapter(
-    private val list: List<FakeModel>,
+    private val list: MutableList<Company>,
     private val onClickListener: OnStateClickListener,
 
-) :
+    ) :
     RecyclerView.Adapter<ListCompaniesHolder>() {
 
     interface OnStateClickListener {
-        fun onStateClick(commonModel: FakeModel, position: Int)
+        fun onStateClick(commonModel: Company, position: Int)
     }
 
 
@@ -24,7 +23,7 @@ class ListCompaniesAdapter(
     }
 
     override fun onBindViewHolder(holder: ListCompaniesHolder, position: Int) {
-        val commonModel: FakeModel = list[position]
+        val commonModel: Company = list[position]
         holder.bind(commonModel)
         holder.itemView.setOnClickListener {
             onClickListener.onStateClick(commonModel, position)

@@ -36,7 +36,7 @@ class Repository(
                 index += pageSize
                 response = apiService.getCompaniesPage(start = index)
             }
-            activity.showResult(companiesList)
+            withContext(Dispatchers.Main) { activity.setRecyclerView(companiesList) }
         }
     }
 
@@ -52,7 +52,7 @@ class Repository(
                 index += pageSize
                 response = apiService.getCompanyCandlesPage(secId = secId, start = index)
             }
-            activity.showResult(companiesList)
+            withContext(Dispatchers.Main) { activity.setRecyclerView(companiesList) }
         }
     }
 
