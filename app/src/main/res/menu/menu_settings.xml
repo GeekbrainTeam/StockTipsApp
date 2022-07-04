@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/favorite"
-        android:icon="@drawable/ic_baseline_star_border_24"
+        android:id="@+id/go_to_home2"
+        android:icon="@drawable/ic_baseline_home_24"
         app:showAsAction="ifRoom"
-        android:title="@string/favorite" />
+        android:title="@string/home" />
     <item
-        android:id="@+id/settings"
-        android:icon="@drawable/ic_baseline_settings_24"
+        android:id="@+id/favorite2"
+        android:icon="@drawable/ic_baseline_star_border_24"
         app:showAsAction="ifRoom"
         android:title="@string/settings" />
 </menu>

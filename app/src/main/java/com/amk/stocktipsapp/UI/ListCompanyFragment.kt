@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -62,12 +61,7 @@ class ListCompanyFragment : Fragment() {
         val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
             object : ListCompaniesAdapter.OnStateClickListener {
                 override fun onStateClick(commonModel: FakeModel, position: Int) {
-                    Toast.makeText(
-                        activity,
-                        "Выбрана ${commonModel.fakeName} компания",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    navController.navigate(R.id.action_listCompanyFragment_to_company)
                 }
             }
 
