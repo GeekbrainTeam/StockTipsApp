@@ -1,23 +1,25 @@
-package com.amk.stocktipsapp
+package com.amk.stocktipsapp.UI
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.amk.stocktipsapp.R
 import com.amk.stocktipsapp.adapters.ListCompaniesAdapter
 import com.amk.stocktipsapp.databinding.FragmentListCompanyBinding
 import com.amk.stocktipsapp.model.DialogSorting
 import com.amk.stocktipsapp.model.FakeModel
 
-
 class ListCompanyFragment : Fragment() {
     private var _binding: FragmentListCompanyBinding? = null
     private val binding get() = _binding!!
-    private val fakeList  = mutableListOf<FakeModel>()
+    private val fakeList = mutableListOf<FakeModel>()
+    lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +32,7 @@ class ListCompanyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
         initData()
         setRecyclerView(fakeList)
         binding.bottomSortCompany.setOnClickListener {
@@ -39,6 +42,7 @@ class ListCompanyFragment : Fragment() {
         }
 
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -53,29 +57,21 @@ class ListCompanyFragment : Fragment() {
         )
         val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
             object : ListCompaniesAdapter.OnStateClickListener {
-                override fun onStateClick(fakeModel: FakeModel, position: Int) {
-                    Toast.makeText(activity, "Выбрана ${fakeModel.fakeName} копмания", Toast.LENGTH_SHORT)
-                        .show()
+                override fun onStateClick(commonModel: FakeModel, position: Int) {
+                    navController.navigate(R.id.action_go_to_home_to_company)
                 }
             }
 
         recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener)
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0 ||dy<0 && binding.bottomSortCompany.isShown)
-                {
+                if (dy < 0 && !binding.bottomSortCompany.isShown) {
+                    binding.bottomSortCompany.show()
+                    binding.bottomFilterCompany.show()
+                } else if (dy > 0 && binding.bottomSortCompany.isShown) {
                     binding.bottomSortCompany.hide()
                     binding.bottomFilterCompany.hide()
                 }
-            }
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE)
-                {
-                    binding.bottomSortCompany.show()
-                    binding.bottomFilterCompany.show()
-                }
-                super.onScrollStateChanged(recyclerView, newState);
             }
         })
     }
