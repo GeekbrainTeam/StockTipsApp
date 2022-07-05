@@ -27,8 +27,6 @@ class ListCompaniesAdapter(
         holder.itemView.setOnClickListener {
             onClickListener.onStateClick(commonModel, position)
         }
-
-
     }
 
     override fun getItemCount(): Int = list.size

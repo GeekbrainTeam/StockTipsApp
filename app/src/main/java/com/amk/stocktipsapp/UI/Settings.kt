@@ -10,7 +10,6 @@ import androidx.navigation.Navigation
 import com.amk.stocktipsapp.R
 import com.amk.stocktipsapp.databinding.FragmentSettingsBinding
 
-
 class Settings : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
@@ -24,6 +23,4 @@ class Settings : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         }
-
-
 }

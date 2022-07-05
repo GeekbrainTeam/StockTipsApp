@@ -5,11 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import com.amk.stocktipsapp.R
 import com.amk.stocktipsapp.databinding.FragmentFavoriteBinding
-
 
 class Favorite : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
@@ -24,6 +20,5 @@ class Favorite : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
     }
 }

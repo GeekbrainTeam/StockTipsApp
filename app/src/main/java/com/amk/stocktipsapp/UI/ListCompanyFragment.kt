@@ -15,7 +15,6 @@ import com.amk.stocktipsapp.databinding.FragmentListCompanyBinding
 import com.amk.stocktipsapp.model.DialogSorting
 import com.amk.stocktipsapp.model.FakeModel
 
-
 class ListCompanyFragment : Fragment() {
     private var _binding: FragmentListCompanyBinding? = null
     private val binding get() = _binding!!
@@ -62,7 +61,6 @@ class ListCompanyFragment : Fragment() {
                     navController.navigate(R.id.action_go_to_home_to_company)
                 }
             }
-
 
         recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener)
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {

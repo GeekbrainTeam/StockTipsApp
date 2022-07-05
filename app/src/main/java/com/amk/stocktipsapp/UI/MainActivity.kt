@@ -45,11 +45,9 @@ class MainActivity : AppCompatActivity() {
     private fun showBottomNav() {
         navView.visibility = View.VISIBLE
     }
-
     private fun hideBottomNav() {
         navView.visibility = View.GONE
     }
-
 }
 
 
