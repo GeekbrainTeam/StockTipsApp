@@ -7,10 +7,8 @@ import com.amk.core.retrofit.MoexApiImpl
 import com.amk.core.retrofit.MoexApiService
 import kotlinx.coroutines.*
 
-class Repository(
-    private val activity: View,
-    private val apiService: MoexApiService = MoexApiImpl().getMoexService()
-) {
+class Repository(private val apiService: MoexApiService = MoexApiImpl().getMoexService()) {
+    private var view: View? = null
     private var job: Job? = null
     private val scope = CoroutineScope(
         Dispatchers.IO
@@ -21,7 +19,13 @@ class Repository(
     )
 
     private fun handleError(error: Throwable) {
-        activity.showError(error.toString())
+        scope.launch {
+            withContext(Dispatchers.Main) { view?.showError(error.toString()) }
+        }
+    }
+
+    fun setView(view: View) {
+        this.view = view
     }
 
     fun getCompanies() {
@@ -36,7 +40,7 @@ class Repository(
                 index += pageSize
                 response = apiService.getCompaniesPage(start = index)
             }
-            activity.showResult(companiesList)
+            withContext(Dispatchers.Main) { view?.showResult(companiesList) }
         }
     }
 
@@ -52,7 +56,7 @@ class Repository(
                 index += pageSize
                 response = apiService.getCompanyCandlesPage(secId = secId, start = index)
             }
-            activity.showResult(companiesList)
+            withContext(Dispatchers.Main) { view?.showResult(companiesList) }
         }
     }
 

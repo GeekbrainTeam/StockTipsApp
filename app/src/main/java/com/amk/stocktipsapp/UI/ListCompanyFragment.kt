@@ -4,21 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.amk.core.entity.Company
+import com.amk.core.repository.Repository
 import com.amk.stocktipsapp.R
 import com.amk.stocktipsapp.adapters.ListCompaniesAdapter
 import com.amk.stocktipsapp.databinding.FragmentListCompanyBinding
 import com.amk.stocktipsapp.model.DialogSorting
-import com.amk.stocktipsapp.model.FakeModel
 
-class ListCompanyFragment : Fragment() {
+class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
     private var _binding: FragmentListCompanyBinding? = null
     private val binding get() = _binding!!
-    private val fakeList = mutableListOf<FakeModel>()
+    private val repository = Repository()
+    private var companiesList = mutableListOf<Company>()
     lateinit var navController: NavController
 
     override fun onCreateView(
@@ -33,8 +36,8 @@ class ListCompanyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        initData()
-        setRecyclerView(fakeList)
+        repository.setView(this)
+        repository.getCompanies()
         binding.bottomSortCompany.setOnClickListener {
             val dialog = DialogSorting()
 
@@ -49,7 +52,7 @@ class ListCompanyFragment : Fragment() {
         _binding = null
     }
 
-    private fun setRecyclerView(list: List<FakeModel>) {
+    private fun setRecyclerView(list: List<Company>) {
         val recyclerView: RecyclerView = binding.recyclerViewCompanies
         recyclerView.layoutManager = LinearLayoutManager(
             activity,
@@ -57,7 +60,7 @@ class ListCompanyFragment : Fragment() {
         )
         val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
             object : ListCompaniesAdapter.OnStateClickListener {
-                override fun onStateClick(commonModel: FakeModel, position: Int) {
+                override fun onStateClick(company: Company, position: Int) {
                     navController.navigate(R.id.action_go_to_home_to_company)
                 }
             }
@@ -75,18 +78,14 @@ class ListCompanyFragment : Fragment() {
             }
         })
     }
-    private fun initData () {
-        fakeList.add(FakeModel("ddddd1", 1.0, false))
-        fakeList.add(FakeModel("ddddd2", 1.0, true))
-        fakeList.add(FakeModel("ddddd3", 1.0, false))
-        fakeList.add(FakeModel("ddddd4", 1.0, true))
-        fakeList.add(FakeModel("ddddd5", 1.0, false))
-        fakeList.add(FakeModel("ddddd6", 1.0, true))
-        fakeList.add(FakeModel("ddddd7", 1.0, false))
-        fakeList.add(FakeModel("ddddd8", 1.0, false))
-        fakeList.add(FakeModel("ddddd9", 1.0, false))
-        fakeList.add(FakeModel("ddddd10", 1.0, false))
-        fakeList.add(FakeModel("ddddd11", 1.0, false))
+
+    override fun showResult(result: MutableList<Company>) {
+        companiesList = result
+        setRecyclerView(companiesList)
+    }
+
+    override fun showError(error: String) {
+        Toast.makeText(activity, error, Toast.LENGTH_LONG).show()
     }
 
 }

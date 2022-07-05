@@ -10,7 +10,7 @@ import java.util.*
 interface MoexApiService {
     @GET("history/engines/stock/markets/shares/boards/TQBR/securities.json")
     suspend fun getCompaniesPage(
-        @Query("date") date: String = Date().yesterdayU().toStringU(),
+        //@Query("date") date: String = Date().yesterdayU().toStringU(),
         @Query("start") start: Long = 0
     ): GsonCompaniesPageResponseStructure
 

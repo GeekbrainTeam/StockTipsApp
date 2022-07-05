@@ -1,5 +1,6 @@
 package com.amk.core.repository
 
+import android.view.View
 import com.amk.core.entity.Company
 
 interface View {
