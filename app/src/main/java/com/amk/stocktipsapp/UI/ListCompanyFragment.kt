@@ -34,14 +34,6 @@ class ListCompanyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        com.amk.stocktipsapp.setSupportActionBarTwoItem(
-            binding.bottomAppBar,
-            navController,
-            R.id.favorite,
-            R.id.action_listCompanyFragment_to_favorite2,
-            R.id.settings,
-            R.id.action_listCompanyFragment_to_settings2
-        )
         initData()
         setRecyclerView(fakeList)
         binding.bottomSortCompany.setOnClickListener {
@@ -67,7 +59,7 @@ class ListCompanyFragment : Fragment() {
         val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
             object : ListCompaniesAdapter.OnStateClickListener {
                 override fun onStateClick(commonModel: FakeModel, position: Int) {
-                    navController.navigate(R.id.action_listCompanyFragment_to_company)
+                    navController.navigate(R.id.action_go_to_home_to_company)
                 }
             }
 
@@ -98,4 +90,5 @@ class ListCompanyFragment : Fragment() {
         fakeList.add(FakeModel("ddddd10", 1.0, false))
         fakeList.add(FakeModel("ddddd11", 1.0, false))
     }
+
 }
