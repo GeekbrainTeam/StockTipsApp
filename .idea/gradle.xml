@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/favorite" />
             <option value="$PROJECT_DIR$/list-companies" />
+            <option value="$PROJECT_DIR$/settings" />
           </set>
         </option>
       </GradleProjectSettings>

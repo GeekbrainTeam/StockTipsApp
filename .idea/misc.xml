@@ -19,6 +19,7 @@
         <entry key="list-companies/src/main/res/layout/dialog_filter.xml" value="0.2994791666666667" />
         <entry key="list-companies/src/main/res/layout/fragment_list_company.xml" value="0.1" />
         <entry key="list-companies/src/main/res/layout/item_company.xml" value="0.1" />
+        <entry key="settings/src/main/res/layout/fragment_settings.xml" value="0.1" />
       </map>
     </option>
   </component>
