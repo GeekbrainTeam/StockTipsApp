@@ -11,8 +11,5 @@
     <string name="text_change_price">0 Р (0%)</string>
     <string name="home">Домой</string>
     <string name="settings">Настройки</string>
-    <string-array name="direction">
-        <item>По возрастанию</item>
-        <item>По убыванию</item>
-    </string-array>
+
 </resources>
