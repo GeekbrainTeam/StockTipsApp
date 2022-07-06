@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/company"
-        android:name="com.amk.stocktipsapp.UI.Company"
+        android:name="com.amk.company.ui.CompanyFragment"
         android:label="@string/choose_company"
         tools:layout="@layout/fragment_company" />
     <fragment
         android:id="@+id/go_to_favorite"
-        android:name="com.amk.stocktipsapp.UI.Favorite"
+        android:name="com.amk.stocktipsapp.ui.FavoriteFragment"
         android:label="@string/favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/go_to_home"
-        android:name="com.amk.stocktipsapp.UI.ListCompanyFragment"
+        android:name="com.amk.mylibrary.ui.ListCompanyFragment"
         android:label="@string/list_companies"
         tools:layout="@layout/fragment_list_company" >
         <action
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/go_to_settings"
-        android:name="com.amk.stocktipsapp.UI.Settings"
+        android:name="com.amk.stocktipsapp.ui.Settings"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>
