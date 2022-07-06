@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_company" />
     <fragment
         android:id="@+id/go_to_favorite"
-        android:name="com.amk.stocktipsapp.ui.FavoriteFragment"
+        android:name="ru.amk.favorite.ui.FavoriteFragment"
         android:label="@string/favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment

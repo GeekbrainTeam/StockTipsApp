@@ -1,11 +1,11 @@
-package com.amk.stocktipsapp.ui
+package ru.amk.favorite.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.amk.stocktipsapp.databinding.FragmentFavoriteBinding
+import ru.amk.favorite.databinding.FragmentFavoriteBinding
 
 class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null

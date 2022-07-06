@@ -14,7 +14,11 @@
         <entry key="app/src/main/res/menu/menu_favorite.xml" value="0.2625" />
         <entry key="app/src/main/res/menu/menu_home.xml" value="0.3380208333333333" />
         <entry key="company/src/main/res/layout/fragment_company.xml" value="0.23143115942028986" />
+        <entry key="core/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2035" />
+        <entry key="favorite/src/main/res/layout/fragment_favorite.xml" value="0.15476190476190477" />
         <entry key="list-companies/src/main/res/layout/dialog_filter.xml" value="0.2994791666666667" />
+        <entry key="list-companies/src/main/res/layout/fragment_list_company.xml" value="0.1" />
+        <entry key="list-companies/src/main/res/layout/item_company.xml" value="0.1" />
       </map>
     </option>
   </component>
