@@ -16,11 +16,12 @@ import com.amk.stocktipsapp.R
 import com.amk.stocktipsapp.adapters.ListCompaniesAdapter
 import com.amk.stocktipsapp.databinding.FragmentListCompanyBinding
 import com.amk.stocktipsapp.model.DialogSorting
+import org.koin.android.ext.android.inject
 
 class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
     private var _binding: FragmentListCompanyBinding? = null
     private val binding get() = _binding!!
-    private val repository = Repository()
+    private val repository: Repository by inject()
     private var companiesList = mutableListOf<Company>()
     lateinit var navController: NavController
 

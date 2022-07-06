@@ -4,7 +4,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.core.entity.Company
 import com.amk.stocktipsapp.databinding.ItemCompanyBinding
-import com.amk.stocktipsapp.model.FakeModel
 
 
 class ListCompaniesAdapter(
