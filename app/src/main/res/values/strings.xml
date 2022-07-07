@@ -1,27 +1,3 @@
 <resources>
     <string name="app_name">StockTipsApp</string>
-    <string name="sorting">Сортировка</string>
-    <string name="price">По цене</string>
-    <string name="name_company">Названию</string>
-    <string name="type_of_sorting">Сортировать по</string>
-    <string name="change_half_year">Изменению за полгода</string>
-    <string name="change_day">Изменению за день</string>
-    <string name="action_dialog">Применить</string>
-    <string name="text_name_company">Название компании</string>
-    <string name="text_nominal">0,0 руб.</string>
-    <string name="text_brief_name_company">Краткое название</string>
-    <string name="text_change_price">0 Р (0%)</string>
-    <string name="checkbox_add_favorite">Добавить в избранное</string>
-    <string name="home">Домой</string>
-    <string name="settings">Настройки</string>
-    <string name="favorite">Избранное</string>
-    <string name="choose_company">Выбранная компания</string>
-    <string name="list_companies">Список компаний</string>
-
-    <string-array name="direction">
-        <item>По возрастанию</item>
-        <item>По убыванию</item>
-    </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
