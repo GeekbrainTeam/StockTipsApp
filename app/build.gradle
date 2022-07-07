@@ -8,15 +8,13 @@ android {
     compileSdk 32
 
     defaultConfig {
-_style
-        applicationId "com.amk.stocktipsapp"
+        applicationId 'com.amk.stocktipsapp'
         minSdk 24
         targetSdk 32
         versionCode 1
-        versionName "1.0"
+        versionName '1.0'
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
@@ -32,11 +30,11 @@ _style
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    
     buildFeatures {
         viewBinding true
     }
 }
+
 
 dependencies {
 
@@ -63,4 +61,5 @@ dependencies {
     // Navigation component
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
+
 }
