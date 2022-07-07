@@ -8,14 +8,16 @@
         <item name="android:orientation">vertical</item>
 
     </style>
+
     <style name="style_bottom_action">
-        <item name="android:background">@drawable/rectangle_shape</item>
-        <item name="android:color">@color/background_navigation</item>
-        <item name="android:layout_width"> match_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/text_navigation</item>
         <item name="android:layout_margin">@dimen/margin_8</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="style_item_company">
+
     </style>
 
 </resources>
