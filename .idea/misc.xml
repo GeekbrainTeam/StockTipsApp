@@ -3,26 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Study/Android/StockTipsApp/app/src/main/res/layout/activity_main.xml" value="0.36102564102564105" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/drawable/ic_baseline_filter_list_24.xml" value="0.2265" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.2265" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.121" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.2265" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/drawable/ic_baseline_star_outline_24.xml" value="0.2265" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/dialog_filter.xml" value="0.25" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/fragment_company.xml" value="0.1" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/fragment_favorite.xml" value="0.2" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/fragment_list_company.xml" value="0.4" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/fragment_settings.xml" value="0.16799999999999998" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/bottom_app_bar_navigation.xml" value="0.16799999999999998" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.11510416666666666" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/menu.xml" value="0.25" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/menu_company.xml" value="0.24895833333333334" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/menu_favorite.xml" value="0.4" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/menu_home.xml" value="0.10989583333333333" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/menu_navigation.xml" value="0.24895833333333334" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/menu_settings.xml" value="0.20427350427350427" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.10572916666666667" />
       </map>
     </option>
