@@ -30,11 +30,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         viewBinding true
     }
 }
-
 
 dependencies {
 
@@ -61,5 +61,4 @@ dependencies {
     // Navigation component
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
-
 }
