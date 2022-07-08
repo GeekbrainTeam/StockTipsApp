@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.amk.stocktipsapp.databinding.FragmentCompanyBinding
 
-class Company : Fragment() {
+class CompanyChoise : Fragment() {
     private var _binding: FragmentCompanyBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
