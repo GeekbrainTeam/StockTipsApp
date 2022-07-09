@@ -5,60 +5,41 @@ import com.amk.core.entity.toDateU
 import com.amk.core.retrofit.GsonCompaniesPageResponseStructure
 import com.amk.core.retrofit.MoexApiService
 import kotlinx.coroutines.*
+import java.util.*
 
 class NetworkRepository(private val apiService: MoexApiService) : Repository {
 
-    private var view: View? = null
-    private var job: Job? = null
-    private val scope = CoroutineScope(
-        Dispatchers.IO
-                + SupervisorJob()
-                + CoroutineExceptionHandler { _, throwable ->
-            handleError(throwable)
-        }
-    )
 
-    private fun handleError(error: Throwable) {
-        scope.launch {
-            withContext(Dispatchers.Main) { view?.showError(error.toString()) }
+    override suspend fun getCompaniesLastDate(): List<Company> {
+        val companiesList = mutableListOf<Company>()
+        var index = 0L
+        val pageSize = 100L
+        var response = apiService.getCompaniesPage(start = index)
+        while (response.history.data.isNotEmpty()) {
+            addToList(response, companiesList)
+            index += pageSize
+            response = apiService.getCompaniesPage(start = index)
         }
+        return companiesList
     }
 
-    override fun setView(view: View) {
-        this.view = view
+    override suspend fun getCompaniesByDate(date: Date): List<Company> {
+        TODO("Not yet implemented")
     }
 
-    override fun getCompanies() {
-        job?.cancel()
-        job = scope.launch {
-            val companiesList = mutableListOf<Company>()
-            var index = 0L
-            val pageSize = 100L
-            var response = apiService.getCompaniesPage(start = index)
-            while (response.history.data.isNotEmpty()) {
-                addToList(response, companiesList)
-                index += pageSize
-                response = apiService.getCompaniesPage(start = index)
-            }
-            withContext(Dispatchers.Main) { view?.showResult(companiesList) }
+    override suspend fun getCompanyCandles(secId: String): List<Company> {
+        val companiesList = mutableListOf<Company>()
+        var index = 0L
+        val pageSize = 100L
+        var response = apiService.getCompanyCandlesPage(secId = secId, start = index)
+        while (response.history.data.isNotEmpty()) {
+            addToList(response, companiesList)
+            index += pageSize
+            response = apiService.getCompanyCandlesPage(secId = secId, start = index)
         }
+        return companiesList
     }
 
-    override fun getCompanyCandles(secId: String) {
-        job?.cancel()
-        job = scope.launch {
-            val companiesList = mutableListOf<Company>()
-            var index = 0L
-            val pageSize = 100L
-            var response = apiService.getCompanyCandlesPage(secId = secId, start = index)
-            while (response.history.data.isNotEmpty()) {
-                addToList(response, companiesList)
-                index += pageSize
-                response = apiService.getCompanyCandlesPage(secId = secId, start = index)
-            }
-            withContext(Dispatchers.Main) { view?.showResult(companiesList) }
-        }
-    }
 
     private fun addToList(
         response: GsonCompaniesPageResponseStructure,
