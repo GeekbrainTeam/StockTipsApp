@@ -4,10 +4,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.amk.core.utils.*
+import java.io.Serializable
 import java.util.*
 
 @Entity(tableName = NOTE_TABLE)
 data class Company(
+    val isFavorite: Boolean = false,
     @ColumnInfo(name = CONTAINS_NULL)
     val containsNulls: Boolean,
     @ColumnInfo(name = TRADE_DATA)
@@ -25,4 +27,4 @@ data class Company(
     val high: Double = 0.0,
     @ColumnInfo(name = CLOSE)
     val close: Double = 0.0
-)
+) : Serializable

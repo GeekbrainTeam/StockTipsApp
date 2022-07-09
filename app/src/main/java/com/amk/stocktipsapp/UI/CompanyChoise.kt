@@ -1,11 +1,11 @@
-package com.amk.stocktipsapp.UI
+package com.amk.company.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.amk.stocktipsapp.databinding.FragmentCompanyBinding
+import com.amk.company.databinding.FragmentCompanyBinding
 
 class CompanyChoise : Fragment() {
     private var _binding: FragmentCompanyBinding? = null

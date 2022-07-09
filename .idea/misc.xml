@@ -3,33 +3,38 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Study/Android/StockTipsApp/app/src/main/res/layout/activity_main.xml" value="0.36102564102564105" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/drawable/ic_baseline_filter_list_24.xml" value="0.2265" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.2265" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.121" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.2265" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/drawable/ic_baseline_star_outline_24.xml" value="0.2265" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/drawable/outline_grade_24.xml" value="0.121" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/drawable/outline_home_24.xml" value="0.121" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/drawable/rectangle_dialog_sort.xml" value="0.121" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/drawable/rectangle_shape.xml" value="0.121" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/dialog_filter.xml" value="0.25" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/dialog_sort.xml" value="0.2" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/fragment_company.xml" value="0.1" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/fragment_favorite.xml" value="0.2" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/fragment_list_company.xml" value="0.2" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/fragment_settings.xml" value="0.16799999999999998" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/item_company.xml" value="0.536" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/bottom_app_bar_navigation.xml" value="0.16799999999999998" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.11510416666666666" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/menu.xml" value="0.25" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/menu_company.xml" value="0.24895833333333334" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/menu_favorite.xml" value="0.4" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/menu_home.xml" value="0.10989583333333333" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/menu_navigation.xml" value="0.24895833333333334" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/menu_settings.xml" value="0.20427350427350427" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.10572916666666667" />
+        <entry key="app/src/main/res/drawable/baseline_settings_24.xml" value="0.303" />
+        <entry key="app/src/main/res/drawable/baseline_star_24.xml" value="0.303" />
+        <entry key="app/src/main/res/drawable/color_selector.xml" value="0.101" />
+        <entry key="app/src/main/res/drawable/favorite_selector.xml" value="0.303" />
+        <entry key="app/src/main/res/drawable/home_selector.xml" value="0.2945" />
+        <entry key="app/src/main/res/drawable/ic_baseline_filter_list_24.xml" value="0.303" />
+        <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2945" />
+        <entry key="app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.303" />
+        <entry key="app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.303" />
+        <entry key="app/src/main/res/drawable/ic_baseline_star_border_24.xml" value="0.303" />
+        <entry key="app/src/main/res/drawable/ic_baseline_star_outline_24.xml" value="0.303" />
+        <entry key="app/src/main/res/drawable/outline_home_24.xml" value="0.101" />
+        <entry key="app/src/main/res/drawable/outline_settings_24.xml" value="0.303" />
+        <entry key="app/src/main/res/drawable/rectangle_dialog_sort.xml" value="0.303" />
+        <entry key="app/src/main/res/drawable/rectangle_shape.xml" value="0.1585" />
+        <entry key="app/src/main/res/drawable/settings_selector.xml" value="0.303" />
+        <entry key="app/src/main/res/layout-v26/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.17" />
+        <entry key="app/src/main/res/layout/dialog_filter.xml" value="0.2625" />
+        <entry key="app/src/main/res/layout/dialog_sort.xml" value="0.16847826086956522" />
+        <entry key="app/src/main/res/layout/fragment_company.xml" value="0.22708333333333333" />
+        <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.34692028985507245" />
+        <entry key="app/src/main/res/layout/fragment_list_company.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.21822916666666667" />
+        <entry key="app/src/main/res/layout/item_company.xml" value="0.3194444444444444" />
+        <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/menu_company.xml" value="0.2625" />
+        <entry key="app/src/main/res/menu/menu_favorite.xml" value="0.2625" />
+        <entry key="app/src/main/res/menu/menu_home.xml" value="0.3380208333333333" />
+        <entry key="company/src/main/res/layout/fragment_company.xml" value="0.23143115942028986" />
+        <entry key="list-companies/src/main/res/layout/dialog_filter.xml" value="0.2994791666666667" />
+        <entry key="list-companies/src/main/res/layout/fragment_list_company.xml" value="0.1" />
       </map>
     </option>
   </component>
