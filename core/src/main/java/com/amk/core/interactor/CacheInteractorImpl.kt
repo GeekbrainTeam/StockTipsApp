@@ -47,29 +47,53 @@ class CacheInteractorImpl(
                         val changePrice = createChangePrice(last.close, today.close)
                         val changePercent = createChangePercent(last.close, today.close)
                         val choseCacheDb = repositoryCacheDb.selectItem(today.shortName)
-                        repositoryCacheDb.updateCacheItem(
-                            CacheModel(
-                                isFavorite = choseCacheDb.isFavorite,
-                                containsNulls = choseCacheDb.containsNulls,
-                                tradeDate = today.tradeDate,
-                                shortName = today.shortName,
-                                secId = today.secId,
-                                open = today.open,
-                                low = today.low,
-                                high = today.high,
-                                close = today.close,
-                                changePrice = changePrice,
-                                changePercent = changePercent
+                        if (choseCacheDb != null) {
+                            repositoryCacheDb.updateCacheItem(
+                                CacheModel(
+                                    isFavorite = choseCacheDb.isFavorite,
+                                    tradeDate = today.tradeDate,
+                                    shortName = today.shortName,
+                                    secId = today.secId,
+                                    open = today.open,
+                                    low = today.low,
+                                    high = today.high,
+                                    close = today.close,
+                                    changePrice = changePrice,
+                                    changePercent = changePercent
+                                )
                             )
-                        )
-                        dataGetReadyIsShow.add(
-                            CompanyIsShow(
-                                shortName = today.shortName,
-                                changePrice = changePrice,
-                                changePercent = changePercent,
-                                favorite = choseCacheDb.isFavorite
+                            dataGetReadyIsShow.add(
+                                CompanyIsShow(
+                                    shortName = today.shortName,
+                                    changePrice = changePrice,
+                                    changePercent = changePercent,
+                                    favorite = choseCacheDb.isFavorite
+                                )
                             )
-                        )
+                        } else {
+                            repositoryCacheDb.addCacheItem(
+                                CacheModel(
+                                    isFavorite = false,
+                                    tradeDate = today.tradeDate,
+                                    shortName = today.shortName,
+                                    secId = today.secId,
+                                    open = today.open,
+                                    low = today.low,
+                                    high = today.high,
+                                    close = today.close,
+                                    changePrice = changePrice,
+                                    changePercent = changePercent
+                                )
+                            )
+                            dataGetReadyIsShow.add(
+                                CompanyIsShow(
+                                    shortName = today.shortName,
+                                    changePrice = changePrice,
+                                    changePercent = changePercent,
+                                    favorite = false
+                                )
+                            )
+                        }
                     }
                 }
             }

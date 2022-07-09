@@ -11,8 +11,6 @@ import java.util.*
 data class CacheModel(
     @ColumnInfo(name = FAVORITE)
     val isFavorite: Boolean,
-    @ColumnInfo(name = CONTAINS_NULL)
-    val containsNulls: Boolean,
     @ColumnInfo(name = TRADE_DATA)
     val tradeDate: Date,
     @PrimaryKey

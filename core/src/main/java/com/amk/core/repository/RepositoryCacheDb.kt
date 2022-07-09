@@ -1,9 +1,9 @@
 package com.amk.core.repository
 
+import androidx.annotation.Nullable
 import androidx.lifecycle.LiveData
 import com.amk.core.db.CacheDAO
 import com.amk.core.entity.CacheModel
-import com.amk.core.entity.Company
 
 class RepositoryCacheDb(private val cacheDAO: CacheDAO) : CacheDAO {
 
@@ -16,7 +16,8 @@ class RepositoryCacheDb(private val cacheDAO: CacheDAO) : CacheDAO {
     }
 
     override fun selectAllItems(): LiveData<List<CacheModel>> = cacheDAO.selectAllItems()
-    override suspend fun selectItem(shortName: String): CacheModel {
+    @Nullable
+    override suspend fun selectItem(shortName: String): CacheModel? {
         return cacheDAO.selectItem(shortName)
     }
 

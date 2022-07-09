@@ -19,7 +19,7 @@ interface CacheDAO {
     fun selectAllItems(): LiveData<List<CacheModel>>
 
     @Query("Select * from $NOTE_TABLE where $SHORT_NAME = :shortName")
-    suspend fun selectItem(shortName: String) : CacheModel
+    suspend fun selectItem(shortName: String) : CacheModel?
 
     @Query("DELETE FROM $NOTE_TABLE")
     suspend fun clearCache()
