@@ -3,7 +3,7 @@ package com.amk.stocktipsapp.adapters
 import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
-import com.amk.stocktipsapp.databinding.ItemCompanyBinding
+import com.amk.mylibrary.databinding.ItemCompanyBinding
 import com.amk.stocktipsapp.model.FakeModel
 
 class ListCompaniesHolder(private val binding: ItemCompanyBinding) :

@@ -6,22 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.amk.stocktipsapp.R
-import com.amk.stocktipsapp.adapters.ListCompaniesAdapter
-import com.amk.stocktipsapp.databinding.FragmentListCompanyBinding
-import com.amk.stocktipsapp.model.DialogSorting
-import com.amk.stocktipsapp.model.FakeModel
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.amk.core.entity.Company
 import com.amk.core.navigation.Action
 import com.amk.core.navigation.AppNavigation
 import com.amk.core.repository.Repository
+import com.amk.mylibrary.R
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
+import com.amk.mylibrary.model.DialogSorting
+import com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.koin.android.ext.android.inject
 
 class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
@@ -31,18 +28,7 @@ class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
     private var companiesList = mutableListOf<Company>()
     private val coordinator: AppNavigation by inject()
 
-    private val fromBottomAnimation: Animation by lazy {
-        AnimationUtils.loadAnimation(
-            context,
-            R.anim.from_bottom_animation
-        )
-    }
-    private val toBottomAnimation: Animation by lazy {
-        AnimationUtils.loadAnimation(
-            context,
-            R.anim.to_bottom_animation
-        )
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,9 +41,9 @@ class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
-        initData()
-        setRecyclerView(fakeList)
+//        navController = Navigation.findNavController(view)
+//        initData()
+//        setRecyclerView(fakeList)
         repository.setView(this)
         repository.getCompanies()
         binding.bottomSortCompany.setOnClickListener {
@@ -81,11 +67,10 @@ class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
         )
         val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
             object : ListCompaniesAdapter.OnStateClickListener {
-                override fun onStateClick(commonModel: FakeModel, position: Int) {
-                    navController.navigate(R.id.action_go_to_home_to_company)
+                override fun onStateClick(company: Company, position: Int) {
+                    coordinator.execute(Action.ListCompanyToCompany)
                 }
             }
-
         recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener)
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -111,10 +96,24 @@ class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
         binding.bottomFilterCompany.visibility = View.VISIBLE
     }
 
+    private val fromBottomAnimation: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            context,
+            R.anim.from_bottom_animation
+        )
+    }
+    private val toBottomAnimation: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            context,
+            R.anim.to_bottom_animation
+        )
+    }
+
     override fun showResult(result: MutableList<Company>) {
         companiesList = result
         setRecyclerView(companiesList)
     }
+
     override fun showError(error: String) {
         Toast.makeText(activity, error, Toast.LENGTH_LONG).show()
     }
