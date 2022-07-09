@@ -28,9 +28,7 @@
         app:layout_constraintHorizontal_weight="0.7"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="@dimen/margin_16"
-        android:backgroundTint="@color/background_navigation"
         android:text="@string/sorting"
-        app:strokeColor="@color/line_navigation"
         app:strokeWidth="3sp" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -43,7 +41,6 @@
         app:layout_constraintStart_toEndOf="@id/bottom_sort_company"
         android:layout_margin="@dimen/margin_16"
         android:src="@drawable/ic_baseline_filter_list_24"
-        app:strokeColor="@color/line_navigation"
         app:strokeWidth="3sp" />
 
 
