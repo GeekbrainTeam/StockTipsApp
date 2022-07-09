@@ -28,7 +28,7 @@ class CacheInteractorImpl(
         val sharedPreferences: SharedPreferences =
             context.getSharedPreferences(STORAGE_NAME, MODE_PRIVATE)
         val lastData = sharedPreferences.getString(STORAGE_NAME, "")
-        val todayData = currientDataToString()
+        val todayData = currentDataToString()
         if (lastData == todayData) {
             dataFromCache.value?.forEach {
                 dataGetReadyIsShow.add(
@@ -79,16 +79,16 @@ class CacheInteractorImpl(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun currientDataToString(): String {
+    fun currentDataToString(): String {
         val currentData = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         return currentData.format(formatter).toString()
     }
 
-    private fun createChangePrice(lastPrice: Double, currientPrice: Double) =
-        currientPrice - lastPrice
+    private fun createChangePrice(lastPrice: Double, currentPrice: Double) =
+        currentPrice - lastPrice
 
-    private fun createChangePercent(lastPrice: Double, currientPrice: Double) =
-        (currientPrice - lastPrice) * 100 / (lastPrice)
+    private fun createChangePercent(lastPrice: Double, currentPrice: Double) =
+        (currentPrice - lastPrice) * 100 / (lastPrice)
 }
 
