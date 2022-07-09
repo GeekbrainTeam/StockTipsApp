@@ -28,8 +28,6 @@ class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
     private var companiesList = mutableListOf<Company>()
     private val coordinator: AppNavigation by inject()
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,9 +39,6 @@ class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        navController = Navigation.findNavController(view)
-//        initData()
-//        setRecyclerView(fakeList)
         repository.setView(this)
         repository.getCompanies()
         binding.bottomSortCompany.setOnClickListener {
@@ -51,7 +46,6 @@ class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
 
             dialog.show(childFragmentManager, "ok")
         }
-
     }
 
     override fun onDestroyView() {
@@ -85,14 +79,14 @@ class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
         })
     }
     private fun hide(fab: ExtendedFloatingActionButton) {
-        binding.bottomSortCompany.startAnimation(toBottomAnimation)
-        binding.bottomFilterCompany.startAnimation(toBottomAnimation)
+        fab.startAnimation(toBottomAnimation)
+        fab.startAnimation(toBottomAnimation)
         binding.bottomFilterCompany.visibility = View.INVISIBLE
     }
 
     private fun show(fab: ExtendedFloatingActionButton) {
-        binding.bottomSortCompany.startAnimation(fromBottomAnimation)
-        binding.bottomFilterCompany.startAnimation(fromBottomAnimation)
+        fab.startAnimation(fromBottomAnimation)
+        fab.startAnimation(fromBottomAnimation)
         binding.bottomFilterCompany.visibility = View.VISIBLE
     }
 
@@ -102,6 +96,7 @@ class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
             R.anim.from_bottom_animation
         )
     }
+
     private val toBottomAnimation: Animation by lazy {
         AnimationUtils.loadAnimation(
             context,
