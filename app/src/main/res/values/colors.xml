@@ -1,14 +1,14 @@
 <resources>
     <color name="seed">#1f60a6</color>
-    <color name="md_theme_light_primary">#1D5FA6</color>
+    <color name="md_theme_light_primary">#E0E2EC</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
     <color name="md_theme_light_primaryContainer">#52a8ff</color>
     <color name="md_theme_light_onPrimaryContainer">#001C3A</color>
     <color name="md_theme_light_secondary">#6A43C8</color>
     <color name="md_theme_light_onSecondary">#FFFFFF</color>
-    <color name="md_theme_light_secondaryContainer">#E9DDFF</color>
+    <color name="md_theme_light_secondaryContainer">#FFFFFF</color>
     <color name="md_theme_light_onSecondaryContainer">#22005D</color>
-    <color name="md_theme_light_tertiary">#6D5676</color>
+    <color name="md_theme_light_tertiary">#74777F</color>
     <color name="md_theme_light_onTertiary">#FFFFFF</color>
     <color name="md_theme_light_tertiaryContainer">#F7D8FF</color>
     <color name="md_theme_light_onTertiaryContainer">#271430</color>

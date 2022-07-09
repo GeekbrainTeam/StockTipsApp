@@ -4,6 +4,9 @@ import java.io.Serializable
 
 data class FakeModel(
     val fakeName: String,
-    val fakeTotal: Double,
+    val fakeShortName: String,
+    val fakeChange: Double,
+    val fakeChangePercent: Double,
+    val fakePrice: Double,
     val fakeFavorite: Boolean
 ): Serializable
