@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sorting">Сортировка</string>
+    <string name="price">По цене</string>
+    <string name="name_company">Названию</string>
+    <string name="change_half_year">Изменению за полгода</string>
+    <string name="change_day">Изменению за день</string>
+    <string name="action_dialog">Применить</string>
+    <string name="text_name_company">Название компании</string>
+    <string name="text_brief_name_company">Краткое название</string>
+    <string name="text_change_price">0 Р (0%)</string>
+    <string name="home">Домой</string>
+    <string name="settings">Настройки</string>
+
+</resources>

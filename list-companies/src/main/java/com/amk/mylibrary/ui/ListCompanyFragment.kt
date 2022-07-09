@@ -1,0 +1,121 @@
+package com.amk.mylibrary.ui
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.amk.stocktipsapp.R
+import com.amk.stocktipsapp.adapters.ListCompaniesAdapter
+import com.amk.stocktipsapp.databinding.FragmentListCompanyBinding
+import com.amk.stocktipsapp.model.DialogSorting
+import com.amk.stocktipsapp.model.FakeModel
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.amk.core.entity.Company
+import com.amk.core.navigation.Action
+import com.amk.core.navigation.AppNavigation
+import com.amk.core.repository.Repository
+import com.amk.mylibrary.databinding.FragmentListCompanyBinding
+import org.koin.android.ext.android.inject
+
+class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
+    private var _binding: FragmentListCompanyBinding? = null
+    private val binding get() = _binding!!
+    private val repository: Repository by inject()
+    private var companiesList = mutableListOf<Company>()
+    private val coordinator: AppNavigation by inject()
+
+    private val fromBottomAnimation: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            context,
+            R.anim.from_bottom_animation
+        )
+    }
+    private val toBottomAnimation: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            context,
+            R.anim.to_bottom_animation
+        )
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentListCompanyBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+        initData()
+        setRecyclerView(fakeList)
+        repository.setView(this)
+        repository.getCompanies()
+        binding.bottomSortCompany.setOnClickListener {
+            val dialog = DialogSorting()
+
+            dialog.show(childFragmentManager, "ok")
+        }
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setRecyclerView(list: List<Company>) {
+        val recyclerView: RecyclerView = binding.recyclerViewCompanies
+        recyclerView.layoutManager = LinearLayoutManager(
+            activity,
+            LinearLayoutManager.VERTICAL, false
+        )
+        val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
+            object : ListCompaniesAdapter.OnStateClickListener {
+                override fun onStateClick(commonModel: FakeModel, position: Int) {
+                    navController.navigate(R.id.action_go_to_home_to_company)
+                }
+            }
+
+        recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener)
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy <= 0 && binding.bottomFilterCompany.visibility == View.INVISIBLE) {
+                    show(binding.bottomFilterCompany)
+                    show(binding.bottomSortCompany)
+                } else if (dy > 0 && binding.bottomFilterCompany.visibility == View.VISIBLE) {
+                    hide(binding.bottomFilterCompany)
+                    hide(binding.bottomSortCompany)
+                }
+            }
+        })
+    }
+    private fun hide(fab: ExtendedFloatingActionButton) {
+        binding.bottomSortCompany.startAnimation(toBottomAnimation)
+        binding.bottomFilterCompany.startAnimation(toBottomAnimation)
+        binding.bottomFilterCompany.visibility = View.INVISIBLE
+    }
+
+    private fun show(fab: ExtendedFloatingActionButton) {
+        binding.bottomSortCompany.startAnimation(fromBottomAnimation)
+        binding.bottomFilterCompany.startAnimation(fromBottomAnimation)
+        binding.bottomFilterCompany.visibility = View.VISIBLE
+    }
+
+    override fun showResult(result: MutableList<Company>) {
+        companiesList = result
+        setRecyclerView(companiesList)
+    }
+    override fun showError(error: String) {
+        Toast.makeText(activity, error, Toast.LENGTH_LONG).show()
+    }
+}
