@@ -9,6 +9,7 @@ import com.amk.core.entity.CacheModel
 import com.amk.core.entity.CompanyIsShow
 import com.amk.core.repository.RepositoryCacheDb
 import com.amk.core.repository.RepositoryInternet
+import com.amk.core.utils.FARMAT_DATA
 import com.amk.core.utils.STORAGE_NAME
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -105,7 +106,7 @@ class CacheInteractorImpl(
     @RequiresApi(Build.VERSION_CODES.O)
     fun currentDataToString(): String {
         val currentData = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val formatter = DateTimeFormatter.ofPattern(FARMAT_DATA)
         return currentData.format(formatter).toString()
     }
 

@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.amk.core.entity.Company
+import com.amk.core.entity.CacheModel
 import com.amk.core.utils.DB_NAME
 
 @Database(
-    entities = [Company::class],
+    entities = [CacheModel::class],
     version = 1
 )
 abstract class CacheDb : RoomDatabase() {

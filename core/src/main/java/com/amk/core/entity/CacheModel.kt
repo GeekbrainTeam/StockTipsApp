@@ -26,8 +26,8 @@ data class CacheModel(
     val high: Double = 0.0,
     @ColumnInfo(name = CLOSE)
     val close: Double = 0.0,
-    @ColumnInfo(name = CHANGEPRICE)
+    @ColumnInfo(name = CHANGE_PRICE)
     val changePrice: Double,
-    @ColumnInfo(name = CHANGEPERCENT)
+    @ColumnInfo(name = CHANGE_PERCENT)
     val changePercent: Double
 ) : Serializable

@@ -1,7 +1,7 @@
 package com.amk.core.utils
 
 const val NOTE_TABLE = "cacheTable"
-const val CONTAINS_NULL = "containsNulls"
+const val FARMAT_DATA = "yyyy-MM-dd"
 const val TRADE_DATA = "tradeDate"
 const val SHORT_NAME = "shortName"
 const val SEC_ID = "secId"
@@ -10,7 +10,7 @@ const val LOW = "low"
 const val HIGH = "high"
 const val CLOSE = "close"
 const val FAVORITE = "favorite"
-const val CHANGEPRICE = "changePrice"
-const val CHANGEPERCENT = "changePercent"
+const val CHANGE_PRICE = "changePrice"
+const val CHANGE_PERCENT = "changePercent"
 const val DB_NAME = "cache_database.db"
 const val STORAGE_NAME ="StorageName"
