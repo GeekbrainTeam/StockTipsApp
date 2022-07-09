@@ -44,6 +44,10 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
         }
     }
 
+    override fun getCompaniesLastData(): List<Company> {
+        TODO("Not yet implemented")
+    }
+
     override fun getCompanyCandles(secId: String) {
         job?.cancel()
         job = scope.launch {

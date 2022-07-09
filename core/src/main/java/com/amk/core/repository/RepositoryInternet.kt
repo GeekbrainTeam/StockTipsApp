@@ -4,5 +4,6 @@ import androidx.lifecycle.LiveData
 import com.amk.core.entity.Company
 
 interface RepositoryInternet {
-    fun getCompanies(): LiveData<List<Company>>
+    fun getCompanies(): List<Company>
+    fun getCompaniesLastData() : List<Company>
 }

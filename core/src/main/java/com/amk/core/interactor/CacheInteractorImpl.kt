@@ -1,51 +1,94 @@
 package com.amk.core.interactor
 
-import com.amk.core.entity.Company
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
+import android.os.Build
+import androidx.annotation.RequiresApi
+import com.amk.core.entity.CacheModel
+import com.amk.core.entity.CompanyIsShow
 import com.amk.core.repository.RepositoryCacheDb
 import com.amk.core.repository.RepositoryInternet
+import com.amk.core.utils.STORAGE_NAME
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class CacheInteractorImpl(
+    private val context: Context,
     private val repositoryCacheDb: RepositoryCacheDb,
     repository: RepositoryInternet
 ) : CacheInterctor {
-    private val dataGetReadyIsShow = mutableListOf<Company>()
+    private val dataGetReadyIsShow = mutableListOf<CompanyIsShow>()
     override val dataFromCache = repositoryCacheDb.selectAllItems()
-    override val dataFromInternet = repository.getCompanies()
-    override suspend fun compareCacheVsInternet(): List<Company> {
-        //Проверка на пустую кэш
-        if (dataFromCache.value?.isEmpty() == true) {
-            dataFromInternet.value?.forEach {
-                repositoryCacheDb.addCacheItem(it)
+    override val dataFromInternetToday = repository.getCompanies()
+    override val dataFromInternetLast = repository.getCompaniesLastData()
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun compareCacheVsInternet(): List<CompanyIsShow> {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences(STORAGE_NAME, MODE_PRIVATE)
+        val lastData = sharedPreferences.getString(STORAGE_NAME, "")
+        val todayData = currientDataToString()
+        if (lastData == todayData) {
+            dataFromCache.value?.forEach {
+                dataGetReadyIsShow.add(
+                    CompanyIsShow(
+                        shortName = it.shortName,
+                        changePrice = it.changePrice,
+                        changePercent = it.changePercent,
+                        favorite = it.isFavorite
+                    )
+                )
             }
-        }
-        // Проверка на наличие новых элементов из Инета
-        dataFromInternet.value?.forEach {
-            if (dataFromCache.value?.contains(it) == false) {
-                repositoryCacheDb.addCacheItem(it)
-            }
-        }
-        // Проверка на непустые данные из инета
-        if (dataFromInternet.value?.isEmpty() != true) {
-            // Проверка на дату обновления
-            dataFromInternet.value?.forEach { itInternet ->
-                dataFromCache.value?.forEach { itCache ->
-                    // Если дата новая, то на выход данные из кэша
-                    if (itCache.tradeDate == itInternet.tradeDate) {
-                        dataGetReadyIsShow.add(itCache)
-                    } else { //Если старая, то на выход данные из инета и обновление данных в кэше
-                        dataGetReadyIsShow.add(itInternet)
-                        repositoryCacheDb.updateCacheItem(itInternet)
+        } else {
+            dataFromInternetToday.forEach { today ->
+                dataFromInternetLast.forEach { last ->
+                    if (today.shortName == last.shortName) {
+                        val changePrice = createChangePrice(last.close, today.close)
+                        val changePercent = createChangePercent(last.close, today.close)
+                        val choseCacheDb = repositoryCacheDb.selectItem(today.shortName)
+                        repositoryCacheDb.updateCacheItem(
+                            CacheModel(
+                                isFavorite = choseCacheDb.isFavorite,
+                                containsNulls = choseCacheDb.containsNulls,
+                                tradeDate = today.tradeDate,
+                                shortName = today.shortName,
+                                secId = today.secId,
+                                open = today.open,
+                                low = today.low,
+                                high = today.high,
+                                close = today.close,
+                                changePrice = changePrice,
+                                changePercent = changePercent
+                            )
+                        )
+                        dataGetReadyIsShow.add(
+                            CompanyIsShow(
+                                shortName = today.shortName,
+                                changePrice = changePrice,
+                                changePercent = changePercent,
+                                favorite = choseCacheDb.isFavorite
+                            )
+                        )
                     }
                 }
             }
-        } else {
-            //Если данные не пришли
-            dataFromCache.value?.forEach {
-                dataGetReadyIsShow.add(it)
-            }
+            sharedPreferences.edit().putString(STORAGE_NAME, todayData).apply()
         }
-
         return dataGetReadyIsShow
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun currientDataToString(): String {
+        val currentData = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        return currentData.format(formatter).toString()
+    }
+
+    private fun createChangePrice(lastPrice: Double, currientPrice: Double) =
+        currientPrice - lastPrice
+
+    private fun createChangePercent(lastPrice: Double, currientPrice: Double) =
+        (currientPrice - lastPrice) * 100 / (lastPrice)
 }
 
