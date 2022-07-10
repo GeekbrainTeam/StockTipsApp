@@ -1,10 +1,11 @@
 package com.amk.core.repository
 
 import com.amk.core.entity.Company
-import com.amk.core.entity.toDateU
+import com.amk.core.utils.toDateU
 import com.amk.core.retrofit.GsonCompaniesPageResponseStructure
 import com.amk.core.retrofit.MoexApiService
-import kotlinx.coroutines.*
+import com.amk.core.utils.changeDayU
+import com.amk.core.utils.toStringU
 import java.util.*
 
 class NetworkRepository(private val apiService: MoexApiService) : Repository {
@@ -14,28 +15,58 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
         val companiesList = mutableListOf<Company>()
         var index = 0L
         val pageSize = 100L
-        var response = apiService.getCompaniesPage(start = index)
+        var response = apiService.getCompaniesLastDatePage(start = index)
         while (response.history.data.isNotEmpty()) {
             addToList(response, companiesList)
             index += pageSize
-            response = apiService.getCompaniesPage(start = index)
+            response = apiService.getCompaniesLastDatePage(start = index)
         }
         return companiesList
     }
 
     override suspend fun getCompaniesByDate(date: Date): List<Company> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getCompanyCandles(secId: String): List<Company> {
         val companiesList = mutableListOf<Company>()
         var index = 0L
         val pageSize = 100L
-        var response = apiService.getCompanyCandlesPage(secId = secId, start = index)
+        var numberOfConnections = 30
+        var tryDate = date
+        var response = apiService.getCompaniesByDatePage(date = tryDate.toStringU())
+        while (response.history.data.isEmpty() && numberOfConnections > 0){
+            numberOfConnections++
+            tryDate.changeDayU(-1)
+            response = apiService.getCompaniesByDatePage(date = tryDate.toStringU())
+        }
         while (response.history.data.isNotEmpty()) {
             addToList(response, companiesList)
             index += pageSize
-            response = apiService.getCompanyCandlesPage(secId = secId, start = index)
+            response = apiService.getCompaniesLastDatePage(start = index)
+        }
+        return companiesList
+    }
+
+    override suspend fun getCompanyCandles(
+        secId: String,
+        dateFrom: Date,
+        dateTill: Date
+    ): List<Company> {
+        val companiesList = mutableListOf<Company>()
+        var index = 0L
+        val pageSize = 100L
+        var response = apiService.getCompanyCandlesPage(
+            secId = secId,
+            dateFrom = dateFrom.toStringU(),
+            dateTill = dateTill.toStringU(),
+            start = index
+        )
+        while (response.history.data.isNotEmpty()) {
+            addToList(response, companiesList)
+            index += pageSize
+            response = apiService.getCompanyCandlesPage(
+                secId = secId,
+                dateFrom = dateFrom.toStringU(),
+                dateTill = dateTill.toStringU(),
+                start = index
+            )
         }
         return companiesList
     }

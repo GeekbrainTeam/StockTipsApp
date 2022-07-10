@@ -21,9 +21,7 @@ class ListCompanyFragment : Fragment() {
     private var _binding: FragmentListCompanyBinding? = null
     private val binding get() = _binding!!
     private val repository: Repository by inject()
-    private val viewModel by lazy { ViewModelProvider(requireActivity())[CompaniesListViewModel::class.java] }
-
-    //val viewModel = CompaniesListViewModel()
+    private lateinit var viewModel: CompaniesListViewModel
     private var companiesList = mutableListOf<Company>()
     private val coordinator: AppNavigation by inject()
 
@@ -38,6 +36,7 @@ class ListCompanyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity())[CompaniesListViewModel::class.java]
         viewModel.setRepo(repository)
         viewModel.companiesListData.observe(viewLifecycleOwner) {
             companiesList = it as MutableList<Company>

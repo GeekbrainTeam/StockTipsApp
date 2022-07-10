@@ -6,5 +6,5 @@ import java.util.*
 interface Repository {
     suspend fun getCompaniesLastDate(): List<Company>
     suspend fun getCompaniesByDate(date: Date): List<Company>
-    suspend fun getCompanyCandles(secId: String): List<Company>
+    suspend fun getCompanyCandles(secId: String, dateFrom: Date, dateTill: Date): List<Company>
 }
