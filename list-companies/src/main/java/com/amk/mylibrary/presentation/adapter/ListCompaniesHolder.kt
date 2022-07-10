@@ -3,7 +3,7 @@ package com.amk.mylibrary.presentation.adapter
 import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
-import com.amk.core.entity.Company
+import com.amk.core.entity.EntityCompany
 import com.amk.mylibrary.databinding.ItemCompanyBinding
 import kotlin.math.abs
 
@@ -12,20 +12,20 @@ class ListCompaniesHolder(private val binding: ItemCompanyBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     @SuppressLint("SetTextI18n")
-    fun bind(company: Company) {
+    fun bind(entityCompany: EntityCompany) {
 
-        val formatePrice = formatePrice(company.close)
+        val formatePrice = formatePrice(entityCompany.close)
 
 
-        binding.nameCompany.text = company.shortName
-        binding.briefNameCompany.text = company.secId
-        binding.nominalPrice.text = "${String.format("%$formatePrice", company.close)}  ₽"
-        binding.changePrice.text = changePriceAndPercent(company)
+        binding.nameCompany.text = entityCompany.shortName
+        binding.briefNameCompany.text = entityCompany.secId
+        binding.nominalPrice.text = "${String.format("%$formatePrice", entityCompany.close)}  ₽"
+        binding.changePrice.text = changePriceAndPercent(entityCompany)
     }
 
-    private fun changePriceAndPercent(company: Company): String {
-        val changePrice = company.close.calcChangePrice(company.open)
-        val percent = company.close.calcChangePercent(company.open)
+    private fun changePriceAndPercent(entityCompany: EntityCompany): String {
+        val changePrice = entityCompany.close.calcChangePrice(entityCompany.open)
+        val percent = entityCompany.close.calcChangePercent(entityCompany.open)
         val formateChangPrice = formatePrice(changePrice)
         if (changePrice > 0) {
             binding.changePrice.setTextColor(Color.GREEN)

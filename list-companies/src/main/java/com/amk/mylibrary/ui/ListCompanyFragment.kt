@@ -11,15 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.amk.core.entity.Company
+import com.amk.core.entity.EntityCompany
 import com.amk.core.navigation.Action
 import com.amk.core.navigation.AppNavigation
 import com.amk.core.repository.Repository
 import com.amk.mylibrary.R
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
-import com.amk.mylibrary.viewmodel.CompaniesListViewModel
 import com.amk.mylibrary.model.DialogSorting
 import com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter
+import com.amk.mylibrary.viewmodel.CompaniesListViewModel
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.koin.android.ext.android.inject
 
@@ -28,7 +28,7 @@ class ListCompanyFragment : Fragment() {
     private val binding get() = _binding!!
     private val repository: Repository by inject()
     private lateinit var viewModel: CompaniesListViewModel
-    private var companiesList = mutableListOf<Company>()
+    private var companiesList = mutableListOf<EntityCompany>()
     private val coordinator: AppNavigation by inject()
 
     override fun onCreateView(
@@ -45,7 +45,7 @@ class ListCompanyFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[CompaniesListViewModel::class.java]
         viewModel.setRepo(repository)
         viewModel.companiesListData.observe(viewLifecycleOwner) {
-            companiesList = it as MutableList<Company>
+            companiesList = it as MutableList<EntityCompany>
             setRecyclerView(companiesList)
         }
         viewModel.errorData.observe(viewLifecycleOwner) {
@@ -64,7 +64,7 @@ class ListCompanyFragment : Fragment() {
         _binding = null
     }
 
-    private fun setRecyclerView(list: List<Company>) {
+    private fun setRecyclerView(list: List<EntityCompany>) {
         val recyclerView: RecyclerView = binding.recyclerViewCompanies
         recyclerView.layoutManager = LinearLayoutManager(
             activity,
@@ -72,7 +72,7 @@ class ListCompanyFragment : Fragment() {
         )
         val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
             object : ListCompaniesAdapter.OnStateClickListener {
-                override fun onStateClick(company: Company, position: Int) {
+                override fun onStateClick(entityCompany: EntityCompany, position: Int) {
                     coordinator.execute(Action.ListCompanyToCompany)
                 }
             }

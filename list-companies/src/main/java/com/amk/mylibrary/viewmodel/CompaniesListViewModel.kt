@@ -2,14 +2,13 @@ package com.amk.mylibrary.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.amk.core.entity.Company
+import com.amk.core.entity.EntityCompany
 import com.amk.core.repository.Repository
 import kotlinx.coroutines.*
-import java.util.*
 
 class CompaniesListViewModel : ViewModel() {
     private lateinit var repository: Repository
-    val companiesListData = MutableLiveData<List<Company>>()
+    val companiesListData = MutableLiveData<List<EntityCompany>>()
     val errorData = MutableLiveData<String>()
     private var job: Job? = null
     private val scope = CoroutineScope(
