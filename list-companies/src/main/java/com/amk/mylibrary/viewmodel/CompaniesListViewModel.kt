@@ -5,8 +5,9 @@ import androidx.lifecycle.ViewModel
 import com.amk.core.entity.Company
 import com.amk.core.repository.Repository
 import kotlinx.coroutines.*
+import java.util.*
 
-class CompaniesListViewModel() : ViewModel() {
+class CompaniesListViewModel : ViewModel() {
     private lateinit var repository: Repository
     val companiesListData = MutableLiveData<List<Company>>()
     val errorData = MutableLiveData<String>()
@@ -29,14 +30,6 @@ class CompaniesListViewModel() : ViewModel() {
         job?.cancel()
         job = scope.launch {
             val companiesList = repository.getCompaniesLastDate()
-            companiesListData.postValue(companiesList)
-        }
-    }
-
-    fun getCompanyCandles(secId: String) {
-        job?.cancel()
-        job = scope.launch {
-            val companiesList = repository.getCompanyCandles(secId)
             companiesListData.postValue(companiesList)
         }
     }

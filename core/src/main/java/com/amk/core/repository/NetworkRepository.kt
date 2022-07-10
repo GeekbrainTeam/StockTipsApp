@@ -1,11 +1,11 @@
 package com.amk.core.repository
 
 import com.amk.core.entity.Company
-import com.amk.core.utils.toDateU
+import com.amk.core.utils.convertToDate
 import com.amk.core.retrofit.GsonCompaniesPageResponseStructure
 import com.amk.core.retrofit.MoexApiService
-import com.amk.core.utils.changeDayU
-import com.amk.core.utils.toStringU
+import com.amk.core.utils.changeDay
+import com.amk.core.utils.convertToString
 import java.util.*
 
 class NetworkRepository(private val apiService: MoexApiService) : Repository {
@@ -30,11 +30,11 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
         val pageSize = 100L
         var numberOfConnections = 30
         var tryDate = date
-        var response = apiService.getCompaniesByDatePage(date = tryDate.toStringU())
+        var response = apiService.getCompaniesByDatePage(date = tryDate.convertToString())
         while (response.history.data.isEmpty() && numberOfConnections > 0){
             numberOfConnections--
-            tryDate = tryDate.changeDayU(-1)
-            response = apiService.getCompaniesByDatePage(date = tryDate.toStringU())
+            tryDate = tryDate.changeDay(-1)
+            response = apiService.getCompaniesByDatePage(date = tryDate.convertToString())
         }
         while (response.history.data.isNotEmpty()) {
             addToList(response, companiesList)
@@ -54,8 +54,8 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
         val pageSize = 100L
         var response = apiService.getCompanyCandlesPage(
             secId = secId,
-            dateFrom = dateFrom.toStringU(),
-            dateTill = dateTill.toStringU(),
+            dateFrom = dateFrom.convertToString(),
+            dateTill = dateTill.convertToString(),
             start = index
         )
         while (response.history.data.isNotEmpty()) {
@@ -63,8 +63,8 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
             index += pageSize
             response = apiService.getCompanyCandlesPage(
                 secId = secId,
-                dateFrom = dateFrom.toStringU(),
-                dateTill = dateTill.toStringU(),
+                dateFrom = dateFrom.convertToString(),
+                dateTill = dateTill.convertToString(),
                 start = index
             )
         }
@@ -81,7 +81,7 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
                 companiesList.add(
                     Company(
                         containsNulls = true,
-                        tradeDate = companyInfo[1].toDateU(),
+                        tradeDate = companyInfo[1].convertToDate(),
                         shortName = companyInfo[2],
                         secId = companyInfo[3]
                     )
@@ -90,7 +90,7 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
                 companiesList.add(
                     Company(
                         containsNulls = false,
-                        tradeDate = companyInfo[1].toDateU(),
+                        tradeDate = companyInfo[1].convertToDate(),
                         shortName = companyInfo[2],
                         secId = companyInfo[3],
                         open = companyInfo[6].toDouble(),
