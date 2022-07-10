@@ -32,8 +32,8 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
         var tryDate = date
         var response = apiService.getCompaniesByDatePage(date = tryDate.toStringU())
         while (response.history.data.isEmpty() && numberOfConnections > 0){
-            numberOfConnections++
-            tryDate.changeDayU(-1)
+            numberOfConnections--
+            tryDate = tryDate.changeDayU(-1)
             response = apiService.getCompaniesByDatePage(date = tryDate.toStringU())
         }
         while (response.history.data.isNotEmpty()) {
