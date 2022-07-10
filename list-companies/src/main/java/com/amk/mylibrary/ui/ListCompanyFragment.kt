@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,8 +15,12 @@ import com.amk.core.entity.Company
 import com.amk.core.navigation.Action
 import com.amk.core.navigation.AppNavigation
 import com.amk.core.repository.Repository
+import com.amk.mylibrary.R
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
 import com.amk.mylibrary.viewmodel.CompaniesListViewModel
+import com.amk.mylibrary.model.DialogSorting
+import com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.koin.android.ext.android.inject
 
 class ListCompanyFragment : Fragment() {
@@ -47,11 +53,10 @@ class ListCompanyFragment : Fragment() {
         }
         viewModel.getCompanies()
         binding.bottomSortCompany.setOnClickListener {
-            val dialog = com.amk.mylibrary.model.DialogSorting()
+            val dialog = DialogSorting()
 
             dialog.show(childFragmentManager, "ok")
         }
-
     }
 
     override fun onDestroyView() {
@@ -65,26 +70,48 @@ class ListCompanyFragment : Fragment() {
             activity,
             LinearLayoutManager.VERTICAL, false
         )
-        val stateClickListener: com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter.OnStateClickListener =
-            object :
-                com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter.OnStateClickListener {
+        val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
+            object : ListCompaniesAdapter.OnStateClickListener {
                 override fun onStateClick(company: Company, position: Int) {
                     coordinator.execute(Action.ListCompanyToCompany)
                 }
             }
-
-        recyclerView.adapter =
-            com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter(list, stateClickListener)
+        recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener)
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy < 0 && !binding.bottomSortCompany.isShown) {
-                    binding.bottomSortCompany.show()
-                    binding.bottomFilterCompany.show()
-                } else if (dy > 0 && binding.bottomSortCompany.isShown) {
-                    binding.bottomSortCompany.hide()
-                    binding.bottomFilterCompany.hide()
+                if (dy <= 0 && binding.bottomFilterCompany.visibility == View.INVISIBLE) {
+                    show(binding.bottomFilterCompany)
+                    show(binding.bottomSortCompany)
+                } else if (dy > 0 && binding.bottomFilterCompany.visibility == View.VISIBLE) {
+                    hide(binding.bottomFilterCompany)
+                    hide(binding.bottomSortCompany)
                 }
             }
         })
+    }
+    private fun hide(fab: ExtendedFloatingActionButton) {
+        fab.startAnimation(toBottomAnimation)
+        fab.startAnimation(toBottomAnimation)
+        binding.bottomFilterCompany.visibility = View.INVISIBLE
+    }
+
+    private fun show(fab: ExtendedFloatingActionButton) {
+        fab.startAnimation(fromBottomAnimation)
+        fab.startAnimation(fromBottomAnimation)
+        binding.bottomFilterCompany.visibility = View.VISIBLE
+    }
+
+    private val fromBottomAnimation: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            context,
+            R.anim.from_bottom_animation
+        )
+    }
+
+    private val toBottomAnimation: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            context,
+            R.anim.to_bottom_animation
+        )
     }
 }
