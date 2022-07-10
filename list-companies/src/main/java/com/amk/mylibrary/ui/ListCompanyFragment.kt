@@ -8,6 +8,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.core.entity.Company
@@ -16,15 +17,17 @@ import com.amk.core.navigation.AppNavigation
 import com.amk.core.repository.Repository
 import com.amk.mylibrary.R
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
+import com.amk.mylibrary.viewmodel.CompaniesListViewModel
 import com.amk.mylibrary.model.DialogSorting
 import com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.koin.android.ext.android.inject
 
-class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
+class ListCompanyFragment : Fragment() {
     private var _binding: FragmentListCompanyBinding? = null
     private val binding get() = _binding!!
     private val repository: Repository by inject()
+    private lateinit var viewModel: CompaniesListViewModel
     private var companiesList = mutableListOf<Company>()
     private val coordinator: AppNavigation by inject()
 
@@ -39,8 +42,16 @@ class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        repository.setView(this)
-        repository.getCompanies()
+        viewModel = ViewModelProvider(requireActivity())[CompaniesListViewModel::class.java]
+        viewModel.setRepo(repository)
+        viewModel.companiesListData.observe(viewLifecycleOwner) {
+            companiesList = it as MutableList<Company>
+            setRecyclerView(companiesList)
+        }
+        viewModel.errorData.observe(viewLifecycleOwner) {
+            Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
+        }
+        viewModel.getCompanies()
         binding.bottomSortCompany.setOnClickListener {
             val dialog = DialogSorting()
 
@@ -102,14 +113,5 @@ class ListCompanyFragment : Fragment(), com.amk.core.repository.View {
             context,
             R.anim.to_bottom_animation
         )
-    }
-
-    override fun showResult(result: MutableList<Company>) {
-        companiesList = result
-        setRecyclerView(companiesList)
-    }
-
-    override fun showError(error: String) {
-        Toast.makeText(activity, error, Toast.LENGTH_LONG).show()
     }
 }

@@ -1,21 +1,21 @@
-package com.amk.core.entity
+package com.amk.core.utils
 
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun Date.toStringU(): String {
+fun Date.convertToString(): String {
     val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     return sdf.format(this)
 }
 
-fun String.toDateU(): Date {
+fun String.convertToDate(): Date {
     val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     return sdf.parse(this) ?: Date()
 }
 
-fun Date.yesterdayU(): Date {
+fun Date.changeDay(days: Int): Date {
     val c = Calendar.getInstance()
     c.time = this
-    c.add(Calendar.DATE, -1)
+    c.add(Calendar.DATE, days)
     return c.time
 }
