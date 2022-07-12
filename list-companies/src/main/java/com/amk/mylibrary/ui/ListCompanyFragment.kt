@@ -73,7 +73,7 @@ class ListCompanyFragment : Fragment() {
         val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
             object : ListCompaniesAdapter.OnStateClickListener {
                 override fun onStateClick(company: Company, position: Int) {
-                    coordinator.execute(Action.ListCompanyToCompany)
+                    coordinator.execute(Action.ListCompanyToCompany, company.secId)
                 }
             }
         recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener)
