@@ -4,6 +4,6 @@ import androidx.navigation.NavController
 
 interface AppNavigation {
 
-    fun execute(action: Action)
+    fun execute(action: Action, arg: String)
     val navController: NavController
 }
