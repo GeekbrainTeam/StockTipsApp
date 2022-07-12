@@ -4,12 +4,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 fun Date.convertToString(): String {
-    val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val sdf = SimpleDateFormat(FORMAT_DATA, Locale.getDefault())
     return sdf.format(this)
 }
 
 fun String.convertToDate(): Date {
-    val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val sdf = SimpleDateFormat(FORMAT_DATA, Locale.getDefault())
     return sdf.parse(this) ?: Date()
 }
 

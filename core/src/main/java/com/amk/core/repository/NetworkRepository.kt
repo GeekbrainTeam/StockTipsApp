@@ -10,21 +10,35 @@ import java.util.*
 
 class NetworkRepository(private val apiService: MoexApiService) : Repository {
 
-
-    override suspend fun getCompaniesLastDate(): List<EntityCompany> {
+    private var currentDate : Date? = null
+    override fun getCompaniesLastDate(): List<EntityCompany> {
         val companiesList = mutableListOf<EntityCompany>()
         var index = 0L
         val pageSize = 100L
+
         var response = apiService.getCompaniesLastDatePage(start = index)
         while (response.history.data.isNotEmpty()) {
             addToList(response, companiesList)
             index += pageSize
             response = apiService.getCompaniesLastDatePage(start = index)
         }
+        currentDate=companiesList.first().tradeDate
         return companiesList
     }
 
-    override suspend fun getCompaniesByDate(date: Date): List<EntityCompany> {
+    override fun getCompaniesAfterLastDate(): List<EntityCompany> {
+        return currentDate?.let {
+             getCompaniesByDate(it.changeDay(-1))
+        }?: emptyList()
+    }
+
+    override fun getCompaniesHalfYearDate(): List<EntityCompany> {
+        return currentDate?.let {
+            getCompaniesByDate(it.changeDay(-182))
+        }?: emptyList()
+    }
+
+    override fun getCompaniesByDate(date: Date): List<EntityCompany> {
         val companiesList = mutableListOf<EntityCompany>()
         var index = 0L
         val pageSize = 100L
@@ -44,7 +58,7 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
         return companiesList
     }
 
-    override suspend fun getCompanyCandles(
+    override fun getCompanyCandles(
         secId: String,
         dateFrom: Date,
         dateTill: Date

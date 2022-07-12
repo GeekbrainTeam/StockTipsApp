@@ -4,9 +4,11 @@ import com.amk.core.entity.EntityCompany
 import java.util.*
 
 interface Repository {
-    suspend fun getCompaniesLastDate(): List<EntityCompany>
-    suspend fun getCompaniesByDate(date: Date): List<EntityCompany>
-    suspend fun getCompanyCandles(
+    fun getCompaniesLastDate(): List<EntityCompany>
+    fun getCompaniesAfterLastDate(): List<EntityCompany>
+    fun getCompaniesHalfYearDate(): List<EntityCompany>
+    fun getCompaniesByDate(date: Date): List<EntityCompany>
+    fun getCompanyCandles(
         secId: String,
         dateFrom: Date,
         dateTill: Date
