@@ -22,20 +22,21 @@ abstract class DataBaseCacheCompany : RoomDatabase() {
 
     abstract fun cacheDao(): ChacheDao
 
-    companion object
+    companion object {
 
-    @Volatile
-    private var instanse: DataBaseCacheCompany? = null
+        @Volatile
+        private var instanse: DataBaseCacheCompany? = null
 
-    fun getDatabase(context: Context): DataBaseCacheCompany {
-        return instanse ?: synchronized(this) {
-            val instance = Room.databaseBuilder(
-                context.applicationContext,
-                DataBaseCacheCompany::class.java,
-                DATABASE_NAME
-            ).build()
-            instanse = instance
-            instance
+        fun getDatabase(context: Context): DataBaseCacheCompany {
+            return instanse ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    DataBaseCacheCompany::class.java,
+                    DATABASE_NAME
+                ).build()
+                instanse = instance
+                instance
+            }
         }
     }
 }

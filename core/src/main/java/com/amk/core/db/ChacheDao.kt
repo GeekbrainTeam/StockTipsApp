@@ -18,7 +18,7 @@ interface ChacheDao {
     suspend fun deleteListCompanyOneDay()
 
     @Query("SELECT * FROM $COMPANY_OF_THE_DAY")
-    fun getCompanyOneDay(): List<CacheCompanyOneDay>
+    suspend fun getCompanyOneDay(): List<CacheCompanyOneDay>
 
     @Insert(entity = CacheCompanyAfterYesterday::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCompanyAfterYesterday(company: CacheCompanyAfterYesterday)
@@ -28,7 +28,7 @@ interface ChacheDao {
     suspend fun deleteListCompanyAfterYesterday()
 
     @Query("SELECT * FROM $COMPANY_OF_AFTER_YESTERDAY")
-    fun getCompanyAfterYesterday(): List<CacheCompanyAfterYesterday>
+    suspend fun getCompanyAfterYesterday(): List<CacheCompanyAfterYesterday>
 
     @Insert(entity = CacheCompanyHalfYear::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCompanyHalfYear(company: CacheCompanyHalfYear)
@@ -38,7 +38,7 @@ interface ChacheDao {
     suspend fun deleteListCompanyHalfYear()
 
     @Query("SELECT * FROM $COMPANY_OF_HALF_YEAR")
-    fun getCompanyHalfYear(): List<CacheCompanyHalfYear>
+    suspend fun getCompanyHalfYear(): List<CacheCompanyHalfYear>
 
     @Insert(entity = FavoriteCompany::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCompany(company: FavoriteCompany)
@@ -47,5 +47,5 @@ interface ChacheDao {
     suspend fun deleteFavoriteCompany(secId: String)
 
     @Query("SELECT * FROM $COMPANY_IS_FAVORITE")
-    fun getCompanyFavoriteCompany(): List<FavoriteCompany>
+    suspend fun getCompanyFavoriteCompany(): List<FavoriteCompany>
 }

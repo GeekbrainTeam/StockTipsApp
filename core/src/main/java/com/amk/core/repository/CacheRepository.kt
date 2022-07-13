@@ -6,7 +6,7 @@ import com.amk.core.entity.CacheCompanyHalfYear
 import com.amk.core.entity.CacheCompanyOneDay
 import com.amk.core.entity.FavoriteCompany
 
-class CacheRepsitory(private val cache: ChacheDao) : ChacheDao {
+class CacheRepository(private val cache: ChacheDao) : ChacheDao {
 
     override suspend fun addCompanyOneDay(company: CacheCompanyOneDay) {
         cache.addCompanyOneDay(company)
@@ -16,7 +16,7 @@ class CacheRepsitory(private val cache: ChacheDao) : ChacheDao {
         cache.deleteListCompanyOneDay()
     }
 
-    override fun getCompanyOneDay(): List<CacheCompanyOneDay> {
+    override suspend fun getCompanyOneDay(): List<CacheCompanyOneDay> {
         return cache.getCompanyOneDay()
     }
 
@@ -28,7 +28,7 @@ class CacheRepsitory(private val cache: ChacheDao) : ChacheDao {
         cache.deleteListCompanyAfterYesterday()
     }
 
-    override fun getCompanyAfterYesterday(): List<CacheCompanyAfterYesterday> {
+    override suspend fun getCompanyAfterYesterday(): List<CacheCompanyAfterYesterday> {
         return cache.getCompanyAfterYesterday()
     }
 
@@ -40,7 +40,7 @@ class CacheRepsitory(private val cache: ChacheDao) : ChacheDao {
         cache.deleteListCompanyHalfYear()
     }
 
-    override fun getCompanyHalfYear(): List<CacheCompanyHalfYear> {
+    override suspend fun getCompanyHalfYear(): List<CacheCompanyHalfYear> {
         return cache.getCompanyHalfYear()
     }
 
@@ -52,7 +52,7 @@ class CacheRepsitory(private val cache: ChacheDao) : ChacheDao {
         cache.deleteFavoriteCompany(secId)
     }
 
-    override fun getCompanyFavoriteCompany(): List<FavoriteCompany> {
+    override suspend fun getCompanyFavoriteCompany(): List<FavoriteCompany> {
         return cache.getCompanyFavoriteCompany()
     }
 
