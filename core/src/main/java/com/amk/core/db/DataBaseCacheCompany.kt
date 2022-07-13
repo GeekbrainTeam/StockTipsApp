@@ -15,7 +15,8 @@ import com.amk.core.utils.DATABASE_NAME
     entities = [CacheCompanyOneDay::class,
         CacheCompanyAfterYesterday::class,
         CacheCompanyHalfYear::class,
-        FavoriteCompany::class]
+        FavoriteCompany::class],
+    exportSchema = false
 )
 abstract class DataBaseCacheCompany : RoomDatabase() {
 
