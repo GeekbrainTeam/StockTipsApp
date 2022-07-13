@@ -19,3 +19,8 @@ fun Date.changeDay(days: Int): Date {
     c.add(Calendar.DATE, days)
     return c.time
 }
+
+fun Date.convertForXAxis(): String {
+    val sdf = SimpleDateFormat("dd-MM", Locale.getDefault())
+    return sdf.format(this)
+}
