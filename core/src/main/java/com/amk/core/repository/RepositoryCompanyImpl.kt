@@ -28,26 +28,10 @@ class RepositoryCompanyImpl(
             dataGetReadyIsShow.addAll(
                 CompanyFactory(
                     listCompanyCacheOneDay.map {
-                        EntityCompany(
-                            it.tradeData.convertToDate(),
-                            it.shortName,
-                            it.secId,
-                            it.open,
-                            it.low,
-                            it.high,
-                            it.close
-                        )
+                        it.convertToEntityCompany()
                     },
                     listCompanyCacheAfterYesterday.map {
-                        EntityCompany(
-                            it.tradeData.convertToDate(),
-                            it.shortName,
-                            it.secId,
-                            it.open,
-                            it.low,
-                            it.high,
-                            it.close
-                        )
+                        it.convertToEntityCompany()
                     },
                     listFavorite
                 ).getCompanies()
@@ -74,7 +58,6 @@ class RepositoryCompanyImpl(
         return dataGetReadyIsShow
     }
 
-
     override suspend fun CreateListOneDayHalfYear(): List<Company> {
         val listFavorite = cacheRepository.getCompanyFavoriteCompany().map { it.secId }.toList()
         val dataGetReadyIsShow = mutableListOf<Company>()
@@ -84,26 +67,10 @@ class RepositoryCompanyImpl(
             dataGetReadyIsShow.addAll(
                 CompanyFactory(
                     listCompanyCacheOneDay.map {
-                        EntityCompany(
-                            it.tradeData.convertToDate(),
-                            it.shortName,
-                            it.secId,
-                            it.open,
-                            it.low,
-                            it.high,
-                            it.close
-                        )
+                        it.convertToEntityCompany()
                     },
                     listCompanyCacheHalfYear.map {
-                        EntityCompany(
-                            it.tradeData.convertToDate(),
-                            it.shortName,
-                            it.secId,
-                            it.open,
-                            it.low,
-                            it.high,
-                            it.close
-                        )
+                        it.convertToEntityCompany()
                     },
                     listFavorite
                 ).getCompanies()
@@ -130,52 +97,96 @@ class RepositoryCompanyImpl(
     }
 
     private suspend fun addToCache(
-        network1: List<EntityCompany>,
-        network2: List<EntityCompany>,
-        network3: List<EntityCompany>
+        entityCompaniesOneDay: List<EntityCompany>,
+        entityCompaniesAfterYesterday: List<EntityCompany>,
+        entityCompaniesHalfYear: List<EntityCompany>
     ) {
         cacheRepository.deleteListCompanyOneDay()
         cacheRepository.deleteListCompanyAfterYesterday()
         cacheRepository.deleteListCompanyHalfYear()
-        network1.forEach {
+        entityCompaniesOneDay.forEach {
             cacheRepository.addCompanyOneDay(
-                CacheCompanyOneDay(
-                    secId = it.secId,
-                    tradeData = it.tradeDate.convertToString(),
-                    shortName = it.shortName,
-                    open = it.open,
-                    low = it.low,
-                    high = it.high,
-                    close = it.close
-                )
+                it.convertToCacheCompanyOneDay()
             )
         }
-        network2.forEach {
+        entityCompaniesAfterYesterday.forEach {
             cacheRepository.addCompanyAfterYesterday(
-                CacheCompanyAfterYesterday(
-                    secId = it.secId,
-                    tradeData = it.tradeDate.convertToString(),
-                    shortName = it.shortName,
-                    open = it.open,
-                    low = it.low,
-                    high = it.high,
-                    close = it.close
-                )
+                it.convertToCacheCompanyAfterYesterday()
             )
         }
-        network3.forEach {
+        entityCompaniesHalfYear.forEach {
             cacheRepository.addCompanyHalfYear(
-                CacheCompanyHalfYear(
-                    secId = it.secId,
-                    tradeData = it.tradeDate.convertToString(),
-                    shortName = it.shortName,
-                    open = it.open,
-                    low = it.low,
-                    high = it.high,
-                    close = it.close
-                )
+                it.convertToCacheCompanyHalfYear()
             )
         }
     }
+
+    private fun CacheCompanyAfterYesterday.convertToEntityCompany(): EntityCompany =
+        EntityCompany(
+            tradeData.convertToDate(),
+            shortName,
+            secId,
+            open,
+            low,
+            high,
+            close
+        )
+
+    private fun CacheCompanyOneDay.convertToEntityCompany(): EntityCompany =
+        EntityCompany(
+            tradeData.convertToDate(),
+            shortName,
+            secId,
+            open,
+            low,
+            high,
+            close
+        )
+
+    private fun CacheCompanyHalfYear.convertToEntityCompany(): EntityCompany =
+        EntityCompany(
+            tradeData.convertToDate(),
+            shortName,
+            secId,
+            open,
+            low,
+            high,
+            close
+        )
+
+    private fun EntityCompany.convertToCacheCompanyAfterYesterday(): CacheCompanyAfterYesterday =
+        CacheCompanyAfterYesterday(
+            secId,
+            tradeDate.convertToString(),
+            shortName,
+            open,
+            low,
+            high,
+            close
+        )
+
+    private fun EntityCompany.convertToCacheCompanyOneDay(): CacheCompanyOneDay =
+        CacheCompanyOneDay(
+            secId,
+            tradeDate.convertToString(),
+            shortName,
+            open,
+            low,
+            high,
+            close
+        )
+
+    private fun EntityCompany.convertToCacheCompanyHalfYear(): CacheCompanyHalfYear =
+        CacheCompanyHalfYear(
+            secId,
+            tradeDate.convertToString(),
+            shortName,
+            open,
+            low,
+            high,
+            close
+        )
+
+
 }
 
