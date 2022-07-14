@@ -11,18 +11,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.amk.core.db.ChacheDao
 import com.amk.core.db.DataBaseCacheCompany
 import com.amk.core.entity.Company
 import com.amk.core.navigation.Action
 import com.amk.core.navigation.AppNavigation
-import com.amk.core.repository.*
+import com.amk.core.repository.CacheRepository
+import com.amk.core.repository.NetworkRepository
+import com.amk.core.repository.RepositoryCompany
+import com.amk.core.repository.RepositoryCompanyImpl
 import com.amk.core.retrofit.MoexApiImpl
 import com.amk.mylibrary.R
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
-import com.amk.mylibrary.viewmodel.CompaniesListViewModel
 import com.amk.mylibrary.model.DialogSorting
 import com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter
+import com.amk.mylibrary.viewmodel.CompaniesListViewModel
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.koin.android.ext.android.inject
 
@@ -81,9 +83,7 @@ class ListCompanyFragment : Fragment() {
         val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
             object : ListCompaniesAdapter.OnStateClickListener {
                 override fun onStateClick(company: Company, position: Int) {
-                    coordinator.execute(Action.ListCompanyToCompany)
-                override fun onStateClick(company: Company, position: Int) {
-                    coordinator.execute(Action.ListCompanyToCompany, company.secId)
+                    coordinator.execute(Action.ListCompanyToCompany, company.entityCompany.secId)
                 }
             }
         recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener)

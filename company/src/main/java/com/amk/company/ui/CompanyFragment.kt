@@ -37,7 +37,7 @@ class CompanyFragment : Fragment() {
             candlesList = company as MutableList<Company>
             val data = StringBuilder("SECID = $secId SIZE = ${candlesList.size}\n")
             candlesList.forEach {
-                data.append("${it.shortName} ${it.tradeDate} ${it.open} ${it.close}\n")
+                data.append("${it.shortName} ${it.entityCompany.tradeDate} ${it.entityCompany.open} ${it.entityCompany.close}\n")
             }
             binding.textView.text = data
         }
