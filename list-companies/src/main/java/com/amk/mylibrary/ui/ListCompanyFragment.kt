@@ -20,9 +20,9 @@ import com.amk.core.repository.*
 import com.amk.core.retrofit.MoexApiImpl
 import com.amk.mylibrary.R
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
+import com.amk.mylibrary.viewmodel.CompaniesListViewModel
 import com.amk.mylibrary.model.DialogSorting
 import com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter
-import com.amk.mylibrary.viewmodel.CompaniesListViewModel
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.koin.android.ext.android.inject
 
@@ -30,10 +30,7 @@ class ListCompanyFragment : Fragment() {
     private var _binding: FragmentListCompanyBinding? = null
     private val binding get() = _binding!!
 
-    //private val repository: RepositoryCompany by inject()
     private lateinit var repository: RepositoryCompany
-    //private val networkRepository: NetworkRepository = by in
-    //private lateinit var cacheRepsitory: CacheRepsitory
     private lateinit var viewModel: CompaniesListViewModel
     private var companiesList = mutableListOf<Company>()
     private val coordinator: AppNavigation by inject()
@@ -83,8 +80,10 @@ class ListCompanyFragment : Fragment() {
         )
         val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
             object : ListCompaniesAdapter.OnStateClickListener {
-                override fun onStateClick(entityCompany: Company, position: Int) {
+                override fun onStateClick(company: Company, position: Int) {
                     coordinator.execute(Action.ListCompanyToCompany)
+                override fun onStateClick(company: Company, position: Int) {
+                    coordinator.execute(Action.ListCompanyToCompany, company.secId)
                 }
             }
         recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener)
