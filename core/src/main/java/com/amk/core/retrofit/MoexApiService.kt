@@ -6,18 +6,18 @@ import retrofit2.http.Query
 
 interface MoexApiService {
     @GET("history/engines/stock/markets/shares/boards/TQBR/securities.json")
-    fun getCompaniesLastDatePage(
+    suspend fun getCompaniesLastDatePage(
         @Query("start") start: Long = 0
     ): GsonCompaniesPageResponseStructure
 
     @GET("history/engines/stock/markets/shares/boards/TQBR/securities.json")
-    fun getCompaniesByDatePage(
+    suspend fun getCompaniesByDatePage(
         @Query("date") date: String,
         @Query("start") start: Long = 0
     ): GsonCompaniesPageResponseStructure
 
     @GET("history/engines/stock/markets/shares/boards/TQBR/securities/{secId}/candles.json?start=0")
-    fun getCompanyCandlesPage(
+    suspend fun getCompanyCandlesPage(
         @Path("secId") secId: String,
         @Query("from") dateFrom: String,
         @Query("till") dateTill: String,

@@ -11,7 +11,12 @@ class CompanyFactory(
 
     fun getCompanies(): List<Company> {
         val result = mutableListOf<Company>()
-        val commonListCompanies = currentDateCompanies.intersect(previousDateCompanies)
+        val commonListCompanies: MutableList<EntityCompany> = mutableListOf()
+        currentDateCompanies.forEach { it1 ->
+            if (previousDateCompanies.firstOrNull { it.secId == it1.secId } != null) {
+                commonListCompanies.add(it1)
+            }
+        }
         commonListCompanies.map { commonCompany ->
             val currentDateCompany =
                 currentDateCompanies.first { it.shortName == commonCompany.shortName }

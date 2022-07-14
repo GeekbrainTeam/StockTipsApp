@@ -3,6 +3,7 @@ package com.amk.core.repository
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import com.amk.core.entity.*
+import com.amk.core.interactors.CompanyFactory
 import com.amk.core.utils.DATA_HALF_YEAR
 import com.amk.core.utils.DATA_ONE_TWO
 import com.amk.core.utils.convertToDate
@@ -13,7 +14,7 @@ class RepositoryCompanyImpl(
     private val context: Context,
     private val networkRepository: NetworkRepository,
     private val cacheRepository: CacheRepository
-): RepositoryCompany {
+) : RepositoryCompany {
     private val sharedPref1 =
         context.getSharedPreferences(DATA_ONE_TWO, MODE_PRIVATE)
     private val sharedPref2 =
@@ -24,69 +25,63 @@ class RepositoryCompanyImpl(
     private val todayData = Date().convertToString()
 
     override suspend fun CreateListOneDayYesterday(): List<Company> {
-        val listCompanyCacheOneDay = cacheRepository.getCompanyOneDay()
-        val listCompanyCacheAfterYesterday = cacheRepository.getCompanyAfterYesterday()
-        val listFavorite = cacheRepository.getCompanyFavoriteCompany()
+        val listFavorite = cacheRepository.getCompanyFavoriteCompany().map { it.secId }.toList()
         val dataGetReadyIsShow = mutableListOf<Company>()
         if (lastDataOneTwo == todayData) {
-            val tmpListFromPrevious = mutableListOf<CacheCompanyOneDay>()
-            listCompanyCacheAfterYesterday.forEach {
-                tmpListFromPrevious.add(
-                    CacheCompanyOneDay(
-                        secId = it.secId,
-                        tradeData = it.tradeData,
-                        shortName = it.shortName,
-                        open = it.open,
-                        low = it.low,
-                        high = it.high,
-                        close = it.close
-                    )
-                )
-            }
-            val tempList = listCompanyCacheOneDay.intersect(tmpListFromPrevious).toList()
-            tempList.forEach { companyLast ->
-                val currentCompany =
-                    listCompanyCacheOneDay.first { it.shortName == companyLast.shortName }
-                val currentCompanyToCache = EntityCompany(
-                    tradeDate = currentCompany.tradeData.convertToDate(),
-                    secId = currentCompany.secId,
-                    shortName = currentCompany.shortName,
-                    open = currentCompany.open,
-                    low = currentCompany.low,
-                    high = currentCompany.high,
-                    close = currentCompany.close
-                )
-                dataGetReadyIsShow.add(
-                    Company(
-                        shortName = currentCompany.shortName,
-                        entityCompany = currentCompanyToCache,
-                        currentCompany.close - companyLast.close,
-                        100 - currentCompany.close / companyLast.close * 100,
-                        listFavorite.contains(FavoriteCompany(currentCompany.secId))
-                    )
-                )
-            }
+            val listCompanyCacheOneDay = cacheRepository.getCompanyOneDay()
+            val listCompanyCacheAfterYesterday = cacheRepository.getCompanyAfterYesterday()
             //cacheToResult(currentList = tmpListFromPrevious, companiesResult = dataGetReadyIsShow)
-
+            dataGetReadyIsShow.addAll(
+                CompanyFactory(
+                    listCompanyCacheOneDay.map {
+                        EntityCompany(
+                            it.tradeData.convertToDate(),
+                            it.shortName,
+                            it.secId,
+                            it.open,
+                            it.low,
+                            it.high,
+                            it.close
+                        )
+                    },
+                    listCompanyCacheAfterYesterday.map {
+                        EntityCompany(
+                            it.tradeData.convertToDate(),
+                            it.shortName,
+                            it.secId,
+                            it.open,
+                            it.low,
+                            it.high,
+                            it.close
+                        )
+                    },
+                    listFavorite
+                ).getCompanies()
+            )
         } else {
             clearCache()
             val listCompanyNetworkOneDay = networkRepository.getCompaniesLastDate()
             val listCompanyNetworkAfterYesterday = networkRepository.getCompaniesAfterLastDate()
-            val tempList =
-                listCompanyNetworkOneDay.intersect(listCompanyNetworkAfterYesterday).toList()
-            tempList.forEach { companyLast ->
-                val currentCompany =
-                    listCompanyNetworkAfterYesterday.first { it.shortName == companyLast.shortName }
-                dataGetReadyIsShow.add(
-                    Company(
-                        shortName = currentCompany.shortName,
-                        entityCompany = companyLast,
-                        currentCompany.close - companyLast.close,
-                        100 - currentCompany.close / companyLast.close * 100,
-                        listFavorite.contains(FavoriteCompany(currentCompany.secId))
-                    )
-                )
-            }
+            dataGetReadyIsShow.addAll(
+                CompanyFactory(
+                    listCompanyNetworkOneDay,
+                    listCompanyNetworkAfterYesterday,
+                    listFavorite
+                ).getCompanies()
+            )
+//            tempList.forEach { companyLast ->
+//                val currentCompany =
+//                    listCompanyNetworkAfterYesterday.first { it.shortName == companyLast.shortName }
+//                dataGetReadyIsShow.add(
+//                    Company(
+//                        shortName = currentCompany.shortName,
+//                        entityCompany = companyLast,
+//                        currentCompany.close - companyLast.close,
+//                        100 - currentCompany.close / companyLast.close * 100,
+//                        listFavorite.contains(FavoriteCompany(currentCompany.secId))
+//                    )
+//                )
+//            }
             listCompanyNetworkOneDay.forEach {
                 cacheRepository.addCompanyOneDay(
                     CacheCompanyOneDay(
