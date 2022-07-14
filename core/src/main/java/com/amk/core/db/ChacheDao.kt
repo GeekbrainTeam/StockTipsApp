@@ -13,7 +13,6 @@ interface ChacheDao {
     @Insert(entity = CacheCompanyOneDay::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCompanyOneDay(company: CacheCompanyOneDay)
 
-    //@Delete(entity = CacheCompanyOneDay::class)
     @Query("DELETE FROM $COMPANY_OF_THE_DAY")
     suspend fun deleteListCompanyOneDay()
 
@@ -23,7 +22,6 @@ interface ChacheDao {
     @Insert(entity = CacheCompanyAfterYesterday::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCompanyAfterYesterday(company: CacheCompanyAfterYesterday)
 
-    //@Delete(entity = CacheCompanyAfterYesterday::class)
     @Query("DELETE FROM $COMPANY_OF_AFTER_YESTERDAY")
     suspend fun deleteListCompanyAfterYesterday()
 
@@ -33,7 +31,6 @@ interface ChacheDao {
     @Insert(entity = CacheCompanyHalfYear::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCompanyHalfYear(company: CacheCompanyHalfYear)
 
-    //@Delete(entity = CacheCompanyHalfYear::class)
     @Query("DELETE FROM $COMPANY_OF_HALF_YEAR")
     suspend fun deleteListCompanyHalfYear()
 

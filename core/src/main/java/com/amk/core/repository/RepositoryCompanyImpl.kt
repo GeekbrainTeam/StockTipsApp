@@ -186,7 +186,5 @@ class RepositoryCompanyImpl(
             high,
             close
         )
-
-
 }
 
