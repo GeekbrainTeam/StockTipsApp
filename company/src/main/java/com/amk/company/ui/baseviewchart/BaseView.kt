@@ -17,7 +17,7 @@ import com.amk.company.ui.baseviewchart.ChartValue.currentX
 import com.amk.company.ui.baseviewchart.ChartValue.heightView
 import com.amk.company.ui.baseviewchart.ChartValue.stepYAxis
 import com.amk.company.ui.baseviewchart.ChartValue.widthPerView
-import com.amk.core.entity.Company
+import com.amk.core.entity.EntityCompany
 import com.amk.core.utils.convertForXAxis
 import java.time.LocalDate
 import java.util.*
@@ -70,7 +70,7 @@ abstract class BaseView @JvmOverloads constructor(
     }
 }
 
-fun List<Company>.diffCandlestick(): Double {
+fun List<EntityCompany>.diffCandlestick(): Double {
     if (this.isEmpty()) return -1.0
     val max = this.map { it.high }.maxOf { it }
     val min = this.map { it.low }.minOf { it }
@@ -96,7 +96,7 @@ fun Double.roundForAxisSignature(): Double {
     }
 }
 
-internal fun List<Company>.min(): Double {
+internal fun List<EntityCompany>.min(): Double {
     return if (this.isNotEmpty()) {
         val min = this.map { it.low }.minOf { it }
         (min - min / 50)

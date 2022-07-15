@@ -13,10 +13,10 @@ import com.amk.company.ui.baseviewchart.ChartValue.heightView
 import com.amk.company.ui.baseviewchart.ChartValue.maxValueYAxis
 import com.amk.company.ui.baseviewchart.ChartValue.stepValueYAxis
 import com.amk.company.ui.baseviewchart.ChartValue.stepYAxis
-import com.amk.core.entity.Company
+import com.amk.core.entity.EntityCompany
 
 interface AxisYView {
-    fun drawAxisY(candles: List<Company>)
+    fun drawAxisY(candles: List<EntityCompany>)
 }
 
 class AxisYViewImpl @JvmOverloads constructor(
@@ -32,7 +32,7 @@ class AxisYViewImpl @JvmOverloads constructor(
     private var _minValue: Double = 0.0
     private var _stepNextValue: Double = 0.0
 
-    private val candleList: MutableList<Company> = mutableListOf()
+    private val candleList: MutableList<EntityCompany> = mutableListOf()
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
@@ -72,7 +72,7 @@ class AxisYViewImpl @JvmOverloads constructor(
         }
     }
 
-    override fun drawAxisY(candles: List<Company>) {
+    override fun drawAxisY(candles: List<EntityCompany>) {
         candleList.clear()
         candleList.addAll(candles)
         requestLayout()
