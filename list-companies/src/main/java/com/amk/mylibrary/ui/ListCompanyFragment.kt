@@ -40,7 +40,7 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
 
     private fun chooseSort(directionSort: Direction, typeSort: TypeSort) {
         when (directionSort) {
-            Direction.Down -> {
+            Direction.Up -> {
                 when (typeSort) {
                     TypeSort.Name -> viewModel.getSortedByName()
                     TypeSort.Price -> viewModel.getSortedByPrice()
@@ -48,7 +48,7 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
                     TypeSort.Percent -> viewModel.getSortedByChangePercent()
                 }
             }
-            Direction.Up -> {
+            Direction.Down -> {
                 when (typeSort) {
                     TypeSort.Name -> viewModel.getSortedByNameReverse()
                     TypeSort.Price -> viewModel.getSortedByPriceReverse()

@@ -49,7 +49,7 @@ class DialogSorting : BottomSheetDialogFragment(),
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        directionChoose = if (p2 == 0) Direction.Down else Direction.Up
+        directionChoose = if (p2 == 0) Direction.Up else Direction.Down
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {

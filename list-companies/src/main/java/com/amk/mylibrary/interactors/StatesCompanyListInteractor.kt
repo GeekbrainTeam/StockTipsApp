@@ -72,17 +72,17 @@ class StatesCompanyListInteractor(
     }
 
 
-    fun loading() {
+    private fun loading() {
         binding.recyclerViewCompanies.isVisible = false
         binding.progressBar.isVisible = true
     }
 
-    fun error() {
+    private fun error() {
         binding.recyclerViewCompanies.isVisible = false
         binding.progressBar.isVisible = false
     }
 
-    fun success() {
+    private fun success() {
         binding.recyclerViewCompanies.isVisible = true
         binding.progressBar.isVisible = false
     }
@@ -118,12 +118,14 @@ class StatesCompanyListInteractor(
         fab.startAnimation(toBottomAnimation)
         fab.startAnimation(toBottomAnimation)
         binding.bottomFilterCompany.visibility = View.INVISIBLE
+        binding.bottomSortCompany.visibility = View.INVISIBLE
     }
 
     private fun show(fab: ExtendedFloatingActionButton) {
         fab.startAnimation(fromBottomAnimation)
         fab.startAnimation(fromBottomAnimation)
         binding.bottomFilterCompany.visibility = View.VISIBLE
+        binding.bottomSortCompany.visibility = View.VISIBLE
     }
 
     private val fromBottomAnimation: Animation by lazy {
