@@ -3,12 +3,8 @@ package com.amk.mylibrary.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amk.core.entity.Company
 import com.amk.core.interactors.SortingInteractorImpl
 import com.amk.core.repository.RepositoryCompany
-import com.amk.mylibrary.utils.DEFAULT_DIRECTION_SORT
-import com.amk.mylibrary.utils.DIRECTION_DOWN
-import com.amk.mylibrary.utils.DIRECTION_UP
 import com.amk.mylibrary.utils.ListCompanyFragmentState
 import kotlinx.coroutines.launch
 
@@ -29,20 +25,9 @@ class CompaniesListViewModel : ViewModel() {
             } catch (error: Exception) {
                 _companiesData.value = ListCompanyFragmentState.Failure(error)
             }
-            //val companiesList = repository.CreateListOneDayYesterday()
-            //_companiesData.value = ListCompanyFragmentState.Success(companiesList)
         }
     }
 
-    /*fun getCompanies() : MutableLiveData<ListCompanyFragmentState> {
-        _companiesData.value = ListCompanyFragmentState.Loading
-        job?.cancel()
-        job = scope.launch {
-            val companiesList = repository.CreateListOneDayYesterday()
-            _companiesData.value = ListCompanyFragmentState.Success(companiesList)
-        }
-        return _companiesData
-    }*/
     fun getSortedByName() {
         _companiesData.value = ListCompanyFragmentState.Loading
         viewModelScope.launch {
@@ -157,25 +142,5 @@ class CompaniesListViewModel : ViewModel() {
     fun setRepo(repository: RepositoryCompany) {
         this.repository = repository
     }
-//val errorData = MutableLiveData<String>()
-    /*private var job: Job? = null
-    private val scope = CoroutineScope(
-        Dispatchers.IO
-                + SupervisorJob()
-                + CoroutineExceptionHandler { _, throwable ->
-            handleError(throwable)
-        }
-    )
 
-    private fun handleError(error: Throwable) {
-        scope.launch {
-            _companiesData.value = ListCompanyFragmentState.Failure(error)
-        }
-    }*/
-
-
-    /*override fun onCleared() {
-        super.onCleared()
-        scope.coroutineContext.cancelChildren()
-    }*/
 }

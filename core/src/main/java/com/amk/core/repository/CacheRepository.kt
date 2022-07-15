@@ -6,53 +6,53 @@ import com.amk.core.entity.CacheCompanyHalfYear
 import com.amk.core.entity.CacheCompanyOneDay
 import com.amk.core.entity.FavoriteCompany
 
-class CacheRepository(private val cache: ChacheDao) : ChacheDao {
+class CacheRepository(private val cache: ChacheDao) {
 
-    override suspend fun addCompanyOneDay(company: CacheCompanyOneDay) {
+    suspend fun addCompanyOneDay(company: CacheCompanyOneDay) {
         cache.addCompanyOneDay(company)
     }
 
-    override suspend fun deleteListCompanyOneDay() {
+    suspend fun deleteListCompanyOneDay() {
         cache.deleteListCompanyOneDay()
     }
 
-    override suspend fun getCompanyOneDay(): List<CacheCompanyOneDay> {
+    suspend fun getCompanyOneDay(): List<CacheCompanyOneDay> {
         return cache.getCompanyOneDay()
     }
 
-    override suspend fun addCompanyAfterYesterday(company: CacheCompanyAfterYesterday) {
+    suspend fun addCompanyAfterYesterday(company: CacheCompanyAfterYesterday) {
         cache.addCompanyAfterYesterday(company)
     }
 
-    override suspend fun deleteListCompanyAfterYesterday() {
+    suspend fun deleteListCompanyAfterYesterday() {
         cache.deleteListCompanyAfterYesterday()
     }
 
-    override suspend fun getCompanyAfterYesterday(): List<CacheCompanyAfterYesterday> {
+    suspend fun getCompanyAfterYesterday(): List<CacheCompanyAfterYesterday> {
         return cache.getCompanyAfterYesterday()
     }
 
-    override suspend fun addCompanyHalfYear(company: CacheCompanyHalfYear) {
+    suspend fun addCompanyHalfYear(company: CacheCompanyHalfYear) {
         cache.addCompanyHalfYear(company)
     }
 
-    override suspend fun deleteListCompanyHalfYear() {
+    suspend fun deleteListCompanyHalfYear() {
         cache.deleteListCompanyHalfYear()
     }
 
-    override suspend fun getCompanyHalfYear(): List<CacheCompanyHalfYear> {
+    suspend fun getCompanyHalfYear(): List<CacheCompanyHalfYear> {
         return cache.getCompanyHalfYear()
     }
 
-    override suspend fun addCompany(company: FavoriteCompany) {
+    suspend fun addCompany(company: FavoriteCompany) {
         cache.addCompany(company)
     }
 
-    override suspend fun deleteFavoriteCompany(secId: String) {
+    suspend fun deleteFavoriteCompany(secId: String) {
         cache.deleteFavoriteCompany(secId)
     }
 
-    override suspend fun getCompanyFavoriteCompany(): List<FavoriteCompany> {
+    suspend fun getCompanyFavoriteCompany(): List<FavoriteCompany> {
         return cache.getCompanyFavoriteCompany()
     }
 
