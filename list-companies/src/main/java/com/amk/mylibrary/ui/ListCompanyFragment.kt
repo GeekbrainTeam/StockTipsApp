@@ -1,24 +1,16 @@
 package com.amk.mylibrary.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.core.entity.Company
 import com.amk.core.navigation.Action
 import com.amk.core.navigation.AppNavigation
-import com.amk.core.repository.CacheRepository
-import com.amk.core.repository.NetworkRepository
-import com.amk.core.repository.RepositoryCompany
-import com.amk.core.repository.RepositoryCompanyImpl
-import com.amk.core.retrofit.MoexApiImpl
 import com.amk.core.ui.BaseFragment
 import com.amk.mylibrary.R
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
@@ -28,10 +20,11 @@ import com.amk.mylibrary.viewmodel.CompaniesListViewModel
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.koin.android.ext.android.inject
 
-class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding>() {
+class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesListViewModel>() {
     override fun getViewBinding() = FragmentListCompanyBinding.inflate(layoutInflater)
+    override fun getVModel() = ViewModelProvider(requireActivity())[CompaniesListViewModel::
+    class.java]
 
-    private lateinit var viewModel: CompaniesListViewModel
     private val coordinator: AppNavigation by inject()
     private var typeSort = ONE_CHOICE
     private var directionSort = DIRECTION_UP
@@ -47,11 +40,6 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val networkRepository = NetworkRepository(MoexApiImpl().getMoexService())
-        val database = DataBaseCacheCompany.getDatabase(requireContext())
-        val cacheRepository = CacheRepository(database.cacheDao())
-        repository = RepositoryCompanyImpl(requireContext(), networkRepository, cacheRepository)
-        viewModel = ViewModelProvider(requireActivity())[CompaniesListViewModel::class.java]
 
         viewModel.companiesData.observe(viewLifecycleOwner) {
             val statesCompanyList = StatesCompanyList(binding)

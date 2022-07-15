@@ -8,15 +8,13 @@ import com.amk.company.R
 import com.amk.company.databinding.FragmentCompanyBinding
 import com.amk.company.ui.candlechart.CandlestickViewImpl
 import com.amk.company.viewmodel.CompanyViewModel
-import com.amk.core.repository.Repository
 import com.amk.core.ui.BaseFragment
-import org.koin.android.ext.android.inject
 
-class CompanyFragment : BaseFragment<FragmentCompanyBinding>() {
+class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>() {
     override fun getViewBinding() = FragmentCompanyBinding.inflate(layoutInflater)
+    override fun getVModel(): CompanyViewModel =
+        ViewModelProvider(requireActivity())[CompanyViewModel::class.java]
 
-    private val repository: Repository by inject()
-    private lateinit var viewModel: CompanyViewModel
     private val candlestickView: CandlestickViewImpl by lazy {
         layoutInflater.inflate(R.layout.view_candlestick, null) as CandlestickViewImpl
     }
@@ -29,7 +27,6 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val secId = this.arguments?.getString("SECID")
-        viewModel = ViewModelProvider(requireActivity())[CompanyViewModel::class.java]
         binding.candleSv.addView(candlestickView)
         viewModel.candlesListData.observe(viewLifecycleOwner) { companyList ->
             candlestickView.drawCandles(companyList)
