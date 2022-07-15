@@ -3,14 +3,14 @@ package com.amk.mylibrary.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amk.core.entity.Company
-import com.amk.core.entity.EntityCompany
-import com.amk.core.repository.Repository
 import com.amk.core.repository.RepositoryCompany
-import com.amk.core.repository.RepositoryCompanyImpl
 import kotlinx.coroutines.*
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class CompaniesListViewModel : ViewModel() {
-    private lateinit var repository: RepositoryCompany
+class CompaniesListViewModel : ViewModel(), KoinComponent {
+
+    private val repository by inject<RepositoryCompany>()
     val companiesListDataYesterday = MutableLiveData<List<Company>>()
     val companiesListDataHalfYear = MutableLiveData<List<Company>>()
     val errorData = MutableLiveData<String>()
@@ -35,10 +35,6 @@ class CompaniesListViewModel : ViewModel() {
             val companiesList = repository.CreateListOneDayYesterday()
             companiesListDataYesterday.postValue(companiesList)
         }
-    }
-
-    fun setRepo(repository: RepositoryCompany) {
-        this.repository = repository
     }
 
     override fun onCleared() {

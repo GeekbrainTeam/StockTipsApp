@@ -11,7 +11,7 @@ import java.util.*
 
 class RepositoryCompanyImpl(
     context: Context,
-    private val networkRepository: NetworkRepository,
+    private val networkRepository: Repository,
     private val cacheRepository: CacheRepository
 ) : RepositoryCompany {
     private val sharedPref =
@@ -121,31 +121,9 @@ class RepositoryCompanyImpl(
         }
     }
 
-    private fun CacheCompanyAfterYesterday.convertToEntityCompany(): EntityCompany =
+    private fun <T : BaseRoomCompany> T.convertToEntityCompany(): EntityCompany =
         EntityCompany(
-            tradeData.convertToDate(),
-            shortName,
-            secId,
-            open,
-            low,
-            high,
-            close
-        )
-
-    private fun CacheCompanyOneDay.convertToEntityCompany(): EntityCompany =
-        EntityCompany(
-            tradeData.convertToDate(),
-            shortName,
-            secId,
-            open,
-            low,
-            high,
-            close
-        )
-
-    private fun CacheCompanyHalfYear.convertToEntityCompany(): EntityCompany =
-        EntityCompany(
-            tradeData.convertToDate(),
+            tradeDate.convertToDate(),
             shortName,
             secId,
             open,

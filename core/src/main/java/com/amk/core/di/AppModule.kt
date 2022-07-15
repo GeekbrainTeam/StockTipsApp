@@ -9,17 +9,6 @@ val appModule = module {
     single { provideRetrofit() }
     single { provideApiService(get()) }
 }
-//private fun provideNetworkHelper(context: Context) = NetworkHelper(context)
-//
-//private fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
-//    val loggingInterceptor = HttpLoggingInterceptor()
-//    loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-//    OkHttpClient.Builder()
-//        .addInterceptor(loggingInterceptor)
-//        .build()
-//} else OkHttpClient
-//    .Builder()
-//    .build()
 
 private fun provideRetrofit(): Retrofit {
     return Retrofit.Builder()
@@ -30,5 +19,3 @@ private fun provideRetrofit(): Retrofit {
 
 private fun provideApiService(retrofit: Retrofit): MoexApiService =
     retrofit.create(MoexApiService::class.java)
-
-//private fun provideApiHelper(apiHelper: ApiHelperImpl): ApiHelper = apiHelper
