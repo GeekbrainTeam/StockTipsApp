@@ -5,11 +5,8 @@ import com.amk.core.entity.CashCompanyAfterYesterday
 import com.amk.core.entity.CashCompanyHalfYear
 import com.amk.core.entity.CashCompanyOneDay
 import com.amk.core.entity.FavoriteCompany
-import org.koin.core.component.KoinComponent
 
-class CacheRepository(
-    private val cache: CashDao
-) : KoinComponent {
+class CacheRepository(private val cache: CashDao)  {
 
     suspend fun addCompanyOneDay(company: CashCompanyOneDay) {
         cache.addCompanyOneDay(company)

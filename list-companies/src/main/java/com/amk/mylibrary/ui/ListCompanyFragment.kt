@@ -17,6 +17,7 @@ import com.amk.core.navigation.AppNavigation
 import com.amk.mylibrary.R
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
 import com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter
+import com.amk.mylibrary.utils.*
 import com.amk.mylibrary.viewmodel.CompaniesListViewModel
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.koin.android.ext.android.inject
@@ -26,8 +27,18 @@ class ListCompanyFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: CompaniesListViewModel
-    private var companiesList = mutableListOf<Company>()
     private val coordinator: AppNavigation by inject()
+    private var typeSort = ONE_CHOICE
+    private var directionSort = DIRECTION_UP
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        childFragmentManager.setFragmentResultListener(KEY, this) { requestKey, bundle ->
+            typeSort = bundle.getString(TYPE_OF_SORT) ?: DEFAULT_TYPE_SORT
+            directionSort = bundle.getString(DIRECTION_OF_SORT) ?: DEFAULT_DIRECTION_SORT
+            choiseSort(directionSort, typeSort)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,18 +52,63 @@ class ListCompanyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[CompaniesListViewModel::class.java]
-        viewModel.companiesListDataYesterday.observe(viewLifecycleOwner) {
-            companiesList = it as MutableList<Company>
-            setRecyclerView(companiesList)
-        }
-        viewModel.errorData.observe(viewLifecycleOwner) {
-            Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
-        }
-        viewModel.getCompanies()
-        binding.bottomSortCompany.setOnClickListener {
-            val dialog = DialogSorting()
 
-            dialog.show(childFragmentManager, "ok")
+        viewModel.companiesData.observe(viewLifecycleOwner) {
+            val statesCompanyList = StatesCompanyList(binding)
+            when (it) {
+                is ListCompanyFragmentState.Loading -> {
+                    statesCompanyList.loading()
+                }
+                is ListCompanyFragmentState.Failure -> {
+                    statesCompanyList.error()
+                    Toast.makeText(activity, it.toString(), Toast.LENGTH_LONG).show()
+                }
+                is ListCompanyFragmentState.Success -> {
+                    statesCompanyList.success()
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByName -> {
+                    statesCompanyList.success()
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByNameReverse -> {
+                    statesCompanyList.success()
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByPrice -> {
+                    statesCompanyList.success()
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByPriceReverse -> {
+                    statesCompanyList.success()
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByChangePrice -> {
+                    statesCompanyList.success()
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByChangePriceReverse -> {
+                    statesCompanyList.success()
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByChangePercent -> {
+                    statesCompanyList.success()
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByChangePercentReverse -> {
+                    statesCompanyList.success()
+                    setRecyclerView(it.data)
+                }
+                else -> {
+                    ListCompanyFragmentState.Empty
+                }
+            }
+        }
+        choiseSort(directionSort, typeSort)
+
+        binding.bottomSortCompany.setOnClickListener {
+            val dialog = DialogSorting.getInstance()
+            dialog.show(childFragmentManager, ARGUMENT_KEY)
         }
     }
 
@@ -74,6 +130,7 @@ class ListCompanyFragment : Fragment() {
                 }
             }
         recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener)
+
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy <= 0 && binding.bottomFilterCompany.visibility == View.INVISIBLE) {
@@ -111,5 +168,24 @@ class ListCompanyFragment : Fragment() {
             context,
             R.anim.to_bottom_animation
         )
+    }
+
+    fun choiseSort(directionSort: String, typeSort: String) {
+        if (directionSort == DIRECTION_UP) {
+            when (typeSort) {
+                ONE_CHOICE -> viewModel.getSortedByName()
+                TWO_CHOICE -> viewModel.getSortedByPrice()
+                TREE_CHOICE -> viewModel.getSortedByChangePrice()
+                FOUR_CHOICE -> viewModel.getSortedByChangePercent()
+            }
+        } else if (directionSort == DIRECTION_DOWN) {
+            when (typeSort) {
+                ONE_CHOICE -> viewModel.getSortedByNameReverse()
+                TWO_CHOICE -> viewModel.getSortedByPriceReverse()
+                TREE_CHOICE -> viewModel.getSortedByChangePriceReverse()
+                FOUR_CHOICE -> viewModel.getSortedByChangePercentReverse()
+                else -> viewModel.getCompanies()
+            }
+        }
     }
 }

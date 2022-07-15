@@ -1,6 +1,7 @@
 package com.amk.core.interactors
 
 import com.amk.core.entity.Company
+import kotlin.math.abs
 
 class SortingInteractorImpl(
     private val sourceCompanies: List<Company>,
@@ -22,11 +23,11 @@ class SortingInteractorImpl(
         sourceCompanies.sortedBy { it.changePrice }
 
     override fun getSortingByChangePriceReverse(): List<Company> =
-        sourceCompanies.sortedBy { it.changePrice }
+        sourceCompanies.sortedBy { it.changePrice }.reversed()
 
     override fun getSortingByChangePercent(): List<Company> =
-        sourceCompanies.sortedBy { it.changePercent }
+        sourceCompanies.sortedBy { abs(it.changePercent) }
 
     override fun getSortingByChangePercentReverse(): List<Company> =
-        sourceCompanies.sortedBy { it.changePercent }.reversed()
+        sourceCompanies.sortedBy { abs(it.changePercent) }.reversed()
 }
