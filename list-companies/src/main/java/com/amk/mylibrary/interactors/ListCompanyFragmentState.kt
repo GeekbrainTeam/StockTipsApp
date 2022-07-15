@@ -1,4 +1,4 @@
-package com.amk.mylibrary.utils
+package com.amk.mylibrary.interactors
 
 import com.amk.core.entity.Company
 

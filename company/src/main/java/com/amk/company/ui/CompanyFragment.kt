@@ -3,17 +3,16 @@ package com.amk.company.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import com.amk.company.R
 import com.amk.company.databinding.FragmentCompanyBinding
+import com.amk.company.presentation.CompanyViewModel
 import com.amk.company.ui.candlechart.CandlestickViewImpl
-import com.amk.company.viewmodel.CompanyViewModel
 import com.amk.core.ui.BaseFragment
 
 class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>() {
+
     override fun getViewBinding() = FragmentCompanyBinding.inflate(layoutInflater)
-    override fun getVModel(): CompanyViewModel =
-        ViewModelProvider(requireActivity())[CompanyViewModel::class.java]
+    override fun getVModelClass() = CompanyViewModel::class.java
 
     private val candlestickView: CandlestickViewImpl by lazy {
         layoutInflater.inflate(R.layout.view_candlestick, null) as CandlestickViewImpl

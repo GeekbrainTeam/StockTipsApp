@@ -16,8 +16,9 @@ class DialogSorting : BottomSheetDialogFragment(),
     AdapterView.OnItemSelectedListener {
     private lateinit var binding: DialogSortBinding
 
-    private var typeOfSort = ONE_CHOICE
-    private var directionChoose = DIRECTION_UP
+    private var typeOfSort: TypeSort = DEFAULT_TYPE_SORT
+    private var directionChoose: Direction = DEFAULT_DIRECTION_SORT
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,10 +32,10 @@ class DialogSorting : BottomSheetDialogFragment(),
         super.onViewCreated(view, savedInstanceState)
         binding.radioGroupSorting.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.radio_name_company -> typeOfSort = ONE_CHOICE
-                R.id.radio_price -> typeOfSort = TWO_CHOICE
-                R.id.radio_change_price -> typeOfSort = TREE_CHOICE
-                R.id.radio_change_percent -> typeOfSort = FOUR_CHOICE
+                R.id.radio_name_company -> typeOfSort = TypeSort.Name
+                R.id.radio_price -> typeOfSort = TypeSort.Price
+                R.id.radio_change_price -> typeOfSort = TypeSort.ChangePrice
+                R.id.radio_change_percent -> typeOfSort = TypeSort.Percent
             }
         }
         binding.upDown.onItemSelectedListener = this
@@ -48,8 +49,7 @@ class DialogSorting : BottomSheetDialogFragment(),
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        val choose: Array<String> = myFragmentFunction() as Array<String>
-        directionChoose = choose[p2]
+        directionChoose = if (p2 == 0) Direction.Down else Direction.Up
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
