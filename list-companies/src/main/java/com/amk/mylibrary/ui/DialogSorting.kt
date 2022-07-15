@@ -1,4 +1,4 @@
-package com.amk.mylibrary.model
+package com.amk.mylibrary.ui
 
 import android.app.AlertDialog
 import android.app.Dialog
