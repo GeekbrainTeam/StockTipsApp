@@ -2,10 +2,8 @@ package com.amk.company.ui.candlechart
 
 import android.content.Context
 import android.graphics.Canvas
-import android.os.Build
 import android.util.AttributeSet
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import com.amk.company.ui.baseviewchart.*
 import com.amk.company.ui.baseviewchart.ChartValue.COUNT_OF_VALUE_Y_AXIS
 import com.amk.company.ui.baseviewchart.ChartValue.coordEndXAxis
@@ -18,7 +16,7 @@ import com.amk.company.ui.baseviewchart.ChartValue.maxValueYAxis
 import com.amk.company.ui.baseviewchart.ChartValue.minValueYAxis
 import com.amk.company.ui.baseviewchart.ChartValue.stepXAxis
 import com.amk.company.ui.baseviewchart.ChartValue.widthPerView
-import com.amk.core.entity.Company
+import com.amk.core.entity.EntityCompany
 
 class CandlestickViewImpl @JvmOverloads constructor(
     context: Context,
@@ -26,7 +24,7 @@ class CandlestickViewImpl @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : BaseView(context, attrs, defStyleAttr) {
 
-    private val candleList: MutableList<Company> = mutableListOf()
+    private val candleList: MutableList<EntityCompany> = mutableListOf()
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
@@ -49,7 +47,6 @@ class CandlestickViewImpl @JvmOverloads constructor(
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onDraw(canvas: Canvas?) {
 
         if (candleList.isNotEmpty()) {
@@ -70,7 +67,7 @@ class CandlestickViewImpl @JvmOverloads constructor(
 
     fun getWidthView(): Int = widthPerView * candleList.size
 
-    private fun onDrawShadow(canvas: Canvas, candle: Company) {
+    private fun onDrawShadow(canvas: Canvas, candle: EntityCompany) {
         val positionX = (currentX + widthPerView / 2).toFloat()
 
         val top = coordZeroY - (heightPerValue * (candle.high - minValueYAxis)).toFloat()
@@ -79,7 +76,7 @@ class CandlestickViewImpl @JvmOverloads constructor(
         canvas.drawLine(positionX, top, positionX, bottom, candle.colorBody().paint)
     }
 
-    private fun onDrawBody(canvas: Canvas, candle: Company) {
+    private fun onDrawBody(canvas: Canvas, candle: EntityCompany) {
         val left = (currentX + widthPerView / 2 - widthPerView / 4).toFloat()
         val top = coordZeroY - (heightPerValue * (candle.open - minValueYAxis)).toFloat()
         val right = (currentX + widthPerView / 2 + widthPerView / 4).toFloat()
@@ -92,7 +89,7 @@ class CandlestickViewImpl @JvmOverloads constructor(
         }
     }
 
-    fun drawCandles(candles: List<Company>) {
+    fun drawCandles(candles: List<EntityCompany>) {
         candleList.clear()
         candleList.addAll(candles)
         requestLayout()
