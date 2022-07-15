@@ -4,11 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amk.core.interactors.SortingInteractorImpl
-import com.amk.core.entity.Company
 import com.amk.core.repository.RepositoryCompany
 import com.amk.mylibrary.utils.ListCompanyFragmentState
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

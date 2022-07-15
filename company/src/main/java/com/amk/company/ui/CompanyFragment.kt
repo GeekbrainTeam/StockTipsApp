@@ -1,34 +1,22 @@
 package com.amk.company.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.amk.company.R
 import com.amk.company.databinding.FragmentCompanyBinding
 import com.amk.company.ui.candlechart.CandlestickViewImpl
 import com.amk.company.viewmodel.CompanyViewModel
-import com.amk.core.repository.Repository
-import org.koin.android.ext.android.inject
+import com.amk.core.ui.BaseFragment
 
-class CompanyFragment : Fragment() {
-    private var _binding: FragmentCompanyBinding? = null
-    private val binding get() = _binding!!
-    private val repository: Repository by inject()
-    private lateinit var viewModel: CompanyViewModel
+class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>() {
+    override fun getViewBinding() = FragmentCompanyBinding.inflate(layoutInflater)
+    override fun getVModel(): CompanyViewModel =
+        ViewModelProvider(requireActivity())[CompanyViewModel::class.java]
+
     private val candlestickView: CandlestickViewImpl by lazy {
         layoutInflater.inflate(R.layout.view_candlestick, null) as CandlestickViewImpl
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentCompanyBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onPause() {
@@ -39,7 +27,6 @@ class CompanyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val secId = this.arguments?.getString("SECID")
-        viewModel = ViewModelProvider(requireActivity())[CompanyViewModel::class.java]
         binding.candleSv.addView(candlestickView)
         viewModel.candlesListData.observe(viewLifecycleOwner) { companyList ->
             candlestickView.drawCandles(companyList)
