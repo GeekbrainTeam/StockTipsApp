@@ -1,13 +1,20 @@
 package com.amk.core.di
 
-import com.amk.core.repository.NetworkRepository
-import com.amk.core.repository.Repository
+import com.amk.core.db.DataBaseCacheCompany
+import com.amk.core.repository.*
 import org.koin.dsl.module
-
 
 val repoModule = module {
 
-    single<Repository> {
-        return@single NetworkRepository(get())
+    single<RepositoryCompany> {
+        RepositoryCompanyImpl(get(), get(), get())
     }
+
+    single<Repository> { NetworkRepository(get()) }
+
+    single { CacheRepository(get()) }
+
+    single { DataBaseCacheCompany.getDatabase(get()) }
+
+    single { get<DataBaseCacheCompany>().cacheDao() }
 }

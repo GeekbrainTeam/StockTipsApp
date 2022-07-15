@@ -3,7 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/list-companies/src/main/res/layout/fragment_list_company.xml" value="0.1" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/list-companies/src/main/res/layout/dialog_sort.xml" value="0.25" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/list-companies/src/main/res/layout/fragment_list_company.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/baseline_settings_24.xml" value="0.303" />
         <entry key="app/src/main/res/drawable/baseline_star_24.xml" value="0.303" />
         <entry key="app/src/main/res/drawable/color_selector.xml" value="0.101" />

@@ -30,8 +30,6 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding>() {
         super.onViewCreated(view, savedInstanceState)
         val secId = this.arguments?.getString("SECID")
         viewModel = ViewModelProvider(requireActivity())[CompanyViewModel::class.java]
-        viewModel.setRepo(repository)
-
         binding.candleSv.addView(candlestickView)
         viewModel.candlesListData.observe(viewLifecycleOwner) { companyList ->
             candlestickView.drawCandles(companyList)
@@ -39,7 +37,6 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding>() {
             binding.candleSv.post {
                 binding.candleSv.scrollBy(binding.candleSv.width, 0)
                 binding.candleSv.visibility = View.VISIBLE
-
             }
         }
 

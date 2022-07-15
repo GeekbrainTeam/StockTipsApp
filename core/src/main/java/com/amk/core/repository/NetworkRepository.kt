@@ -11,6 +11,7 @@ import java.util.*
 class NetworkRepository(private val apiService: MoexApiService) : Repository {
 
     private var currentDate : Date? = null
+
     override suspend fun getCompaniesLastDate(): List<EntityCompany> {
         val companiesList = mutableListOf<EntityCompany>()
         var index = 0L

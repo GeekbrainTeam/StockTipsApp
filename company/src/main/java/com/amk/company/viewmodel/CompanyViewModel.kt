@@ -2,15 +2,18 @@ package com.amk.company.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.amk.core.entity.Company
 import com.amk.core.entity.EntityCompany
 import com.amk.core.repository.Repository
 import com.amk.core.utils.changeDay
 import kotlinx.coroutines.*
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.util.*
 
-class CompanyViewModel : ViewModel() {
-    private lateinit var repository: Repository
+class CompanyViewModel : ViewModel(), KoinComponent {
+
+    private val repository by inject<Repository>()
+
     val candlesListData = MutableLiveData<List<EntityCompany>>()
     val errorData = MutableLiveData<String>()
     private var job: Job? = null
@@ -37,9 +40,6 @@ class CompanyViewModel : ViewModel() {
         }
     }
 
-    fun setRepo(repository: Repository) {
-        this.repository = repository
-    }
 
     override fun onCleared() {
         super.onCleared()
