@@ -1,4 +1,4 @@
-package com.amk.company.viewmodel
+package com.amk.company.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
