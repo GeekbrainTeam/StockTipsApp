@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,8 +23,8 @@ import com.amk.core.repository.RepositoryCompanyImpl
 import com.amk.core.retrofit.MoexApiImpl
 import com.amk.mylibrary.R
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
-import com.amk.mylibrary.model.DialogSorting
 import com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter
+import com.amk.mylibrary.utils.*
 import com.amk.mylibrary.viewmodel.CompaniesListViewModel
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.koin.android.ext.android.inject
@@ -34,8 +35,17 @@ class ListCompanyFragment : Fragment() {
 
     private lateinit var repository: RepositoryCompany
     private lateinit var viewModel: CompaniesListViewModel
-    private var companiesList = mutableListOf<Company>()
     private val coordinator: AppNavigation by inject()
+    private var typeSort = ONE_CHOICE
+    private var directionSort = DIRECTION_DOWN
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        childFragmentManager.setFragmentResultListener(KEY, this) { requestKey, bundle ->
+            typeSort = bundle.getString(TYPE_OF_SORT) ?: ONE_CHOICE
+            directionSort = bundle.getString(DIRECTION_OF_SORT) ?: DIRECTION_UP
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,22 +61,82 @@ class ListCompanyFragment : Fragment() {
         val networkRepository = NetworkRepository(MoexApiImpl().getMoexService())
         val database = DataBaseCacheCompany.getDatabase(requireContext())
         val cacheRepository = CacheRepository(database.cacheDao())
-        repository = RepositoryCompanyImpl(requireContext(),networkRepository, cacheRepository)
+        repository = RepositoryCompanyImpl(requireContext(), networkRepository, cacheRepository)
         viewModel = ViewModelProvider(requireActivity())[CompaniesListViewModel::class.java]
         viewModel.setRepo(repository)
-        viewModel.companiesListDataYesterday.observe(viewLifecycleOwner) {
-            companiesList = it as MutableList<Company>
-            setRecyclerView(companiesList)
-        }
-        viewModel.errorData.observe(viewLifecycleOwner) {
-            Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
-        }
-        viewModel.getCompanies()
-        binding.bottomSortCompany.setOnClickListener {
-            val dialog = DialogSorting()
 
-            dialog.show(childFragmentManager, "ok")
+
+        viewModel.companiesData.observe(viewLifecycleOwner) {
+            when (it) {
+                is ListCompanyFragmentState.Loading -> {
+                    binding.recyclerViewCompanies.isVisible = false
+                    binding.progressBar.isVisible = true
+                }
+                is ListCompanyFragmentState.Failure -> {
+                    binding.recyclerViewCompanies.isVisible = false
+                    binding.progressBar.isVisible = false
+                    Toast.makeText(activity, it.toString(), Toast.LENGTH_LONG).show()
+                }
+                /*is ListCompanyFragmentState.Success -> {
+                        binding.recyclerViewCompanies.isVisible = true
+                        binding.progressBar.isVisible = false
+                        setRecyclerView(it.data)
+                }*/
+                is ListCompanyFragmentState.SortByName -> {
+                    binding.recyclerViewCompanies.isVisible = true
+                    binding.progressBar.isVisible = false
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByNameReverse -> {
+                    binding.recyclerViewCompanies.isVisible = true
+                    binding.progressBar.isVisible = false
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByPrice -> {
+                    binding.recyclerViewCompanies.isVisible = true
+                    binding.progressBar.isVisible = false
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByPriceReverse -> {
+                    binding.recyclerViewCompanies.isVisible = true
+                    binding.progressBar.isVisible = false
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByChangePrice -> {
+                    binding.recyclerViewCompanies.isVisible = true
+                    binding.progressBar.isVisible = false
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByChangePriceReverse -> {
+                    binding.recyclerViewCompanies.isVisible = true
+                    binding.progressBar.isVisible = false
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByChangePercent -> {
+                    binding.recyclerViewCompanies.isVisible = true
+                    binding.progressBar.isVisible = false
+                    setRecyclerView(it.data)
+                }
+                is ListCompanyFragmentState.SortByChangePercentReverse -> {
+                    binding.recyclerViewCompanies.isVisible = true
+                    binding.progressBar.isVisible = false
+                    setRecyclerView(it.data)
+                }
+                else -> {
+                    ListCompanyFragmentState.Empty
+                }
+            }
         }
+        //Toast.makeText(requireActivity(),typeSort+directionSort, Toast.LENGTH_SHORT).show()
+        choiseSort()
+        //viewModel.getCompanies()
+
+        binding.bottomSortCompany.setOnClickListener {
+            val dialog = DialogSorting.getInstance()
+            dialog.show(childFragmentManager, ARGUMENT_KEY)
+        }
+
+
     }
 
     override fun onDestroyView() {
@@ -123,5 +193,23 @@ class ListCompanyFragment : Fragment() {
             context,
             R.anim.to_bottom_animation
         )
+    }
+
+    private fun choiseSort() {
+        if (directionSort == DIRECTION_UP) {
+            when (typeSort) {
+                ONE_CHOICE -> viewModel.getSortedByName()
+                TWO_CHOICE -> viewModel.getSortedByPrice()
+                TREE_CHOICE -> viewModel.getSortedByChangePrice()
+                FOUR_CHOICE -> viewModel.getSortedByChangePercent()
+            }
+        } else if (directionSort == DIRECTION_DOWN) {
+            when (typeSort) {
+                ONE_CHOICE -> viewModel.getSortedByNameReverse()
+                TWO_CHOICE -> viewModel.getSortedByPriceReverse()
+                TREE_CHOICE -> viewModel.getSortedByChangePriceReverse()
+                FOUR_CHOICE -> viewModel.getSortedByChangePercentReverse()
+            }
+        }
     }
 }

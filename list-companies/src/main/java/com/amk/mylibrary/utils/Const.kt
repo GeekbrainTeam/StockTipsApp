@@ -1,0 +1,15 @@
+package com.amk.mylibrary.utils
+
+const val TYPE_OF_SORT = "Type_sort"
+const val DIRECTION_OF_SORT = "Direction_sort"
+const val NO_NULL_ACTIVITY = "Activity cannot be null"
+const val DEFAULT_TYPE_SORT = "0"
+const val DEFAULT_DIRECTION_SORT = "not direction"
+const val DIRECTION_UP = "По возрастанию"
+const val DIRECTION_DOWN = "По убыванию"
+const val KEY = "sort_key"
+const val ARGUMENT_KEY = "args_key"
+const val ONE_CHOICE = "1"
+const val TWO_CHOICE = "2"
+const val TREE_CHOICE = "3"
+const val FOUR_CHOICE = "4"

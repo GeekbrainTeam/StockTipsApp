@@ -30,18 +30,11 @@
         app:layout_constraintTop_toBottomOf="@id/up_down">
 
         <RadioButton
-            android:id="@+id/radio_change_half_year"
+            android:id="@+id/radio_name_company"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="@string/change_half_year" />
-
-        <RadioButton
-            android:id="@+id/radio_change_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:text="@string/change_day" />
+            android:text="@string/name_company" />
 
         <RadioButton
             android:id="@+id/radio_price"
@@ -51,11 +44,18 @@
             android:text="@string/price" />
 
         <RadioButton
-            android:id="@+id/radio_name"
+            android:id="@+id/radio_change_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="@string/name_company" />
+            android:text="@string/change_price" />
+
+        <RadioButton
+            android:id="@+id/radio_change_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/change_percent" />
     </RadioGroup>
 
     <Button
