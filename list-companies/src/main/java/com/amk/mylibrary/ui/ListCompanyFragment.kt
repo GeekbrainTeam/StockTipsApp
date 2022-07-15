@@ -32,7 +32,6 @@ class ListCompanyFragment : Fragment() {
     private var _binding: FragmentListCompanyBinding? = null
     private val binding get() = _binding!!
 
-        //private lateinit var repository: RepositoryCompany
     private lateinit var viewModel: CompaniesListViewModel
     private val coordinator: AppNavigation by inject()
     private var typeSort = ONE_CHOICE
@@ -63,8 +62,7 @@ class ListCompanyFragment : Fragment() {
         val cacheRepository = CacheRepository(database.cacheDao())
         val repository = RepositoryCompanyImpl(requireContext(), networkRepository, cacheRepository)
         viewModel = ViewModelProvider(requireActivity())[CompaniesListViewModel::class.java]
-            viewModel.setRepo(repository)
-
+        viewModel.setRepo(repository)
 
         viewModel.companiesData.observe(viewLifecycleOwner) {
             val statesCompanyList = StatesCompanyList(binding)
