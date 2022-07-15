@@ -11,7 +11,7 @@ import java.util.*
 
 class RepositoryCompanyImpl(
     context: Context,
-    private val networkRepository: NetworkRepository,
+    private val networkRepository: Repository,
     private val cacheRepository: CacheRepository
 ) : RepositoryCompany {
     private val sharedPref =
@@ -121,9 +121,9 @@ class RepositoryCompanyImpl(
         }
     }
 
-    private fun CacheCompanyAfterYesterday.convertToEntityCompany(): EntityCompany =
+    private fun <T : BaseCashCompany> T.convertToEntityCompany(): EntityCompany =
         EntityCompany(
-            tradeData.convertToDate(),
+            tradeDate.convertToDate(),
             shortName,
             secId,
             open,
@@ -132,30 +132,8 @@ class RepositoryCompanyImpl(
             close
         )
 
-    private fun CacheCompanyOneDay.convertToEntityCompany(): EntityCompany =
-        EntityCompany(
-            tradeData.convertToDate(),
-            shortName,
-            secId,
-            open,
-            low,
-            high,
-            close
-        )
-
-    private fun CacheCompanyHalfYear.convertToEntityCompany(): EntityCompany =
-        EntityCompany(
-            tradeData.convertToDate(),
-            shortName,
-            secId,
-            open,
-            low,
-            high,
-            close
-        )
-
-    private fun EntityCompany.convertToCacheCompanyAfterYesterday(): CacheCompanyAfterYesterday =
-        CacheCompanyAfterYesterday(
+    private fun EntityCompany.convertToCacheCompanyAfterYesterday(): CashCompanyAfterYesterday =
+        CashCompanyAfterYesterday(
             secId,
             tradeDate.convertToString(),
             shortName,
@@ -165,8 +143,8 @@ class RepositoryCompanyImpl(
             close
         )
 
-    private fun EntityCompany.convertToCacheCompanyOneDay(): CacheCompanyOneDay =
-        CacheCompanyOneDay(
+    private fun EntityCompany.convertToCacheCompanyOneDay(): CashCompanyOneDay =
+        CashCompanyOneDay(
             secId,
             tradeDate.convertToString(),
             shortName,
@@ -176,8 +154,8 @@ class RepositoryCompanyImpl(
             close
         )
 
-    private fun EntityCompany.convertToCacheCompanyHalfYear(): CacheCompanyHalfYear =
-        CacheCompanyHalfYear(
+    private fun EntityCompany.convertToCacheCompanyHalfYear(): CashCompanyHalfYear =
+        CashCompanyHalfYear(
             secId,
             tradeDate.convertToString(),
             shortName,

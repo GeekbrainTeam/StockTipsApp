@@ -1,14 +1,14 @@
 package com.amk.core.repository
 
-import com.amk.core.db.ChacheDao
-import com.amk.core.entity.CacheCompanyAfterYesterday
-import com.amk.core.entity.CacheCompanyHalfYear
-import com.amk.core.entity.CacheCompanyOneDay
+import com.amk.core.db.CashDao
+import com.amk.core.entity.CashCompanyAfterYesterday
+import com.amk.core.entity.CashCompanyHalfYear
+import com.amk.core.entity.CashCompanyOneDay
 import com.amk.core.entity.FavoriteCompany
 
-class CacheRepository(private val cache: ChacheDao) {
+class CacheRepository(private val cache: CashDao)  {
 
-    suspend fun addCompanyOneDay(company: CacheCompanyOneDay) {
+    suspend fun addCompanyOneDay(company: CashCompanyOneDay) {
         cache.addCompanyOneDay(company)
     }
 
@@ -16,11 +16,11 @@ class CacheRepository(private val cache: ChacheDao) {
         cache.deleteListCompanyOneDay()
     }
 
-    suspend fun getCompanyOneDay(): List<CacheCompanyOneDay> {
+    suspend fun getCompanyOneDay(): List<CashCompanyOneDay> {
         return cache.getCompanyOneDay()
     }
 
-    suspend fun addCompanyAfterYesterday(company: CacheCompanyAfterYesterday) {
+    suspend fun addCompanyAfterYesterday(company: CashCompanyAfterYesterday) {
         cache.addCompanyAfterYesterday(company)
     }
 
@@ -28,11 +28,11 @@ class CacheRepository(private val cache: ChacheDao) {
         cache.deleteListCompanyAfterYesterday()
     }
 
-    suspend fun getCompanyAfterYesterday(): List<CacheCompanyAfterYesterday> {
+    suspend fun getCompanyAfterYesterday(): List<CashCompanyAfterYesterday> {
         return cache.getCompanyAfterYesterday()
     }
 
-    suspend fun addCompanyHalfYear(company: CacheCompanyHalfYear) {
+    suspend fun addCompanyHalfYear(company: CashCompanyHalfYear) {
         cache.addCompanyHalfYear(company)
     }
 
@@ -40,7 +40,7 @@ class CacheRepository(private val cache: ChacheDao) {
         cache.deleteListCompanyHalfYear()
     }
 
-    suspend fun getCompanyHalfYear(): List<CacheCompanyHalfYear> {
+    suspend fun getCompanyHalfYear(): List<CashCompanyHalfYear> {
         return cache.getCompanyHalfYear()
     }
 

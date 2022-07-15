@@ -11,15 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.amk.core.db.DataBaseCacheCompany
 import com.amk.core.entity.Company
 import com.amk.core.navigation.Action
 import com.amk.core.navigation.AppNavigation
-import com.amk.core.repository.CacheRepository
-import com.amk.core.repository.NetworkRepository
-import com.amk.core.repository.RepositoryCompany
-import com.amk.core.repository.RepositoryCompanyImpl
-import com.amk.core.retrofit.MoexApiImpl
 import com.amk.mylibrary.R
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
 import com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter
@@ -57,12 +51,7 @@ class ListCompanyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val networkRepository = NetworkRepository(MoexApiImpl().getMoexService())
-        val database = DataBaseCacheCompany.getDatabase(requireContext())
-        val cacheRepository = CacheRepository(database.cacheDao())
-        val repository = RepositoryCompanyImpl(requireContext(), networkRepository, cacheRepository)
         viewModel = ViewModelProvider(requireActivity())[CompaniesListViewModel::class.java]
-        viewModel.setRepo(repository)
 
         viewModel.companiesData.observe(viewLifecycleOwner) {
             val statesCompanyList = StatesCompanyList(binding)
@@ -154,6 +143,7 @@ class ListCompanyFragment : Fragment() {
             }
         })
     }
+
     private fun hide(fab: ExtendedFloatingActionButton) {
         fab.startAnimation(toBottomAnimation)
         fab.startAnimation(toBottomAnimation)

@@ -4,12 +4,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amk.core.interactors.SortingInteractorImpl
+import com.amk.core.entity.Company
 import com.amk.core.repository.RepositoryCompany
 import com.amk.mylibrary.utils.ListCompanyFragmentState
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class CompaniesListViewModel : ViewModel() {
-    private lateinit var repository: RepositoryCompany
+class CompaniesListViewModel : ViewModel(), KoinComponent {
+
+    private val repository by inject<RepositoryCompany>()
     private lateinit var sortingInteractorImpl: SortingInteractorImpl
     private val _companiesData =
         MutableLiveData<ListCompanyFragmentState>(ListCompanyFragmentState.Empty)
@@ -137,10 +142,6 @@ class CompaniesListViewModel : ViewModel() {
                 _companiesData.value = ListCompanyFragmentState.Failure(error)
             }
         }
-    }
-
-    fun setRepo(repository: RepositoryCompany) {
-        this.repository = repository
     }
 
 }
