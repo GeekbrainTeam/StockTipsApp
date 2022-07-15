@@ -3,6 +3,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.core.entity.Company
+import com.amk.core.entity.EntityCompany
 import com.amk.mylibrary.databinding.ItemCompanyBinding
 
 
@@ -13,7 +14,7 @@ class ListCompaniesAdapter(
     RecyclerView.Adapter<ListCompaniesHolder>() {
 
     interface OnStateClickListener {
-        fun onStateClick(company: Company, position: Int)
+        fun onStateClick(entityCompany: Company, position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListCompaniesHolder {
@@ -22,10 +23,10 @@ class ListCompaniesAdapter(
     }
 
     override fun onBindViewHolder(holder: ListCompaniesHolder, position: Int) {
-        val company: Company = list[position]
-        holder.bind(company)
+        val entityCompany: Company = list[position]
+        holder.bind(entityCompany)
         holder.itemView.setOnClickListener {
-            onClickListener.onStateClick(company, position)
+            onClickListener.onStateClick(entityCompany, position)
         }
     }
 

@@ -3,6 +3,7 @@ package com.amk.company.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amk.core.entity.Company
+import com.amk.core.entity.EntityCompany
 import com.amk.core.repository.Repository
 import com.amk.core.utils.changeDay
 import kotlinx.coroutines.*
@@ -10,7 +11,7 @@ import java.util.*
 
 class CompanyViewModel : ViewModel() {
     private lateinit var repository: Repository
-    val candlesListData = MutableLiveData<List<Company>>()
+    val candlesListData = MutableLiveData<List<EntityCompany>>()
     val errorData = MutableLiveData<String>()
     private var job: Job? = null
     private val scope = CoroutineScope(

@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -8,7 +9,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        minSdk 24
+        minSdk 26
         targetSdk 32
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -70,4 +71,9 @@ dependencies {
     // Navigation component
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
+
+    //Room
+    implementation 'androidx.room:room-common:2.5.0-alpha02'
+    implementation 'androidx.room:room-ktx:2.5.0-alpha02'
+    kapt 'androidx.room:room-compiler:2.5.0-alpha02'
 }

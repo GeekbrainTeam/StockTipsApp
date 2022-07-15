@@ -1,0 +1,17 @@
+package com.amk.core.utils
+
+const val COMPANY_OF_THE_DAY = "company_one_day"
+const val COMPANY_OF_AFTER_YESTERDAY = "company_one_after_yesterday"
+const val COMPANY_OF_HALF_YEAR = "company_half_year"
+const val COMPANY_IS_FAVORITE = "company_favorite"
+const val SEC_ID = "secId"
+const val TRADE_DATA = "tradeData"
+const val SHORT_NAME = "shortName"
+const val OPEN = "open"
+const val LOW = "low"
+const val HIGH = "high"
+const val CLOSE = "close"
+const val DATABASE_NAME = "cache_db"
+const val FORMAT_DATA="yyyy-MM-dd"
+const val DATA_LOAD ="one_two"
+const val DATA_HALF_YEAR ="half_year"
