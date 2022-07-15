@@ -121,7 +121,7 @@ class RepositoryCompanyImpl(
         }
     }
 
-    private fun <T : BaseRoomCompany> T.convertToEntityCompany(): EntityCompany =
+    private fun <T : BaseCashCompany> T.convertToEntityCompany(): EntityCompany =
         EntityCompany(
             tradeDate.convertToDate(),
             shortName,
@@ -132,8 +132,8 @@ class RepositoryCompanyImpl(
             close
         )
 
-    private fun EntityCompany.convertToCacheCompanyAfterYesterday(): CacheCompanyAfterYesterday =
-        CacheCompanyAfterYesterday(
+    private fun EntityCompany.convertToCacheCompanyAfterYesterday(): CashCompanyAfterYesterday =
+        CashCompanyAfterYesterday(
             secId,
             tradeDate.convertToString(),
             shortName,
@@ -143,8 +143,8 @@ class RepositoryCompanyImpl(
             close
         )
 
-    private fun EntityCompany.convertToCacheCompanyOneDay(): CacheCompanyOneDay =
-        CacheCompanyOneDay(
+    private fun EntityCompany.convertToCacheCompanyOneDay(): CashCompanyOneDay =
+        CashCompanyOneDay(
             secId,
             tradeDate.convertToString(),
             shortName,
@@ -154,8 +154,8 @@ class RepositoryCompanyImpl(
             close
         )
 
-    private fun EntityCompany.convertToCacheCompanyHalfYear(): CacheCompanyHalfYear =
-        CacheCompanyHalfYear(
+    private fun EntityCompany.convertToCacheCompanyHalfYear(): CashCompanyHalfYear =
+        CashCompanyHalfYear(
             secId,
             tradeDate.convertToString(),
             shortName,
