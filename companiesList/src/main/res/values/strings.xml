@@ -10,7 +10,7 @@
     <string name="text_name_company">Название компании</string>
     <string name="text_nominal">0,0 руб.</string>
     <string name="text_brief_name_company">SHORT</string>
-    <string name="text_change_price">0 Р (0%)</string>
+    <string name="text_change_price">0 ₽ (0%)</string>
     <string name="checkbox_add_favorite">Добавить в избранное</string>
     <string name="home">Домой</string>
     <string name="settings">Настройки</string>

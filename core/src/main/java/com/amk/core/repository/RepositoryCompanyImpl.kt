@@ -22,7 +22,7 @@ class RepositoryCompanyImpl(
     private val lastData = sharedPref.getString(DATA_LOAD, "")
     private val todayData = Date().convertToString()
 
-    override suspend fun сreateListOneDayYesterday(): List<Company> {
+    override suspend fun createListOneDayYesterday(): List<Company> {
         val listFavorite = cacheRepository.getFavoriteCompanies().map { it.secId }.toList()
         val dataGetReadyIsShow = mutableListOf<Company>()
 
@@ -38,7 +38,7 @@ class RepositoryCompanyImpl(
         return dataGetReadyIsShow
     }
 
-    override suspend fun сreateListOneDayHalfYear(): List<Company> {
+    override suspend fun createListOneDayHalfYear(): List<Company> {
         val listFavorite = cacheRepository.getFavoriteCompanies().map { it.secId }.toList()
         val dataGetReadyIsShow = mutableListOf<Company>()
 

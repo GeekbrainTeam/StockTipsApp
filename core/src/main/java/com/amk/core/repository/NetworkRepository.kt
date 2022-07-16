@@ -54,7 +54,8 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
         while (response.history.data.isNotEmpty()) {
             addToList(response, companiesList)
             index += pageSize
-            response = apiService.getCompaniesLastDatePage(start = index)
+            response =
+                apiService.getCompaniesByDatePage(start = index, date = tryDate.convertToString())
         }
         return companiesList
     }
