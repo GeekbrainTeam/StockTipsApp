@@ -142,4 +142,23 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
         }
     }
 
+    fun addFavorite(secId: String) {
+        viewModelScope.launch {
+            try {
+                repository.addFavoriteCompany(secId)
+            } catch (error: Exception) {
+                _companiesData.value = ListCompanyFragmentState.Failure(error)
+            }
+        }
+    }
+
+    fun deleteFavorite(secId: String) {
+        viewModelScope.launch {
+            try {
+                repository.deleteFavoriteCompany(secId)
+            } catch (error: Exception) {
+                _companiesData.value = ListCompanyFragmentState.Failure(error)
+            }
+        }
+    }
 }

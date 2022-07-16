@@ -20,7 +20,7 @@ class RepositoryCompanyImpl(
     private val todayData = Date().convertToString()
 
     override suspend fun CreateListOneDayYesterday(): List<Company> {
-        val listFavorite = cacheRepository.getCompanyFavoriteCompany().map { it.secId }.toList()
+        val listFavorite = cacheRepository.getFavoriteCompanies().map { it.secId }.toList()
         val dataGetReadyIsShow = mutableListOf<Company>()
         if (lastData == todayData) {
             val listCompanyCacheOneDay = cacheRepository.getCompanyOneDay()
@@ -59,7 +59,7 @@ class RepositoryCompanyImpl(
     }
 
     override suspend fun CreateListOneDayHalfYear(): List<Company> {
-        val listFavorite = cacheRepository.getCompanyFavoriteCompany().map { it.secId }.toList()
+        val listFavorite = cacheRepository.getFavoriteCompanies().map { it.secId }.toList()
         val dataGetReadyIsShow = mutableListOf<Company>()
         if (lastData == todayData) {
             val listCompanyCacheOneDay = cacheRepository.getCompanyOneDay()
@@ -94,6 +94,14 @@ class RepositoryCompanyImpl(
             sharedPref.edit().putString(DATA_LOAD, todayData).apply()
         }
         return dataGetReadyIsShow
+    }
+
+    override suspend fun addFavoriteCompany(secId: String) {
+        cacheRepository.addFavoriteCompany(FavoriteCompany(secId))
+    }
+
+    override suspend fun deleteFavoriteCompany(secId: String) {
+        cacheRepository.deleteFavoriteCompany(secId)
     }
 
     private suspend fun addToCache(

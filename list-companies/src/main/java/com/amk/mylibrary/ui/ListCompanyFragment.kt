@@ -112,7 +112,7 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
                     coordinator.execute(Action.ListCompanyToCompany, company.entityCompany.secId)
                 }
             }
-        recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener)
+        recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener, viewModel)
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

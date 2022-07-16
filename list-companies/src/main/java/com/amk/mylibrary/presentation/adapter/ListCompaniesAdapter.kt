@@ -4,11 +4,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.core.entity.Company
 import com.amk.mylibrary.databinding.ItemCompanyBinding
+import com.amk.mylibrary.viewmodel.CompaniesListViewModel
 
 
 class ListCompaniesAdapter(
     private val list: List<Company>,
-    private val onClickListener: OnStateClickListener
+    private val onClickListener: OnStateClickListener,
+    private val viewModel: CompaniesListViewModel
 ) :
     RecyclerView.Adapter<ListCompaniesHolder>() {
 
@@ -18,7 +20,7 @@ class ListCompaniesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListCompaniesHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ListCompaniesHolder(ItemCompanyBinding.inflate(inflater, parent, false))
+        return ListCompaniesHolder(ItemCompanyBinding.inflate(inflater, parent, false), viewModel)
     }
 
     override fun onBindViewHolder(holder: ListCompaniesHolder, position: Int) {

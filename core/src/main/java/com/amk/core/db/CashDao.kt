@@ -41,11 +41,11 @@ interface CashDao {
     suspend fun getCompanyHalfYear(): List<CashCompanyHalfYear>
 
     @Insert(entity = FavoriteCompany::class, onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addCompany(company: FavoriteCompany)
+    suspend fun addFavoriteCompany(company: FavoriteCompany)
 
     @Query("DELETE FROM $COMPANY_IS_FAVORITE WHERE $SEC_ID=:secId")
     suspend fun deleteFavoriteCompany(secId: String)
 
     @Query("SELECT * FROM $COMPANY_IS_FAVORITE")
-    suspend fun getCompanyFavoriteCompany(): List<FavoriteCompany>
+    suspend fun getFavoriteCompanies(): List<FavoriteCompany>
 }
