@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraint_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_4"
+    android:background="@drawable/rectangle_shape">
+
+    <TextView
+        android:id="@+id/name_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingStart="@dimen/margin_16"
+        android:text="@string/text_name_company"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/brief_name_company"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:paddingStart="@dimen/margin_16"
+        android:text="@string/text_brief_name_company"
+        android:textColor="@color/md_theme_light_onSurface"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/name_company"
+        app:layout_constraintTop_toBottomOf="@+id/name_company" />
+
+
+    <TextView
+        android:id="@+id/nominal_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="@string/text_nominal"
+        android:textColor="@color/md_theme_light_onSurface"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/name_company"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/name_company" />
+
+    <TextView
+        android:id="@+id/change_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_change_price"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/brief_name_company"
+        app:layout_constraintEnd_toEndOf="@+id/nominal_price"
+        app:layout_constraintTop_toBottomOf="@+id/nominal_price" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkBox_favorite"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:button="@drawable/checkbox_favorite_selector"
+        android:padding="@dimen/margin_4"
+        app:buttonTint="@color/color_favorite_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

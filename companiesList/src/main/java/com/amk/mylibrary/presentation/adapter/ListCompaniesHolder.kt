@@ -39,9 +39,10 @@ class ListCompaniesHolder(
     }
 
     private fun changePriceAndPercent(company: Company): String {
-        val changePrice = company.entityCompany.close.calcChangePrice(company.entityCompany.open)
-        val percent = company.entityCompany.close.calcChangePercent(company.entityCompany.open)
+        val changePrice = company.changePrice
+        val percent = company.changePercent
         val formateChangPrice = formatePrice(changePrice)
+
         if (changePrice > 0) {
             binding.changePrice.setTextColor(Color.GREEN)
         } else if (changePrice < 0) {
@@ -56,13 +57,6 @@ class ListCompaniesHolder(
             )
         }%)"
     }
-
-    private fun Double.calcChangePercent(openPrice: Double): Double {
-        if (0.0 == openPrice) return 0.0
-        return abs(100 - this / openPrice * 100)
-    }
-
-    private fun Double.calcChangePrice(openPrice: Double): Double = this - openPrice
 
     private fun formatePrice(price: Double): String =
         if (abs(price) > 999) ".1f"

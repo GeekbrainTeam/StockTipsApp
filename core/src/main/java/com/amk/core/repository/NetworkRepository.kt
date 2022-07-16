@@ -92,15 +92,7 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
         companiesList: MutableList<EntityCompany>
     ) {
         response.history.data.forEach { companyInfo ->
-            if (isContainsNulls(companyInfo)) {
-                companiesList.add(
-                    EntityCompany(
-                        tradeDate = companyInfo[1].convertToDate(),
-                        shortName = companyInfo[2],
-                        secId = companyInfo[3]
-                    )
-                )
-            } else {
+            if (!isContainsNulls(companyInfo)) {
                 companiesList.add(
                     EntityCompany(
                         tradeDate = companyInfo[1].convertToDate(),
