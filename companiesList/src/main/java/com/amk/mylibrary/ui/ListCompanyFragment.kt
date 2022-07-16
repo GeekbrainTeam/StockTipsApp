@@ -27,7 +27,7 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
             chooseSort(directionSort, typeSort)
         }
         viewModel.companiesData.observe(viewLifecycleOwner) {
-            val statesCompanyListInteractor = StatesCompanyListInteractor(binding, it, coordinator)
+            val statesCompanyListInteractor = StatesCompanyListInteractor(binding, it, coordinator, viewModel)
             statesCompanyListInteractor.init()
         }
         chooseSort(directionSort, typeSort)

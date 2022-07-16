@@ -60,16 +60,16 @@ class CacheRepository(private val cache: CashDao) {
         return cache.getCompanyHalfYear()
     }
 
-    suspend fun addCompany(company: FavoriteCompany) {
-        cache.addCompany(company)
+    suspend fun addFavoriteCompany(company: FavoriteCompany) {
+        cache.addFavoriteCompany(company)
     }
 
     suspend fun deleteFavoriteCompany(secId: String) {
         cache.deleteFavoriteCompany(secId)
     }
 
-    suspend fun getCompanyFavoriteCompany(): List<FavoriteCompany> {
-        return cache.getCompanyFavoriteCompany()
+    suspend fun getFavoriteCompanies(): List<FavoriteCompany> {
+        return cache.getFavoriteCompanies()
     }
 
     private fun EntityCompany.convertToCacheCompanyAfterYesterday(): CashCompanyAfterYesterday =
