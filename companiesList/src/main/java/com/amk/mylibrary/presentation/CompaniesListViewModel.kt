@@ -24,7 +24,7 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
         _companiesData.value = ListCompanyFragmentState.Loading
         viewModelScope.launch {
             try {
-                companyList.addAll(repository.createListOneDayYesterday())
+                companyList.addAll(repository.сreateListOneDayYesterday())
                 _companiesData.value =
                     ListCompanyFragmentState.Success(companyList)
                 sortingInteractorImpl = SortingInteractorImpl(companyList)
@@ -73,5 +73,23 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
         _companiesData.value =
             ListCompanyFragmentState.SortByChangePercentReverse(sortingInteractorImpl.getSortingByChangePercentReverse())
     }
+    fun addFavorite(secId: String) {
+        viewModelScope.launch {
+            try {
+                repository.addFavoriteCompany(secId)
+            } catch (error: Exception) {
+                _companiesData.value = ListCompanyFragmentState.Failure(error)
+            }
+        }
+    }
 
+    fun deleteFavorite(secId: String) {
+        viewModelScope.launch {
+            try {
+                repository.deleteFavoriteCompany(secId)
+            } catch (error: Exception) {
+                _companiesData.value = ListCompanyFragmentState.Failure(error)
+            }
+        }
+    }
 }

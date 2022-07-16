@@ -5,10 +5,14 @@ import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.core.entity.Company
 import com.amk.mylibrary.databinding.ItemCompanyBinding
+import com.amk.mylibrary.presentation.CompaniesListViewModel
 import kotlin.math.abs
 
 
-class ListCompaniesHolder(private val binding: ItemCompanyBinding) :
+class ListCompaniesHolder(
+    private val binding: ItemCompanyBinding,
+    private val viewModel: CompaniesListViewModel
+) :
     RecyclerView.ViewHolder(binding.root) {
 
     @SuppressLint("SetTextI18n")
@@ -22,6 +26,16 @@ class ListCompaniesHolder(private val binding: ItemCompanyBinding) :
         binding.nominalPrice.text =
             "${String.format("%$formatePrice", company.entityCompany.close)}  ₽"
         binding.changePrice.text = changePriceAndPercent(company)
+        binding.checkBoxFavorite.isChecked = company.favorite
+        binding.checkBoxFavorite.setOnCheckedChangeListener { _, isChecked ->
+            if (binding.root.isAttachedToWindow) {
+                if (isChecked) {
+                    viewModel.addFavorite(company.entityCompany.secId)
+                } else {
+                    viewModel.deleteFavorite(company.entityCompany.secId)
+                }
+            }
+        }
     }
 
     private fun changePriceAndPercent(company: Company): String {

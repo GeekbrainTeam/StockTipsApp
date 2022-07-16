@@ -5,6 +5,7 @@ import android.content.Context.MODE_PRIVATE
 import com.amk.core.entity.BaseCashCompany
 import com.amk.core.entity.Company
 import com.amk.core.entity.EntityCompany
+import com.amk.core.entity.FavoriteCompany
 import com.amk.core.interactors.CompanyFactory
 import com.amk.core.utils.DATA_LOAD
 import com.amk.core.utils.convertToDate
@@ -21,8 +22,8 @@ class RepositoryCompanyImpl(
     private val lastData = sharedPref.getString(DATA_LOAD, "")
     private val todayData = Date().convertToString()
 
-    override suspend fun createListOneDayYesterday(): List<Company> {
-        val listFavorite = cacheRepository.getCompanyFavoriteCompany().map { it.secId }.toList()
+    override suspend fun сreateListOneDayYesterday(): List<Company> {
+        val listFavorite = cacheRepository.getFavoriteCompanies().map { it.secId }.toList()
         val dataGetReadyIsShow = mutableListOf<Company>()
 
         if (lastData == todayData) {
@@ -37,9 +38,8 @@ class RepositoryCompanyImpl(
         return dataGetReadyIsShow
     }
 
-    override suspend fun createListOneDayHalfYear(): List<Company> {
-
-        val listFavorite = cacheRepository.getCompanyFavoriteCompany().map { it.secId }.toList()
+    override suspend fun сreateListOneDayHalfYear(): List<Company> {
+        val listFavorite = cacheRepository.getFavoriteCompanies().map { it.secId }.toList()
         val dataGetReadyIsShow = mutableListOf<Company>()
 
         if (lastData == todayData) {
@@ -91,6 +91,14 @@ class RepositoryCompanyImpl(
                 listFavorite = listFavorite
             ).getCompanies()
         )
+    }
+
+    override suspend fun addFavoriteCompany(secId: String) {
+        cacheRepository.addFavoriteCompany(FavoriteCompany(secId))
+    }
+
+    override suspend fun deleteFavoriteCompany(secId: String) {
+        cacheRepository.deleteFavoriteCompany(secId)
     }
 
     private suspend fun addToCache(
