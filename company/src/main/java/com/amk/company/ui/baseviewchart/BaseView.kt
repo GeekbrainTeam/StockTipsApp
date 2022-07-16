@@ -26,12 +26,13 @@ abstract class BaseView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
+    internal var divScreen: Double = 2.5
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
-        heightView = (heightSize / 2.5).toInt()
+        heightView = (heightSize / divScreen).toInt()
         coordZeroY = heightView - OFFSET_AXIS_Y
 
         stepYAxis = coordZeroY / COUNT_OF_VALUE_Y_AXIS.toFloat()

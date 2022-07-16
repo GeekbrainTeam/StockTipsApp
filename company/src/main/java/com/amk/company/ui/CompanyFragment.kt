@@ -23,7 +23,6 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
     private val candlestickView: CandlestickViewImpl by lazy {
         layoutInflater.inflate(R.layout.view_candlestick, null) as CandlestickViewImpl
     }
-
     override fun onPause() {
         super.onPause()
         binding.candleSv.visibility = View.INVISIBLE
@@ -45,6 +44,7 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
                 binding.candleSv.scrollBy(binding.candleSv.width, 0)
                 binding.candleSv.visibility = View.VISIBLE
             }
+            candlestickView.divScreen = 2.0
         }
 
         viewModel.errorData.observe(viewLifecycleOwner) {
@@ -71,6 +71,4 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
             String.format("%.1f", (percent))
         }%)"
     }
-
-
 }
