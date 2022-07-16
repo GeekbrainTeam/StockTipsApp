@@ -3,7 +3,6 @@ package com.amk.mylibrary.interactors
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,79 +14,27 @@ import com.amk.mylibrary.databinding.FragmentListCompanyBinding
 import com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
-class StatesCompanyListInteractor(
+class RecyclerViewState(
     private val binding: FragmentListCompanyBinding,
-    private val state: ListCompanyFragmentState,
     private val coordinator: AppNavigation,
 ) {
-    fun init() {
-        when (state) {
-            is ListCompanyFragmentState.Loading -> {
-                loading()
-            }
-            is ListCompanyFragmentState.Failure -> {
-                error()
-                Toast.makeText(binding.root.context, state.toString(), Toast.LENGTH_LONG).show()
-            }
-            is ListCompanyFragmentState.Success -> {
-                success()
-                setRecyclerView(state.data)
-            }
-            is ListCompanyFragmentState.SortByName -> {
-                success()
-                setRecyclerView(state.data)
-            }
-            is ListCompanyFragmentState.SortByNameReverse -> {
-                success()
-                setRecyclerView(state.data)
-            }
-            is ListCompanyFragmentState.SortByPrice -> {
-                success()
-                setRecyclerView(state.data)
-            }
-            is ListCompanyFragmentState.SortByPriceReverse -> {
-                success()
-                setRecyclerView(state.data)
-            }
-            is ListCompanyFragmentState.SortByChangePrice -> {
-                success()
-                setRecyclerView(state.data)
-            }
-            is ListCompanyFragmentState.SortByChangePriceReverse -> {
-                success()
-                setRecyclerView(state.data)
-            }
-            is ListCompanyFragmentState.SortByChangePercent -> {
-                success()
-                setRecyclerView(state.data)
-            }
-            is ListCompanyFragmentState.SortByChangePercentReverse -> {
-                success()
-                setRecyclerView(state.data)
-            }
-            else -> {
-                ListCompanyFragmentState.Empty
-            }
-        }
-    }
 
-
-    private fun loading() {
+    internal fun loading() {
         binding.recyclerViewCompanies.isVisible = false
         binding.progressBar.isVisible = true
     }
 
-    private fun error() {
+    internal fun error() {
         binding.recyclerViewCompanies.isVisible = false
         binding.progressBar.isVisible = false
     }
 
-    private fun success() {
+    internal fun success() {
         binding.recyclerViewCompanies.isVisible = true
         binding.progressBar.isVisible = false
     }
 
-    private fun setRecyclerView(list: List<Company>) {
+    internal fun setRecyclerView(list: List<Company>) {
         val recyclerView: RecyclerView = binding.recyclerViewCompanies
         recyclerView.layoutManager = LinearLayoutManager(
             binding.root.context,

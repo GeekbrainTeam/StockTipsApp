@@ -15,7 +15,7 @@ dependencyResolutionManagement {
 rootProject.name = "StockTipsApp"
 include ':app'
 include ':core'
-include ':list-companies'
+include ':companiesList'
 include ':company'
 include ':favorite'
 include ':settings'

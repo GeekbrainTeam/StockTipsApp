@@ -38,7 +38,7 @@ android {
 
 dependencies {
     implementation(project(":core"))
-    implementation(project(":list-companies"))
+    implementation implementation(project(':companiesList',))
     implementation(project(":company"))
     implementation(project(":favorite"))
     implementation(project(":settings"))
