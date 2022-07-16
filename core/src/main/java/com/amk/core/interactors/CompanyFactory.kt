@@ -2,6 +2,8 @@ package com.amk.core.interactors
 
 import com.amk.core.entity.Company
 import com.amk.core.entity.EntityCompany
+import com.amk.core.utils.changePrice
+import com.amk.core.utils.percent
 
 class CompanyFactory(
     private val currentDateCompanies: List<EntityCompany>,
@@ -26,8 +28,8 @@ class CompanyFactory(
                 Company(
                     commonCompany.shortName,
                     currentDateCompanies.first { it.shortName == commonCompany.shortName },
-                    currentDateCompany.close - previousDateCompany.close,
-                    100 - currentDateCompany.close / previousDateCompany.close * 100,
+                    currentDateCompany.close.changePrice(previousDateCompany.close),
+                    currentDateCompany.close.percent(previousDateCompany.close),
                     listFavorite.contains(currentDateCompany.secId)
                 )
             )

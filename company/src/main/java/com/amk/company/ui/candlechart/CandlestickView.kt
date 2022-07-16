@@ -33,11 +33,9 @@ class CandlestickViewImpl @JvmOverloads constructor(
         minValueYAxis = candleList.minCandleList()
         ChartValue.stepValueYAxis = maxValueYAxis / COUNT_OF_VALUE_Y_AXIS
         coordEndXAxis = widthPerView * candleList.size - coordZeroX
-        scrollToLeft()
 
         when (widthMode) {
             MeasureSpec.AT_MOST, MeasureSpec.EXACTLY, MeasureSpec.UNSPECIFIED -> {
-
                 stepXAxis = widthPerView.toFloat()
                 if (candleList.isNotEmpty()) {
                     heightPerValue = coordZeroY / maxValueYAxis
@@ -96,9 +94,6 @@ class CandlestickViewImpl @JvmOverloads constructor(
         invalidate()
     }
 
-    private fun scrollToLeft() {
-//        post { scrollBy(600, 0) }
-    }
 
     fun showNoData() {
         Toast.makeText(this.context, "Error! No data!", Toast.LENGTH_SHORT).show()

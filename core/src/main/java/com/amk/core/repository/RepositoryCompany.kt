@@ -4,9 +4,9 @@ import com.amk.core.entity.Company
 
 interface RepositoryCompany {
 
-    suspend fun сreateListOneDayYesterday(): List<Company>
+    suspend fun createListOneDayYesterday(): List<Company>
 
-    suspend fun сreateListOneDayHalfYear(): List<Company>
+    suspend fun createListOneDayHalfYear(): List<Company>
 
     suspend fun addFavoriteCompany(secId: String)
 

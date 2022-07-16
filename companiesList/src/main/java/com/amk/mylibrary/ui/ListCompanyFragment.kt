@@ -24,38 +24,16 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
         childFragmentManager.setFragmentResultListener(KEY, this) { _, bundle ->
             typeSort = bundle.get(TYPE_OF_SORT) as TypeSort
             directionSort = bundle.get(DIRECTION_OF_SORT) as Direction
-            chooseSort(directionSort, typeSort)
+            viewModel.chooseSort(directionSort, typeSort)
         }
         viewModel.companiesData.observe(viewLifecycleOwner) {
             val statesCompanyListInteractor = StatesCompanyListInteractor(binding, it, coordinator, viewModel)
             statesCompanyListInteractor.init()
         }
-        chooseSort(directionSort, typeSort)
 
         binding.bottomSortCompany.setOnClickListener {
             val dialog = DialogSorting.getInstance()
             dialog.show(childFragmentManager, ARGUMENT_KEY)
-        }
-    }
-
-    private fun chooseSort(directionSort: Direction, typeSort: TypeSort) {
-        when (directionSort) {
-            Direction.Up -> {
-                when (typeSort) {
-                    TypeSort.Name -> viewModel.getSortedByName()
-                    TypeSort.Price -> viewModel.getSortedByPrice()
-                    TypeSort.ChangePrice -> viewModel.getSortedByChangePrice()
-                    TypeSort.Percent -> viewModel.getSortedByChangePercent()
-                }
-            }
-            Direction.Down -> {
-                when (typeSort) {
-                    TypeSort.Name -> viewModel.getSortedByNameReverse()
-                    TypeSort.Price -> viewModel.getSortedByPriceReverse()
-                    TypeSort.ChangePrice -> viewModel.getSortedByChangePriceReverse()
-                    TypeSort.Percent -> viewModel.getSortedByChangePercentReverse()
-                }
-            }
         }
     }
 }

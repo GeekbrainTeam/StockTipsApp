@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.CompanyFragment">
 
-    <!--    <ScrollView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent">-->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/price_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="24dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="4dp"
+        android:textColor="@color/md_theme_light_outline"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="210.61 ₽ " />
 
-    <!--        <LinearLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:orientation="vertical">-->
-
-    <!--            <TextView-->
-    <!--                android:id="@+id/text_view"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="match_parent"-->
-    <!--                android:text="Компании" />-->
-    <!--        </LinearLayout>-->
-
-    <!--    </ScrollView>-->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/change_price_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp"
+        android:layout_marginStart="4dp"
+        android:text="-11 (0.25%) "
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintBaseline_toBaselineOf="@+id/price_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/price_textview" />
 
     <HorizontalScrollView
         android:id="@+id/candle_sv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="90"
-        android:visibility="invisible"
         android:background="@android:color/white"
+        android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/axisYView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price_textview"
         tools:ignore="UselessParent">
 
     </HorizontalScrollView>
@@ -46,5 +55,18 @@
         android:background="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/candle_sv" />
+
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginEnd="@dimen/margin_8"-->
+    <!--        android:layout_marginBottom="24dp"-->
+    <!--        android:elevation="20dp"-->
+    <!--        android:visibility="visible"-->
+    <!--        app:layout_behavior="com.amk.stocktipsapp.ui.FabBehavior"-->
+    <!--        android:src="@drawable/ic_baseline_filter_list_24"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

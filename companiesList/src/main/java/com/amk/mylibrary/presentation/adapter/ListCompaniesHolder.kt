@@ -18,13 +18,17 @@ class ListCompaniesHolder(
     @SuppressLint("SetTextI18n")
     fun bind(company: Company) {
 
-        val formatePrice = formatePrice(company.entityCompany.close)
+        val formatePrice = formatPrice(company.entityCompany.close)
 
 
         binding.nameCompany.text = company.shortName
         binding.briefNameCompany.text = company.entityCompany.secId
         binding.nominalPrice.text =
             "${String.format("%$formatePrice", company.entityCompany.close)}  ₽"
+        binding.nameCompany.text = company.shortName
+        binding.briefNameCompany.text = company.entityCompany.secId
+        binding.changePrice.text = changePriceAndPercent(company)
+
         binding.changePrice.text = changePriceAndPercent(company)
         binding.checkBoxFavorite.isChecked = company.favorite
         binding.checkBoxFavorite.setOnCheckedChangeListener { _, isChecked ->
@@ -41,7 +45,7 @@ class ListCompaniesHolder(
     private fun changePriceAndPercent(company: Company): String {
         val changePrice = company.changePrice
         val percent = company.changePercent
-        val formateChangPrice = formatePrice(changePrice)
+        val formatChangPrice = formatPrice(company.entityCompany.close)
 
         if (changePrice > 0) {
             binding.changePrice.setTextColor(Color.GREEN)
@@ -50,7 +54,7 @@ class ListCompaniesHolder(
         } else {
             binding.changePrice.setTextColor(Color.GRAY)
         }
-        return "${String.format("%$formateChangPrice", (changePrice))} ₽  (${
+        return "${String.format("%$formatChangPrice", (changePrice))} ₽  (${
             String.format(
                 "%.1f",
                 (percent)
@@ -58,7 +62,7 @@ class ListCompaniesHolder(
         }%)"
     }
 
-    private fun formatePrice(price: Double): String =
+    private fun formatPrice(price: Double): String =
         if (abs(price) > 999) ".1f"
         else if (abs(price) > 9) ".2f"
         else if (abs(price) > 1) ".3f"

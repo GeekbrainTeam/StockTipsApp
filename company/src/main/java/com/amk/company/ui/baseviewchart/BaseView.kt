@@ -2,10 +2,8 @@ package com.amk.company.ui.baseviewchart
 
 import android.content.Context
 import android.graphics.Canvas
-import android.os.Build
 import android.util.AttributeSet
 import android.view.View
-import androidx.annotation.RequiresApi
 import com.amk.company.ui.baseviewchart.ChartValue.COUNT_OF_VALUE_Y_AXIS
 import com.amk.company.ui.baseviewchart.ChartValue.OFFSET_AXIS_Y
 import com.amk.company.ui.baseviewchart.ChartValue.SEGMENT_LENGTH
@@ -33,17 +31,14 @@ abstract class BaseView @JvmOverloads constructor(
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
-        heightView = (heightSize / 1.5).toInt()
+        heightView = (heightSize / 2.5).toInt()
         coordZeroY = heightView - OFFSET_AXIS_Y
 
         stepYAxis = coordZeroY / COUNT_OF_VALUE_Y_AXIS.toFloat()
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         ChartValue.widthSize = MeasureSpec.getSize(widthMeasureSpec)
-
-
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun onDrawXAxisSignatures(canvas: Canvas, date: Date, index: Int) {
         val positionX = (currentX + widthPerView / 2).toFloat()
         //Рисование сигнатуры на оси Х
@@ -56,7 +51,6 @@ abstract class BaseView @JvmOverloads constructor(
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun onDrawCoordinateGrid(canvas: Canvas) {
         canvas.drawLine(coordZeroX, coordZeroY, coordEndXAxis, coordZeroY, Paints.paintAxis)//ось X
         canvas.drawLine(coordZeroX, 0f, coordEndXAxis, 0f, Paints.paintAxis)//ось X
@@ -105,7 +99,6 @@ internal fun List<EntityCompany>.min(): Double {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 fun String.convertDate(): String {
     val localDate = LocalDate.parse(this)
     return if (localDate.monthValue < 10) {
