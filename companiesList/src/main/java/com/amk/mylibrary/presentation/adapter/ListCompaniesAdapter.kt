@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.core.entity.Company
 import com.amk.mylibrary.databinding.ItemCompanyBinding
-import com.amk.mylibrary.viewmodel.CompaniesListViewModel
+import com.amk.mylibrary.presentation.CompaniesListViewModel
 
 
 class ListCompaniesAdapter(

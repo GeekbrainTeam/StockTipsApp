@@ -5,7 +5,7 @@ import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.core.entity.Company
 import com.amk.mylibrary.databinding.ItemCompanyBinding
-import com.amk.mylibrary.viewmodel.CompaniesListViewModel
+import com.amk.mylibrary.presentation.CompaniesListViewModel
 import kotlin.math.abs
 
 

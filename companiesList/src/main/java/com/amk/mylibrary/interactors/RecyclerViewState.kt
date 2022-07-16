@@ -11,12 +11,14 @@ import com.amk.core.navigation.Action
 import com.amk.core.navigation.AppNavigation
 import com.amk.mylibrary.R
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
+import com.amk.mylibrary.presentation.CompaniesListViewModel
 import com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class RecyclerViewState(
     private val binding: FragmentListCompanyBinding,
     private val coordinator: AppNavigation,
+    private val viewModel: CompaniesListViewModel,
 ) {
 
     internal fun loading() {
@@ -46,7 +48,7 @@ class RecyclerViewState(
                     coordinator.execute(Action.ListCompanyToCompany, company.entityCompany.secId)
                 }
             }
-        recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener)
+        recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener, viewModel)
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
