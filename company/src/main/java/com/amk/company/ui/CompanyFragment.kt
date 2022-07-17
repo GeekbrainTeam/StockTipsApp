@@ -1,5 +1,6 @@
 package com.amk.company.ui
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -17,6 +18,7 @@ import com.amk.core.utils.changePrice
 import com.amk.core.utils.formatPrice
 import com.amk.core.utils.percent
 
+@SuppressLint("InflateParams")
 class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>() {
 
     override fun getViewBinding() = FragmentCompanyBinding.inflate(layoutInflater)
@@ -40,6 +42,7 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
         binding.candleSv.visibility = View.INVISIBLE
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val secId = this.arguments?.getString("SECID")
@@ -59,9 +62,6 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
                 binding.candleSv.scrollBy(binding.candleSv.width, 0)
                 binding.candleSv.visibility = View.VISIBLE
             }
-            theeLineBreackView.divScreen = 2.0
-            candlestickView.divScreen = 2.0
-            lineChart.divScreen = 2.0
 
         }
 
@@ -84,6 +84,9 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
                 binding.changeChartFab.setImageResource(com.amk.core.R.drawable.ic_baseline_filter_list_24)
                 binding.candleSv.removeView(theeLineBreackView)
                 binding.candleSv.addView(lineChart)
+                binding.candleSv.post {
+                    binding.candleSv.scrollBy(binding.candleSv.width, 0)
+                }
             }
             StateChart.ShowCandles -> {
                 theeLineBreackView.visibility = View.GONE
