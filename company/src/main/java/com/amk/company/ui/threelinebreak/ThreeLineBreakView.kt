@@ -3,7 +3,6 @@ package com.amk.company.ui.threelinebreak
 import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
-import android.widget.Toast
 import com.amk.company.ui.baseviewchart.BaseView
 import com.amk.company.ui.baseviewchart.ChartValue
 import com.amk.company.ui.baseviewchart.ChartValue.coordZeroY
@@ -27,12 +26,6 @@ class ThreeLineBreakView @JvmOverloads constructor(
         threeLineBreaks.addAll(ThreeLineBreakCompanyFactory(companyList).getThreeLineCompanies())
         requestLayout()
         invalidate()
-    }
-
-    fun getWidthView(): Int = widthPerView * threeLineBreaks.size
-
-    fun showNoData() {
-        Toast.makeText(this.context, "Error! No data!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

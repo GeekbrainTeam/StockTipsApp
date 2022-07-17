@@ -62,7 +62,6 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
                 binding.candleSv.scrollBy(binding.candleSv.width, 0)
                 binding.candleSv.visibility = View.VISIBLE
             }
-
         }
 
         viewModel.errorData.observe(viewLifecycleOwner) {

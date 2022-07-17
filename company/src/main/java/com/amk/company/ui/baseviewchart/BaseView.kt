@@ -25,7 +25,7 @@ abstract class BaseView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    internal var divScreen: Double = 2.0
+    private var divScreen: Double = 2.0
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
