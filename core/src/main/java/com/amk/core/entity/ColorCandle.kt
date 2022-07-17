@@ -1,9 +1,9 @@
-package com.amk.company.ui.baseviewchart
+package com.amk.core.entity
 
 import android.graphics.Color
 import android.graphics.Paint
 
-sealed class ColorCandle(internal val paint: Paint) {
+sealed class ColorCandle(val paint: Paint) {
 
     class PriceDown : ColorCandle(Paint().apply {
         color = Color.RED

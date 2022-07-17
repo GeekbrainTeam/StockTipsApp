@@ -43,7 +43,7 @@ class AxisYViewImpl @JvmOverloads constructor(
         maxValueYAxis = candleList.diffCandlestick()
         ChartValue.minValueYAxis = candleList.minCandleList()
         stepValueYAxis = maxValueYAxis / COUNT_OF_VALUE_Y_AXIS
-
+        divScreen = 2.0
         coordZeroX = 2f
         setMeasuredDimension(_defaultWidth.toInt(), heightView)
     }

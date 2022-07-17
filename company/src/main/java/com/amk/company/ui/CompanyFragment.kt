@@ -9,6 +9,7 @@ import com.amk.company.R
 import com.amk.company.databinding.FragmentCompanyBinding
 import com.amk.company.presentation.CompanyViewModel
 import com.amk.company.ui.candlechart.CandlestickViewImpl
+import com.amk.company.ui.threelinebreak.ThreeLineBreakView
 import com.amk.core.entity.EntityCompany
 import com.amk.core.ui.BaseFragment
 import com.amk.core.utils.changePrice
@@ -20,9 +21,15 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
     override fun getViewBinding() = FragmentCompanyBinding.inflate(layoutInflater)
     override fun getVModelClass() = CompanyViewModel::class.java
 
+    private var stateChart: StateChart = StateChart.ShowCandles
     private val candlestickView: CandlestickViewImpl by lazy {
         layoutInflater.inflate(R.layout.view_candlestick, null) as CandlestickViewImpl
     }
+
+    private val theeLineBreackView: ThreeLineBreakView by lazy {
+        layoutInflater.inflate(R.layout.view_threelinebreak, null) as ThreeLineBreakView
+    }
+
     override fun onPause() {
         super.onPause()
         binding.candleSv.visibility = View.INVISIBLE
@@ -31,6 +38,7 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val secId = this.arguments?.getString("SECID")
+        viewModel.getCompanyCandles(secId ?: "")
         binding.candleSv.addView(candlestickView)
         viewModel.candlesListData.observe(viewLifecycleOwner) { companyList ->
             (activity as AppCompatActivity).supportActionBar?.title =
@@ -38,19 +46,47 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
             binding.priceTextview.text = "${companyList.last().close} ₽"
             binding.changePriceTextview.text =
                 changePriceAndPercent(companyList.last(), companyList[companyList.size - 2])
+            theeLineBreackView.drawThreeLine(companyList)
             candlestickView.drawCandles(companyList)
             binding.axisYView.drawAxisY(companyList)
             binding.candleSv.post {
                 binding.candleSv.scrollBy(binding.candleSv.width, 0)
                 binding.candleSv.visibility = View.VISIBLE
             }
+            theeLineBreackView.divScreen = 2.0
             candlestickView.divScreen = 2.0
+
         }
 
         viewModel.errorData.observe(viewLifecycleOwner) {
             Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
         }
-        viewModel.getCompanyCandles(secId ?: "")
+        binding.changeChartFab.setOnClickListener {
+            stateChart = when (stateChart) {
+                StateChart.ShowCandles -> StateChart.ShowThreeLineBreak
+                StateChart.ShowThreeLineBreak -> StateChart.ShowCandles
+            }
+            showChart()
+        }
+    }
+
+    private fun showChart() {
+        when (stateChart) {
+            StateChart.ShowCandles -> {
+                theeLineBreackView.visibility = View.GONE
+                candlestickView.visibility = View.VISIBLE
+                binding.changeChartFab.setImageResource(R.drawable.icon_three_line_break_chart)
+                binding.candleSv.removeView(theeLineBreackView)
+                binding.candleSv.addView(candlestickView)
+            }
+            StateChart.ShowThreeLineBreak -> {
+                candlestickView.visibility = View.GONE
+                theeLineBreackView.visibility = View.VISIBLE
+                binding.changeChartFab.setImageResource(R.drawable.icon_candlestick_chart)
+                binding.candleSv.removeView(candlestickView)
+                binding.candleSv.addView(theeLineBreackView)
+            }
+        }
     }
 
     private fun changePriceAndPercent(
@@ -70,5 +106,10 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
         return "${String.format("%$formatChangPrice", (changePrice))} ₽  (${
             String.format("%.1f", (percent))
         }%)"
+    }
+
+    private sealed interface StateChart {
+        object ShowCandles : StateChart
+        object ShowThreeLineBreak : StateChart
     }
 }
