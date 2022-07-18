@@ -17,7 +17,6 @@ import com.amk.company.ui.baseviewchart.ChartValue.stepYAxis
 import com.amk.company.ui.baseviewchart.ChartValue.widthPerView
 import com.amk.core.entity.EntityCompany
 import com.amk.core.utils.convertForXAxis
-import java.time.LocalDate
 import java.util.*
 
 abstract class BaseView @JvmOverloads constructor(
@@ -26,10 +25,8 @@ abstract class BaseView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    internal var divScreen: Double = 2.5
+    private var divScreen: Double = 2.0
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
-        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
         heightView = (heightSize / divScreen).toInt()
@@ -97,14 +94,5 @@ internal fun List<EntityCompany>.min(): Double {
         (min - min / 50)
     } else {
         0.0
-    }
-}
-
-fun String.convertDate(): String {
-    val localDate = LocalDate.parse(this)
-    return if (localDate.monthValue < 10) {
-        "${localDate.dayOfMonth}.0${localDate.monthValue}"
-    } else {
-        "${localDate.dayOfMonth}.${localDate.monthValue}"
     }
 }

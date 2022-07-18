@@ -1,5 +1,6 @@
 package com.amk.company.ui.baseviewchart
 
+import com.amk.core.entity.ColorCandle
 import com.amk.core.entity.EntityCompany
 
 fun EntityCompany.colorBody(): ColorCandle =
