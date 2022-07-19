@@ -36,4 +36,5 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
             dialog.show(childFragmentManager, ARGUMENT_KEY)
         }
     }
+
 }

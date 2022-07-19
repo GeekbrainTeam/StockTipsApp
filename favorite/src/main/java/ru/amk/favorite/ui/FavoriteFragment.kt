@@ -26,4 +26,5 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
         }
 
     }
+
 }

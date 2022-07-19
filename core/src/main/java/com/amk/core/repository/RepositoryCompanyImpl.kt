@@ -2,12 +2,11 @@ package com.amk.core.repository
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import com.amk.core.entity.BaseCashCompany
-import com.amk.core.entity.Company
-import com.amk.core.entity.EntityCompany
-import com.amk.core.entity.FavoriteCompany
+import com.amk.core.entity.*
 import com.amk.core.interactors.CompanyFactory
+import com.amk.core.interactors.FavoriteFactory
 import com.amk.core.utils.DATA_LOAD
+import com.amk.core.utils.changeDay
 import com.amk.core.utils.convertToDate
 import com.amk.core.utils.convertToString
 import java.util.*
@@ -101,7 +100,44 @@ class RepositoryCompanyImpl(
         cacheRepository.deleteFavoriteCompany(secId)
     }
 
-    override suspend fun createFavoriteCompany() = cacheRepository.getFavoriteCompanies()
+    override suspend fun createFavoriteCompany(): List<FavoriteCompanyShow> {
+        val listFavorite = cacheRepository.getFavoriteCompanies().map { it.secId }.toList()
+        val dataGetReadyIsShow = mutableListOf<FavoriteCompanyShow>()
+        val date = Date()
+        listFavorite.forEach {
+            val graph = networkRepository.getCompanyCandles(it, date.changeDay(-90), date)
+            val changePerDay = networkRepository.getCompanyCandles(it, date.changeDay(-1), date)
+            val changePerWeek = networkRepository.getCompanyCandles(it, date.changeDay(-7), date)
+            val changePerMonth = networkRepository.getCompanyCandles(it, date.changeDay(-30), date)
+            dataGetReadyIsShow.add(
+                FavoriteCompanyShow(
+                    secId = it,
+                    name = changePerDay.first().shortName,
+                    listEntityCompany = graph,
+                    changePricePerDay = FavoriteFactory(
+                        changePerDay.first(), changePerDay.last()
+                    ).changePriceFavorite(),
+                    changePercentPerDay = FavoriteFactory(
+                        changePerDay.first(), changePerDay.last()
+                    ).changePercentFavorite(),
+                    changePricePerWeek = FavoriteFactory(
+                        changePerWeek.first(), changePerWeek.last()
+                    ).changePriceFavorite(),
+                    changePercentPerWeek = FavoriteFactory(
+                        changePerWeek.first(), changePerWeek.last()
+                    ).changePercentFavorite(),
+                    changePricePerMonth = FavoriteFactory(
+                        changePerMonth.first(), changePerMonth.last()
+                    ).changePriceFavorite(),
+                    changePercentPerMonth = FavoriteFactory(
+                        changePerMonth.first(), changePerMonth.last()
+                    ).changePercentFavorite(),
+                    favorite = true
+                )
+            )
+        }
+        return dataGetReadyIsShow
+    }
 
 
     private suspend fun addToCache(

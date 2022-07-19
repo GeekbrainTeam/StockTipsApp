@@ -3,6 +3,10 @@ package ru.amk.favorite.presentation.adapter
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.core.entity.FavoriteCompany
+import com.amk.core.interactors.FavoriteFactory
+import com.amk.core.repository.NetworkRepository
+import com.amk.core.retrofit.MoexApiImpl
+import com.amk.core.retrofit.MoexApiService
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.amk.favorite.databinding.ItemFavoriteBinding
 import kotlin.math.abs
@@ -13,11 +17,11 @@ class FavoriteCompaniesHolder(
 
 ) :
     RecyclerView.ViewHolder(binding.root) {
-
     val onDeleteClick: FloatingActionButton = binding.buttonDelete
     @SuppressLint("SetTextI18n")
     fun bind(favorite: FavoriteCompany) {
         binding.briefNameFavoriteTextview.text = favorite.secId
+
         //val formatePrice = formatPrice(company.entityCompany.close)
 
 
