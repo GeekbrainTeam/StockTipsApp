@@ -101,6 +101,9 @@ class RepositoryCompanyImpl(
         cacheRepository.deleteFavoriteCompany(secId)
     }
 
+    override suspend fun createFavoriteCompany() = cacheRepository.getFavoriteCompanies()
+
+
     private suspend fun addToCache(
         entityCompaniesOneDay: List<EntityCompany>,
         entityCompaniesAfterYesterday: List<EntityCompany>,

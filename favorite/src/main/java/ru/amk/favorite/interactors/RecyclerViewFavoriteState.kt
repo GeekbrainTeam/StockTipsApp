@@ -12,6 +12,7 @@ class RecyclerViewFavoriteState(
     private val binding: FragmentFavoriteBinding,
     private val viewModel: FavoriteViewModel
 ) : FavoriteCompaniesAdapter.FavoriteClickDeleteInterface {
+    val adapter = binding.recyclerFavoriteCompanies.adapter
      internal fun loading() {
         binding.recyclerFavoriteCompanies.isVisible = false
         binding.progressBarFavorite.isVisible = true
@@ -34,7 +35,7 @@ class RecyclerViewFavoriteState(
         )
 
         recyclerView.adapter = FavoriteCompaniesAdapter(listFavorite, this)
-
+        //recyclerView.adapter.notifyDataSetChanged()
 
     }
 
