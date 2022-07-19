@@ -7,6 +7,7 @@ const val KEY = "sort_key"
 const val ARGUMENT_KEY = "args_key"
 val DEFAULT_DIRECTION_SORT = Direction.Up
 val DEFAULT_TYPE_SORT = TypeSort.Name
+val DEFAULT_FIRST = Filter.default
 
 sealed interface Direction : java.io.Serializable {
     object Up : Direction
@@ -18,4 +19,9 @@ sealed interface TypeSort : java.io.Serializable {
     object Price : TypeSort
     object ChangePrice : TypeSort
     object Percent : TypeSort
+}
+
+sealed interface Filter : java.io.Serializable {
+    object default : Filter
+    object firstFavorit : Filter
 }

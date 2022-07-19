@@ -7,10 +7,7 @@ import com.amk.core.entity.Company
 import com.amk.core.interactors.SortingInteractorImpl
 import com.amk.core.repository.RepositoryCompany
 import com.amk.mylibrary.interactors.ListCompanyFragmentState
-import com.amk.mylibrary.utils.DEFAULT_DIRECTION_SORT
-import com.amk.mylibrary.utils.DEFAULT_TYPE_SORT
-import com.amk.mylibrary.utils.Direction
-import com.amk.mylibrary.utils.TypeSort
+import com.amk.mylibrary.utils.*
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -21,6 +18,7 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
     private val companyList: MutableList<Company> = mutableListOf()
     private var typeSort: TypeSort = DEFAULT_TYPE_SORT
     private var directionSort: Direction = DEFAULT_DIRECTION_SORT
+    private var firstElements: Filter = DEFAULT_FIRST
 
     private var sortingInteractorImpl: SortingInteractorImpl = SortingInteractorImpl(companyList)
     private val _companiesData =
@@ -39,7 +37,7 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
                 _companiesData.value =
                     ListCompanyFragmentState.Success(companyList)
                 sortingInteractorImpl = SortingInteractorImpl(companyList)
-                chooseSort(directionSort, typeSort)
+                chooseSort(directionSort, typeSort, firstElements)
             } catch (error: Exception) {
                 _companiesData.value = ListCompanyFragmentState.Failure(error)
             }
@@ -70,24 +68,49 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    internal fun chooseSort(directionSort: Direction, typeSort: TypeSort) {
+    internal fun chooseSort(directionSort: Direction, typeSort: TypeSort, firstElements: Filter) {
         this.directionSort = directionSort
         this.typeSort = typeSort
-        when (directionSort) {
-            Direction.Up -> {
-                when (typeSort) {
-                    TypeSort.Name -> getSortedByName()
-                    TypeSort.Price -> getSortedByPrice()
-                    TypeSort.ChangePrice -> getSortedByChangePrice()
-                    TypeSort.Percent -> getSortedByChangePercent()
+        this.firstElements = firstElements
+        when (firstElements) {
+            Filter.default -> {
+                when (directionSort) {
+                    Direction.Up -> {
+                        when (typeSort) {
+                            TypeSort.Name -> getSortedByName()
+                            TypeSort.Price -> getSortedByPrice()
+                            TypeSort.ChangePrice -> getSortedByChangePrice()
+                            TypeSort.Percent -> getSortedByChangePercent()
+                        }
+                    }
+                    Direction.Down -> {
+                        when (typeSort) {
+                            TypeSort.Name -> getSortedByNameReverse()
+                            TypeSort.Price -> getSortedByPriceReverse()
+                            TypeSort.ChangePrice -> getSortedByChangePriceReverse()
+                            TypeSort.Percent -> getSortedByChangePercentReverse()
+                        }
+                    }
                 }
             }
-            Direction.Down -> {
-                when (typeSort) {
-                    TypeSort.Name -> getSortedByNameReverse()
-                    TypeSort.Price -> getSortedByPriceReverse()
-                    TypeSort.ChangePrice -> getSortedByChangePriceReverse()
-                    TypeSort.Percent -> getSortedByChangePercentReverse()
+            Filter.firstFavorit -> {
+                when (directionSort) {
+                    Direction.Up -> {
+                        when (typeSort) {
+                            TypeSort.Name -> getSortedFavoriteByName()
+                            TypeSort.Price -> getSortedFavoriteByPrice()
+                            TypeSort.ChangePrice -> getSortedFavoriteByChangePrice()
+                            TypeSort.Percent -> getSortedFavoriteByChangePercent()
+                        }
+                    }
+                    Direction.Down -> {
+                        when (typeSort) {
+                            TypeSort.Name -> getSortedFavoriteByNameReverse()
+                            TypeSort.Price -> getSortedFavoriteByPriceReverse()
+                            TypeSort.ChangePrice -> getSortedFavoriteByChangePriceReverse()
+                            TypeSort.Percent -> getSortedFavoriteByChangePercentReverse()
+                        }
+                    }
                 }
             }
         }
@@ -131,5 +154,45 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
     private fun getSortedByChangePercentReverse() {
         _companiesData.value =
             ListCompanyFragmentState.SortByChangePercentReverse(sortingInteractorImpl.getSortingByChangePercentReverse())
+    }
+
+    private fun getSortedFavoriteByName() {
+        _companiesData.value =
+            ListCompanyFragmentState.SortFavoriteByName(sortingInteractorImpl.getSortingByFavoriteName())
+    }
+
+    private fun getSortedFavoriteByNameReverse() {
+        _companiesData.value =
+            ListCompanyFragmentState.SortFavoriteByNameReverse(sortingInteractorImpl.getSortingByFavoriteNameReverse())
+    }
+
+    private fun getSortedFavoriteByPrice() {
+        _companiesData.value =
+            ListCompanyFragmentState.SortFavoriteByPrice(sortingInteractorImpl.getSortingByFavoritePrice())
+    }
+
+    private fun getSortedFavoriteByPriceReverse() {
+        _companiesData.value =
+            ListCompanyFragmentState.SortFavoriteByPriceReverse(sortingInteractorImpl.getSortingByFavoritePriceReverse())
+    }
+
+    private fun getSortedFavoriteByChangePrice() {
+        _companiesData.value =
+            ListCompanyFragmentState.SortFavoriteByChangePrice(sortingInteractorImpl.getSortingByFavoriteChangePrice())
+    }
+
+    private fun getSortedFavoriteByChangePriceReverse() {
+        _companiesData.value =
+            ListCompanyFragmentState.SortFavoriteByChangePriceReverse(sortingInteractorImpl.getSortingByFavoriteChangePriceReverse())
+    }
+
+    private fun getSortedFavoriteByChangePercent() {
+        _companiesData.value =
+            ListCompanyFragmentState.SortFavoriteByChangePercent(sortingInteractorImpl.getSortingByFavoriteChangePercent())
+    }
+
+    private fun getSortedFavoriteByChangePercentReverse() {
+        _companiesData.value =
+            ListCompanyFragmentState.SortFavoriteByChangePercent(sortingInteractorImpl.getSortingByFavoriteChangePercentReverse())
     }
 }
