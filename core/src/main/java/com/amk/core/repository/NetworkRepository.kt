@@ -39,6 +39,8 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
         }?: emptyList()
     }
 
+
+
     override suspend fun getCompaniesByDate(date: Date): List<EntityCompany> {
         val companiesList = mutableListOf<EntityCompany>()
         var index = 0L

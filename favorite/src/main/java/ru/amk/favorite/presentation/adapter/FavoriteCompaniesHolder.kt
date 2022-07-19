@@ -1,12 +1,9 @@
 package ru.amk.favorite.presentation.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
-import com.amk.core.entity.FavoriteCompany
-import com.amk.core.interactors.FavoriteFactory
-import com.amk.core.repository.NetworkRepository
-import com.amk.core.retrofit.MoexApiImpl
-import com.amk.core.retrofit.MoexApiService
+import com.amk.core.entity.FavoriteCompanyShow
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.amk.favorite.databinding.ItemFavoriteBinding
 import kotlin.math.abs
@@ -18,53 +15,45 @@ class FavoriteCompaniesHolder(
 ) :
     RecyclerView.ViewHolder(binding.root) {
     val onDeleteClick: FloatingActionButton = binding.buttonDelete
+
     @SuppressLint("SetTextI18n")
-    fun bind(favorite: FavoriteCompany) {
+    fun bind(favorite: FavoriteCompanyShow) {
+        //val formatePrice = formatPrice(favorite.changePricePerDay)
+
         binding.briefNameFavoriteTextview.text = favorite.secId
-
-        //val formatePrice = formatPrice(company.entityCompany.close)
-
-
-        /*binding.nameCompany.text = company.shortName
-        binding.briefNameCompany.text = company.entityCompany.secId
-        binding.nominalPrice.text =
-            "${String.format("%$formatePrice", company.entityCompany.close)}  ₽"
-        binding.nameCompany.text = company.shortName
-        binding.briefNameCompany.text = company.entityCompany.secId
-        binding.changePrice.text = changePriceAndPercent(company)
-
-        binding.changePrice.text = changePriceAndPercent(company)
-        binding.checkBoxFavorite.isChecked = company.favorite
-        binding.checkBoxFavorite.setOnCheckedChangeListener { _, isChecked ->
-            if (binding.root.isAttachedToWindow) {
-                if (isChecked) {
-                    viewModel.addFavorite(company.entityCompany.secId)
-                } else {
-                    viewModel.deleteFavorite(company.entityCompany.secId)
-                }
-            }
-        }*/
+        binding.nameFavoriteTextview.text = favorite.name
+        binding.priceFavoriteTextview.text = favorite.price.toString()
+        binding.textChangeDay.text =
+            changePriceAndPercent(favorite.changePricePerDay, favorite.changePercentPerDay)
+        binding.textChangeWeek.text =
+            changePriceAndPercent(favorite.changePricePerWeek, favorite.changePercentPerWeek)
+        binding.textChangeMonth.text =
+            changePriceAndPercent(favorite.changePricePerMonth, favorite.changePercentPerMonth)
     }
 
-    /*private fun changePriceAndPercent(company: Company): String {
-        val changePrice = company.changePrice
-        val percent = company.changePercent
-        val formatChangPrice = formatPrice(company.entityCompany.close)
+    private fun changePriceAndPercent(changePrice: Double, changePercent: Double): String {
+        val formatChangPrice = formatPrice(changePrice)
 
         if (changePrice > 0) {
-            binding.changePrice.setTextColor(Color.GREEN)
+            binding.textChangeDay.setTextColor(Color.GREEN)
+            binding.textChangeWeek.setTextColor(Color.GREEN)
+            binding.textChangeMonth.setTextColor(Color.GREEN)
         } else if (changePrice < 0) {
-            binding.changePrice.setTextColor(Color.RED)
+            binding.textChangeDay.setTextColor(Color.RED)
+            binding.textChangeWeek.setTextColor(Color.RED)
+            binding.textChangeMonth.setTextColor(Color.RED)
         } else {
-            binding.changePrice.setTextColor(Color.GRAY)
+            binding.textChangeDay.setTextColor(Color.GRAY)
+            binding.textChangeWeek.setTextColor(Color.GRAY)
+            binding.textChangeMonth.setTextColor(Color.GRAY)
         }
         return "${String.format("%$formatChangPrice", (changePrice))} ₽  (${
             String.format(
                 "%.1f",
-                (percent)
+                (changePercent)
             )
         }%)"
-    }*/
+    }
 
     private fun formatPrice(price: Double): String =
         if (abs(price) > 999) ".1f"

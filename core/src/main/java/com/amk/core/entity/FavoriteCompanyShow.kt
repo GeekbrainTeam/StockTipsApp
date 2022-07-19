@@ -3,6 +3,7 @@ package com.amk.core.entity
 data class FavoriteCompanyShow(
     val secId: String,
     val name: String,
+    val price: Double,
     val listEntityCompany: List<EntityCompany>,
     val changePricePerDay: Double,
     val changePercentPerDay: Double,

@@ -1,7 +1,7 @@
 package com.amk.core.repository
 
 import com.amk.core.entity.Company
-import com.amk.core.entity.FavoriteCompany
+import com.amk.core.entity.FavoriteCompanyShow
 
 interface RepositoryCompany {
 
@@ -13,5 +13,5 @@ interface RepositoryCompany {
 
     suspend fun deleteFavoriteCompany(secId: String)
 
-    suspend fun createFavoriteCompany(): List<FavoriteCompany>
+    suspend fun createFavoriteCompany(): List<FavoriteCompanyShow>
 }

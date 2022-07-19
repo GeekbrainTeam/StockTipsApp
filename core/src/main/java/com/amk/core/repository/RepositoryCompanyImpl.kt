@@ -105,33 +105,19 @@ class RepositoryCompanyImpl(
         val dataGetReadyIsShow = mutableListOf<FavoriteCompanyShow>()
         val date = Date()
         listFavorite.forEach {
-            val graph = networkRepository.getCompanyCandles(it, date.changeDay(-90), date)
-            val changePerDay = networkRepository.getCompanyCandles(it, date.changeDay(-1), date)
-            val changePerWeek = networkRepository.getCompanyCandles(it, date.changeDay(-7), date)
-            val changePerMonth = networkRepository.getCompanyCandles(it, date.changeDay(-30), date)
+            val graph = networkRepository.getCompanyCandles(it, date.changeDay(-90), date).reversed()
             dataGetReadyIsShow.add(
                 FavoriteCompanyShow(
                     secId = it,
-                    name = changePerDay.first().shortName,
+                    name = graph.first().shortName,
+                    price = graph.first().close,
                     listEntityCompany = graph,
-                    changePricePerDay = FavoriteFactory(
-                        changePerDay.first(), changePerDay.last()
-                    ).changePriceFavorite(),
-                    changePercentPerDay = FavoriteFactory(
-                        changePerDay.first(), changePerDay.last()
-                    ).changePercentFavorite(),
-                    changePricePerWeek = FavoriteFactory(
-                        changePerWeek.first(), changePerWeek.last()
-                    ).changePriceFavorite(),
-                    changePercentPerWeek = FavoriteFactory(
-                        changePerWeek.first(), changePerWeek.last()
-                    ).changePercentFavorite(),
-                    changePricePerMonth = FavoriteFactory(
-                        changePerMonth.first(), changePerMonth.last()
-                    ).changePriceFavorite(),
-                    changePercentPerMonth = FavoriteFactory(
-                        changePerMonth.first(), changePerMonth.last()
-                    ).changePercentFavorite(),
+                    changePricePerDay = graph.first().close - graph[1].close,
+                    changePercentPerDay = (graph.first().close - graph[1].close)*100/graph[1].close,
+                    changePricePerWeek = graph.first().close - graph[5].close,
+                    changePercentPerWeek = (graph.first().close - graph[5].close)*100/graph[5].close,
+                    changePricePerMonth = graph.first().close - graph[21].close,
+                    changePercentPerMonth = (graph.first().close - graph[21].close)*100/graph[21].close,
                     favorite = true
                 )
             )
