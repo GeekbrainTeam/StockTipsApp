@@ -58,6 +58,38 @@ class StatesCompanyListInteractor(
                 recyclerViewState.success()
                 recyclerViewState.setRecyclerView(state.data)
             }
+            is ListCompanyFragmentState.SortFavoriteByName -> {
+                recyclerViewState.success()
+                recyclerViewState.setRecyclerView(state.data)
+            }
+            is ListCompanyFragmentState.SortFavoriteByNameReverse -> {
+                recyclerViewState.success()
+                recyclerViewState.setRecyclerView(state.data)
+            }
+            is ListCompanyFragmentState.SortFavoriteByPrice -> {
+                recyclerViewState.success()
+                recyclerViewState.setRecyclerView(state.data)
+            }
+            is ListCompanyFragmentState.SortFavoriteByPriceReverse -> {
+                recyclerViewState.success()
+                recyclerViewState.setRecyclerView(state.data)
+            }
+            is ListCompanyFragmentState.SortFavoriteByChangePrice -> {
+                recyclerViewState.success()
+                recyclerViewState.setRecyclerView(state.data)
+            }
+            is ListCompanyFragmentState.SortFavoriteByChangePriceReverse -> {
+                recyclerViewState.success()
+                recyclerViewState.setRecyclerView(state.data)
+            }
+            is ListCompanyFragmentState.SortFavoriteByChangePercent -> {
+                recyclerViewState.success()
+                recyclerViewState.setRecyclerView(state.data)
+            }
+            is ListCompanyFragmentState.SortFavoriteByChangePercentReverse -> {
+                recyclerViewState.success()
+                recyclerViewState.setRecyclerView(state.data)
+            }
             else -> {
                 ListCompanyFragmentState.Empty
             }

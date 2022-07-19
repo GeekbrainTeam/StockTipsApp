@@ -73,7 +73,7 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
         this.typeSort = typeSort
         this.firstElements = firstElements
         when (firstElements) {
-            Filter.default -> {
+            Filter.DefaultFavorite -> {
                 when (directionSort) {
                     Direction.Up -> {
                         when (typeSort) {
@@ -93,7 +93,7 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
                     }
                 }
             }
-            Filter.firstFavorit -> {
+            Filter.FirstFavorit -> {
                 when (directionSort) {
                     Direction.Up -> {
                         when (typeSort) {
