@@ -1,5 +1,6 @@
 package ru.amk.favorite.interactors
 
+import android.view.LayoutInflater
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,9 +12,9 @@ import ru.amk.favorite.presentation.adapter.FavoriteCompaniesAdapter
 
 class RecyclerViewFavoriteState(
     private val binding: FragmentFavoriteBinding,
-    private val viewModel: FavoriteViewModel
+    private val viewModel: FavoriteViewModel,
+    private val layoutInflater: LayoutInflater
 ) : FavoriteCompaniesAdapter.FavoriteClickDeleteInterface {
-    val adapter = binding.recyclerFavoriteCompanies.adapter
      internal fun loading() {
         binding.recyclerFavoriteCompanies.isVisible = false
         binding.progressBarFavorite.isVisible = true
@@ -35,8 +36,7 @@ class RecyclerViewFavoriteState(
             LinearLayoutManager.VERTICAL, false
         )
 
-        recyclerView.adapter = FavoriteCompaniesAdapter(listFavorite, this)
-        //recyclerView.adapter.notifyDataSetChanged()
+        recyclerView.adapter = FavoriteCompaniesAdapter(listFavorite, layoutInflater, this)
 
     }
 

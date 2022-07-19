@@ -2,24 +2,29 @@ package ru.amk.favorite.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.view.LayoutInflater
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import ru.amk.favorite.ui.candlechart.CandlestickViewFavoriteImpl
 import com.amk.core.entity.FavoriteCompanyShow
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ru.amk.favorite.R
 import ru.amk.favorite.databinding.ItemFavoriteBinding
 import kotlin.math.abs
 
 
 class FavoriteCompaniesHolder(
     private val binding: ItemFavoriteBinding,
-
+    private val layoutInflater: LayoutInflater
 ) :
     RecyclerView.ViewHolder(binding.root) {
     val onDeleteClick: FloatingActionButton = binding.buttonDelete
+    private val candlestickView: CandlestickViewFavoriteImpl by lazy {
+        layoutInflater.inflate(R.layout.candle_stick_view_favorite, null) as CandlestickViewFavoriteImpl
+    }
 
     @SuppressLint("SetTextI18n")
     fun bind(favorite: FavoriteCompanyShow) {
-        //val formatePrice = formatPrice(favorite.changePricePerDay)
-
         binding.briefNameFavoriteTextview.text = favorite.secId
         binding.nameFavoriteTextview.text = favorite.name
         binding.priceFavoriteTextview.text = favorite.price.toString()
@@ -29,6 +34,14 @@ class FavoriteCompaniesHolder(
             changePriceAndPercent(favorite.changePricePerWeek, favorite.changePercentPerWeek)
         binding.textChangeMonth.text =
             changePriceAndPercent(favorite.changePricePerMonth, favorite.changePercentPerMonth)
+        binding.candleFavoriteSv.addView(candlestickView)
+        candlestickView.drawCandles(favorite.listEntityCompany)
+        binding.favoriteAxisYView.drawAxisY(favorite.listEntityCompany)
+        binding.candleFavoriteSv.post {
+            binding.candleFavoriteSv.scrollBy(binding.candleFavoriteSv.width, 0)
+            binding.candleFavoriteSv.visibility = View.VISIBLE
+        }
+        candlestickView.divScreen = 3.0
     }
 
     private fun changePriceAndPercent(changePrice: Double, changePercent: Double): String {

@@ -1,5 +1,6 @@
 package ru.amk.favorite.interactors
 
+import android.view.LayoutInflater
 import android.widget.Toast
 import ru.amk.favorite.databinding.FragmentFavoriteBinding
 import ru.amk.favorite.presentation.FavoriteViewModel
@@ -8,8 +9,9 @@ class StatesFavoriteInteractor(
     private val binding: FragmentFavoriteBinding,
     private val state: FaforiteFragmentState,
     viewModel: FavoriteViewModel,
+    layoutInflater: LayoutInflater
 ) {
-    private val recyclerViewFavoriteState = RecyclerViewFavoriteState(binding, viewModel)
+    private val recyclerViewFavoriteState = RecyclerViewFavoriteState(binding, viewModel, layoutInflater)
     fun init() {
         when (state) {
             is FaforiteFragmentState.Loading -> {

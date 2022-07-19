@@ -13,13 +13,19 @@
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/company/src/main/res/layout/fragment_company.xml" value="0.25" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/company/src/main/res/layout/item_favorite.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/company/src/main/res/layout/view_candlestick.xml" value="0.25" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/company/src/main/res/layout/view_favorite_candlestick.xml" value="0.11145833333333334" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/core/src/main/res/drawable/checkbox_favorite_selector.xml" value="0.176" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/core/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.176" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/core/src/main/res/drawable/ic_baseline_star_24.xml" value="0.176" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/core/src/main/res/drawable/ic_baseline_star_border_24.xml" value="0.176" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/core/src/main/res/drawable/ic_baseline_star_outline_24.xml" value="0.176" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/favorite/src/main/res/layout/CandlestickViewFavoriteImpl.xml" value="1.678125" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/favorite/src/main/res/layout/candle_stick_view_favorite.xml" value="0.25" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/favorite/src/main/res/layout/candlestickViewFavoriteImpl.xml" value="0.11145833333333334" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/favorite/src/main/res/layout/fragment_favorite.xml" value="0.25" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/favorite/src/main/res/layout/item_favorite.xml" value="0.25" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/favorite/src/main/res/layout/view_candlestick_favorite.xml" value="0.24895833333333334" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/favorite/src/main/res/layout/view_favorite_candlestick.xml" value="0.11145833333333334" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/list-companies/src/main/res/layout/dialog_sort.xml" value="0.25" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/list-companies/src/main/res/layout/fragment_list_company.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/baseline_settings_24.xml" value="0.303" />
