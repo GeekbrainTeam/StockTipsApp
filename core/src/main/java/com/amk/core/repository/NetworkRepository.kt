@@ -10,7 +10,7 @@ import java.util.*
 
 class NetworkRepository(private val apiService: MoexApiService) : Repository {
 
-    private var currentDate : Date? = null
+    private var currentDate: Date? = null
 
     override suspend fun getCompaniesLastDate(): List<EntityCompany> {
         val companiesList = mutableListOf<EntityCompany>()
@@ -23,20 +23,20 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
             index += pageSize
             response = apiService.getCompaniesLastDatePage(start = index)
         }
-        currentDate=companiesList.first().tradeDate
+        currentDate = companiesList.first().tradeDate
         return companiesList
     }
 
     override suspend fun getCompaniesAfterLastDate(): List<EntityCompany> {
         return currentDate?.let {
-             getCompaniesByDate(it.changeDay(-1))
-        }?: emptyList()
+            getCompaniesByDate(it.changeDay(-1))
+        } ?: emptyList()
     }
 
     override suspend fun getCompaniesHalfYearDate(): List<EntityCompany> {
         return currentDate?.let {
             getCompaniesByDate(it.changeDay(-182))
-        }?: emptyList()
+        } ?: emptyList()
     }
 
     override suspend fun getCompaniesByDate(date: Date): List<EntityCompany> {
@@ -112,4 +112,9 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
     private fun isContainsNulls(companyInfo: List<String?>) =
         companyInfo[6] == null || companyInfo[7] == null
                 || companyInfo[8] == null || companyInfo[11] == null
+
+    override suspend fun getISIN(secId: String): String {
+        val response = apiService.getISIN(secId)
+        return response.securities.data[0][5] ?: "?"
+    }
 }

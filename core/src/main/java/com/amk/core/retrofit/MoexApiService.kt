@@ -23,4 +23,10 @@ interface MoexApiService {
         @Query("till") dateTill: String,
         @Query("start") start: Long = 0
     ): GsonCompaniesPageResponseStructure
+
+    @GET("securities.json")
+    suspend fun getISIN(
+        @Query("q") secId: String,
+        @Query("limit") limit: Int = 0,
+    ): GsonISINResponseStructure
 }
