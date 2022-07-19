@@ -3,12 +3,11 @@ package ru.amk.favorite.presentation
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amk.core.repository.CacheRepository
+import com.amk.core.entity.FaforiteFragmentState
 import com.amk.core.repository.RepositoryCompany
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import ru.amk.favorite.interactors.FaforiteFragmentState
 
 class FavoriteViewModel : ViewModel(), KoinComponent {
 
@@ -24,8 +23,10 @@ class FavoriteViewModel : ViewModel(), KoinComponent {
     private fun getFavoriteCompanyIsShow() {
         viewModelScope.launch {
             try {
-                _companiesData.value =
-                    FaforiteFragmentState.Success(cacheRepository.createFavoriteCompany())
+                cacheRepository.createFavoriteCompany().collect {
+                    _companiesData.value =
+                        FaforiteFragmentState.Success(it)
+                }
             } catch (error: Exception) {
                 _companiesData.value = FaforiteFragmentState.Failure(error)
             }

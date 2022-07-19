@@ -1,6 +1,7 @@
 package ru.amk.favorite.interactors
 
 import android.widget.Toast
+import com.amk.core.entity.FaforiteFragmentState
 import ru.amk.favorite.databinding.FragmentFavoriteBinding
 import ru.amk.favorite.presentation.FavoriteViewModel
 

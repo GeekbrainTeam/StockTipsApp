@@ -3,7 +3,7 @@ package ru.amk.favorite.interactors
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.amk.core.entity.FavoriteCompany
+import com.amk.core.entity.FavoriteCompanyShow
 import ru.amk.favorite.databinding.FragmentFavoriteBinding
 import ru.amk.favorite.presentation.FavoriteViewModel
 import ru.amk.favorite.presentation.adapter.FavoriteCompaniesAdapter
@@ -27,7 +27,8 @@ class RecyclerViewFavoriteState(
         binding.recyclerFavoriteCompanies.isVisible = true
         binding.progressBarFavorite.isVisible = false
     }
-    internal fun setRecyclerView(listFavorite: List<FavoriteCompany>) {
+
+    internal fun setRecyclerView(listFavorite: List<FavoriteCompanyShow>) {
         val recyclerView: RecyclerView = binding.recyclerFavoriteCompanies
         recyclerView.layoutManager = LinearLayoutManager(
             binding.root.context,
@@ -39,7 +40,7 @@ class RecyclerViewFavoriteState(
 
     }
 
-    override fun onDeleteIconClick(favorite: FavoriteCompany) {
+    override fun onDeleteIconClick(favorite: FavoriteCompanyShow) {
         viewModel.deleteFavoriteCompany(favorite.secId)
     }
 }

@@ -3,6 +3,7 @@ package com.amk.core.repository
 import com.amk.core.db.CashDao
 import com.amk.core.entity.*
 import com.amk.core.utils.convertToString
+import kotlinx.coroutines.flow.Flow
 
 class CacheRepository(private val cache: CashDao) {
 
@@ -68,7 +69,7 @@ class CacheRepository(private val cache: CashDao) {
         cache.deleteFavoriteCompany(secId)
     }
 
-    suspend fun getFavoriteCompanies(): List<FavoriteCompany> {
+    suspend fun getFavoriteCompanies(): Flow<List<FavoriteCompany>> {
         return cache.getFavoriteCompanies()
     }
 

@@ -9,6 +9,7 @@ import com.amk.core.entity.CashCompanyHalfYear
 import com.amk.core.entity.CashCompanyOneDay
 import com.amk.core.entity.FavoriteCompany
 import com.amk.core.utils.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CashDao {
@@ -47,5 +48,5 @@ interface CashDao {
     suspend fun deleteFavoriteCompany(secId: String)
 
     @Query("SELECT * FROM $COMPANY_IS_FAVORITE")
-    suspend fun getFavoriteCompanies(): List<FavoriteCompany>
+    fun getFavoriteCompanies(): Flow<List<FavoriteCompany>>
 }
