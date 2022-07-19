@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.amk.company.R
 import com.amk.company.databinding.FragmentCompanyBinding
+import com.amk.company.getinfo.coil.loadSvgOrOther
 import com.amk.company.presentation.CompanyViewModel
 import com.amk.company.ui.candlechart.CandlestickViewImpl
 import com.amk.company.ui.linechart.LineChart
@@ -47,6 +48,7 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
         super.onViewCreated(view, savedInstanceState)
         val secId = this.arguments?.getString("SECID")
         viewModel.getCompanyCandles(secId ?: "")
+        viewModel.getCompanyInfo(secId ?: "")
         binding.candleSv.addView(lineChart)
         viewModel.candlesListData.observe(viewLifecycleOwner) { companyList ->
             (activity as AppCompatActivity).supportActionBar?.title =
@@ -61,6 +63,13 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
             binding.candleSv.post {
                 binding.candleSv.scrollBy(binding.candleSv.width, 0)
                 binding.candleSv.visibility = View.VISIBLE
+            }
+        }
+
+        viewModel.companyInfoData.observe(viewLifecycleOwner) { companyInfo ->
+            binding.descriptionTextView.text = companyInfo.description
+            if(companyInfo.imageURL != "no image") {
+                binding.logoView.loadSvgOrOther(companyInfo.imageURL)
             }
         }
 
