@@ -29,15 +29,16 @@
         android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/guideline2"
-        app:layout_constraintStart_toEndOf="@id/brief_name_favorite_textview"/>
+        app:layout_constraintStart_toEndOf="@id/brief_name_favorite_textview" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/checkbox_favorite_this"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_delete"
         android:layout_marginTop="@dimen/margin_8"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:button="@drawable/checkbox_favorite_selector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Удалить из избранного"
         android:padding="@dimen/margin_4"
+        app:srcCompat="@drawable/ic_baseline_star_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/guideline2"
@@ -48,38 +49,67 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingStart="24dp"
-        android:paddingTop="16dp"
         android:paddingBottom="4dp"
         android:text="price ₽ "
         android:textColor="@color/md_theme_light_outline"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/name_favorite_textview" />
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/change_favorite_price_textview"
+        android:id="@+id/text_change"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:paddingBottom="12dp"
-        android:text="-11 (0.25%) "
+        android:gravity="center"
+        android:text="Изменение цены за (сутки, неделю, месяц)"
         android:textSize="14sp"
-        android:textStyle="italic"
-        app:layout_constraintBaseline_toBaselineOf="@+id/price_favorite_textview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/price_favorite_textview" />
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline2" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_change_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="price ₽ "
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@id/text_change_week"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline3" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_change_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="price ₽ "
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@id/text_change_month"
+        app:layout_constraintStart_toEndOf="@id/text_change_day"
+        app:layout_constraintTop_toBottomOf="@id/guideline3" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_change_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="price ₽ "
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toEndOf="@id/text_change_week"
+        app:layout_constraintTop_toBottomOf="@id/guideline3" />
 
     <HorizontalScrollView
         android:id="@+id/candle_favorite_sv"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="90"
         android:background="@android:color/white"
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/favorite_axisYView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/price_favorite_textview">
+        app:layout_constraintTop_toBottomOf="@+id/text_change_day">
 
     </HorizontalScrollView>
 
@@ -96,6 +126,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
 
     <ru.amk.favorite.ui.baseviewchart.AxisYViewImpl
         android:id="@+id/favorite_axisYView"
