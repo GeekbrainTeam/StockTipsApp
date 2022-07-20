@@ -18,7 +18,7 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
     private val companyList: MutableList<Company> = mutableListOf()
     private var typeSort: TypeSort = DEFAULT_TYPE_SORT
     private var directionSort: Direction = DEFAULT_DIRECTION_SORT
-    private var firstElements: Filter = DEFAULT_FIRST
+    private var firstElements: FavoriteState = DEFAULT_FIRST
 
     private var sortingInteractorImpl: SortingInteractorImpl = SortingInteractorImpl(companyList)
     private val _companiesData =
@@ -68,12 +68,12 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    internal fun chooseSort(directionSort: Direction, typeSort: TypeSort, firstElements: Filter) {
+    internal fun chooseSort(directionSort: Direction, typeSort: TypeSort, firstElements: FavoriteState) {
         this.directionSort = directionSort
         this.typeSort = typeSort
         this.firstElements = firstElements
         when (firstElements) {
-            Filter.DefaultFavorite -> {
+            FavoriteState.FavoriteMix -> {
                 when (directionSort) {
                     Direction.Up -> {
                         when (typeSort) {
@@ -93,7 +93,7 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
                     }
                 }
             }
-            Filter.FirstFavorit -> {
+            FavoriteState.FavoriteUp -> {
                 when (directionSort) {
                     Direction.Up -> {
                         when (typeSort) {

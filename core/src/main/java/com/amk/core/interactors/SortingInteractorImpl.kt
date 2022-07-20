@@ -31,115 +31,46 @@ class SortingInteractorImpl(
     override fun getSortingByChangePercentReverse(): List<Company> =
         sourceCompanies.sortedBy { abs(it.changePercent) }.reversed()
 
-    override fun getSortingByFavoriteName(): List<Company> {
-        val isFavoriteList = mutableListOf<Company>()
-        val isNotFavoriteList = mutableListOf<Company>()
-        sourceCompanies.forEach {
-            if (it.favorite) {
-                isFavoriteList.add(it)
-            } else {
-                isNotFavoriteList.add(it)
-            }
+    override fun getSortingByFavoriteName() =
+        addToFavoriteLists().sortedBy { it.shortName } + addToNotFavoriteLists().sortedBy { it.shortName }
+
+    override fun getSortingByFavoriteNameReverse() =
+        addToFavoriteLists().sortedBy { it.shortName }
+            .reversed() + addToNotFavoriteLists().sortedBy { it.shortName }.reversed()
+
+    override fun getSortingByFavoritePrice() =
+        addToFavoriteLists().sortedBy { it.entityCompany.close } + addToNotFavoriteLists().sortedBy { it.entityCompany.close }
+
+    override fun getSortingByFavoritePriceReverse() =
+        addToFavoriteLists().sortedBy { it.entityCompany.close }
+            .reversed() + addToNotFavoriteLists().sortedBy { it.entityCompany.close }.reversed()
+
+    override fun getSortingByFavoriteChangePrice() =
+        addToFavoriteLists().sortedBy { it.changePrice } + addToNotFavoriteLists().sortedBy { it.changePrice }
+
+    override fun getSortingByFavoriteChangePriceReverse() =
+        addToFavoriteLists().sortedBy { it.changePrice }
+            .reversed() + addToNotFavoriteLists().sortedBy { it.changePrice }.reversed()
+
+    override fun getSortingByFavoriteChangePercent() =
+        addToFavoriteLists().sortedBy { abs(it.changePercent) } + addToNotFavoriteLists().sortedBy {
+            abs(it.changePercent)
         }
-        return isFavoriteList.sortedBy { it.shortName } + isNotFavoriteList.sortedBy { it.shortName }
+
+    override fun getSortingByFavoriteChangePercentReverse() =
+        addToFavoriteLists().sortedBy { abs(it.changePercent) }
+            .reversed() + addToNotFavoriteLists().sortedBy { abs(it.changePercent) }.reversed()
+
+    private fun addToFavoriteLists(): List<Company> {
+        val favoriteList = mutableListOf<Company>()
+        favoriteList.addAll(sourceCompanies.filter { it.favorite })
+        return favoriteList
     }
 
-    override fun getSortingByFavoriteNameReverse(): List<Company> {
-        val isFavoriteList = mutableListOf<Company>()
-        val isNotFavoriteList = mutableListOf<Company>()
-        sourceCompanies.forEach {
-            if (it.favorite) {
-                isFavoriteList.add(it)
-            } else {
-                isNotFavoriteList.add(it)
-            }
-        }
-        return isFavoriteList.sortedBy { it.shortName }
-            .reversed() + isNotFavoriteList.sortedBy { it.shortName }.reversed()
+    private fun addToNotFavoriteLists(): List<Company> {
+        val notFavoriteList = mutableListOf<Company>()
+        notFavoriteList.addAll(sourceCompanies.filter { !it.favorite })
+        return notFavoriteList
     }
 
-    override fun getSortingByFavoritePrice(): List<Company> {
-        val isFavoriteList = mutableListOf<Company>()
-        val isNotFavoriteList = mutableListOf<Company>()
-        sourceCompanies.forEach {
-            if (it.favorite) {
-                isFavoriteList.add(it)
-            } else {
-                isNotFavoriteList.add(it)
-            }
-        }
-        return isFavoriteList.sortedBy { it.entityCompany.close } + isNotFavoriteList.sortedBy { it.entityCompany.close }
-    }
-
-    override fun getSortingByFavoritePriceReverse(): List<Company> {
-        val isFavoriteList = mutableListOf<Company>()
-        val isNotFavoriteList = mutableListOf<Company>()
-        sourceCompanies.forEach {
-            if (it.favorite) {
-                isFavoriteList.add(it)
-            } else {
-                isNotFavoriteList.add(it)
-            }
-        }
-        return isFavoriteList.sortedBy { it.entityCompany.close }
-            .reversed() + isNotFavoriteList.sortedBy { it.entityCompany.close }.reversed()
-    }
-
-    override fun getSortingByFavoriteChangePrice(): List<Company> {
-        val isFavoriteList = mutableListOf<Company>()
-        val isNotFavoriteList = mutableListOf<Company>()
-        sourceCompanies.forEach {
-            if (it.favorite) {
-                isFavoriteList.add(it)
-            } else {
-                isNotFavoriteList.add(it)
-            }
-        }
-        return isFavoriteList.sortedBy { it.changePrice } + isNotFavoriteList.sortedBy { it.changePrice }
-    }
-
-    override fun getSortingByFavoriteChangePriceReverse(): List<Company> {
-        val isFavoriteList = mutableListOf<Company>()
-        val isNotFavoriteList = mutableListOf<Company>()
-        sourceCompanies.forEach {
-            if (it.favorite) {
-                isFavoriteList.add(it)
-            } else {
-                isNotFavoriteList.add(it)
-            }
-        }
-        return isFavoriteList.sortedBy { it.changePrice }
-            .reversed() + isNotFavoriteList.sortedBy { it.changePrice }.reversed()
-    }
-
-    override fun getSortingByFavoriteChangePercent(): List<Company> {
-        val isFavoriteList = mutableListOf<Company>()
-        val isNotFavoriteList = mutableListOf<Company>()
-        sourceCompanies.forEach {
-            if (it.favorite) {
-                isFavoriteList.add(it)
-            } else {
-                isNotFavoriteList.add(it)
-            }
-        }
-        return isFavoriteList.sortedBy { abs(it.changePercent) } + isNotFavoriteList.sortedBy {
-            abs(
-                it.changePercent
-            )
-        }
-    }
-
-    override fun getSortingByFavoriteChangePercentReverse(): List<Company> {
-        val isFavoriteList = mutableListOf<Company>()
-        val isNotFavoriteList = mutableListOf<Company>()
-        sourceCompanies.forEach {
-            if (it.favorite) {
-                isFavoriteList.add(it)
-            } else {
-                isNotFavoriteList.add(it)
-            }
-        }
-        return isFavoriteList.sortedBy { abs(it.changePercent) }
-            .reversed() + isNotFavoriteList.sortedBy { abs(it.changePercent) }.reversed()
-    }
 }

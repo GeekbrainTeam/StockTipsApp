@@ -9,7 +9,7 @@ const val KEY_FILTER = "filter_key"
 const val ARGUMENT_KEY = "args_key"
 val DEFAULT_DIRECTION_SORT = Direction.Up
 val DEFAULT_TYPE_SORT = TypeSort.Name
-val DEFAULT_FIRST = Filter.DefaultFavorite
+val DEFAULT_FIRST = FavoriteState.FavoriteMix
 
 sealed interface Direction : java.io.Serializable {
     object Up : Direction
@@ -23,7 +23,7 @@ sealed interface TypeSort : java.io.Serializable {
     object Percent : TypeSort
 }
 
-sealed interface Filter : java.io.Serializable {
-    object DefaultFavorite : Filter
-    object FirstFavorit : Filter
+sealed interface FavoriteState : java.io.Serializable {
+    object FavoriteMix : FavoriteState
+    object FavoriteUp : FavoriteState
 }
