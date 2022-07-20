@@ -41,9 +41,7 @@ class SortingInteractorImpl(
                 isNotFavoriteList.add(it)
             }
         }
-        isFavoriteList.sortedBy { it.shortName }
-        isNotFavoriteList.sortedBy { it.shortName }
-        return isFavoriteList + isNotFavoriteList
+        return isFavoriteList.sortedBy { it.shortName } + isNotFavoriteList.sortedBy { it.shortName }
     }
 
     override fun getSortingByFavoriteNameReverse(): List<Company> {
@@ -56,9 +54,8 @@ class SortingInteractorImpl(
                 isNotFavoriteList.add(it)
             }
         }
-        isFavoriteList.sortedBy { it.shortName }.reversed()
-        isNotFavoriteList.sortedBy { it.shortName }.reversed()
-        return isFavoriteList + isNotFavoriteList
+        return isFavoriteList.sortedBy { it.shortName }
+            .reversed() + isNotFavoriteList.sortedBy { it.shortName }.reversed()
     }
 
     override fun getSortingByFavoritePrice(): List<Company> {
@@ -71,9 +68,7 @@ class SortingInteractorImpl(
                 isNotFavoriteList.add(it)
             }
         }
-        isFavoriteList.sortedBy { it.entityCompany.close }
-        isNotFavoriteList.sortedBy { it.entityCompany.close }
-        return isFavoriteList + isNotFavoriteList
+        return isFavoriteList.sortedBy { it.entityCompany.close } + isNotFavoriteList.sortedBy { it.entityCompany.close }
     }
 
     override fun getSortingByFavoritePriceReverse(): List<Company> {
@@ -86,9 +81,8 @@ class SortingInteractorImpl(
                 isNotFavoriteList.add(it)
             }
         }
-        isFavoriteList.sortedBy { it.entityCompany.close }.reversed()
-        isNotFavoriteList.sortedBy { it.entityCompany.close }.reversed()
-        return isFavoriteList + isNotFavoriteList
+        return isFavoriteList.sortedBy { it.entityCompany.close }
+            .reversed() + isNotFavoriteList.sortedBy { it.entityCompany.close }.reversed()
     }
 
     override fun getSortingByFavoriteChangePrice(): List<Company> {
@@ -101,9 +95,7 @@ class SortingInteractorImpl(
                 isNotFavoriteList.add(it)
             }
         }
-        isFavoriteList.sortedBy { it.changePrice }
-        isNotFavoriteList.sortedBy { it.changePrice }
-        return isFavoriteList + isNotFavoriteList
+        return isFavoriteList.sortedBy { it.changePrice } + isNotFavoriteList.sortedBy { it.changePrice }
     }
 
     override fun getSortingByFavoriteChangePriceReverse(): List<Company> {
@@ -116,9 +108,8 @@ class SortingInteractorImpl(
                 isNotFavoriteList.add(it)
             }
         }
-        isFavoriteList.sortedBy { it.changePrice }.reversed()
-        isNotFavoriteList.sortedBy { it.changePrice }.reversed()
-        return isFavoriteList + isNotFavoriteList
+        return isFavoriteList.sortedBy { it.changePrice }
+            .reversed() + isNotFavoriteList.sortedBy { it.changePrice }.reversed()
     }
 
     override fun getSortingByFavoriteChangePercent(): List<Company> {
@@ -131,9 +122,11 @@ class SortingInteractorImpl(
                 isNotFavoriteList.add(it)
             }
         }
-        isFavoriteList.sortedBy { abs(it.changePercent) }
-        isNotFavoriteList.sortedBy { abs(it.changePercent) }
-        return isFavoriteList + isNotFavoriteList
+        return isFavoriteList.sortedBy { abs(it.changePercent) } + isNotFavoriteList.sortedBy {
+            abs(
+                it.changePercent
+            )
+        }
     }
 
     override fun getSortingByFavoriteChangePercentReverse(): List<Company> {
@@ -146,8 +139,7 @@ class SortingInteractorImpl(
                 isNotFavoriteList.add(it)
             }
         }
-        isFavoriteList.sortedBy { abs(it.changePercent) }.reversed()
-        isNotFavoriteList.sortedBy { abs(it.changePercent) }.reversed()
-        return isFavoriteList + isNotFavoriteList
+        return isFavoriteList.sortedBy { abs(it.changePercent) }
+            .reversed() + isNotFavoriteList.sortedBy { abs(it.changePercent) }.reversed()
     }
 }
