@@ -18,7 +18,16 @@
     </style>
 
     <style name="style_bottom_navigation" parent="@style/Widget.MaterialComponents.BottomNavigationView.Colored">
-        <item name="android:background">@color/md_theme_light_primary</item>
+        <item name="android:background">#FFFFFF</item>
     </style>
+
+    <style name="search_edit_text">
+        <item name="android:background">@drawable/rectangle_shape_edit_text</item>
+    </style>
+
+    <style name="sort_button">
+        <item name="android:background">@drawable/circle_shape_sort_button</item>
+    </style>
+
 
 </resources>
