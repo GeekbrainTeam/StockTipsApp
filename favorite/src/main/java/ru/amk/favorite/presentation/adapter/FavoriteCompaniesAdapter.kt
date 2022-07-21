@@ -8,7 +8,6 @@ import ru.amk.favorite.databinding.ItemFavoriteBinding
 
 class FavoriteCompaniesAdapter(
     private val list: List<FavoriteCompanyShow>,
-    private val layoutInflater: LayoutInflater,
     private val favoriteClickDeleteInterface: FavoriteClickDeleteInterface
 ) :
     RecyclerView.Adapter<FavoriteCompaniesHolder>() {
@@ -19,7 +18,7 @@ class FavoriteCompaniesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteCompaniesHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return FavoriteCompaniesHolder(ItemFavoriteBinding.inflate(inflater, parent, false), layoutInflater)
+        return FavoriteCompaniesHolder(ItemFavoriteBinding.inflate(inflater, parent, false))
     }
 
     override fun onBindViewHolder(holder: FavoriteCompaniesHolder, position: Int) {

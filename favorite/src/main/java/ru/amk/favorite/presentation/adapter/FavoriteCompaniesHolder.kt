@@ -2,26 +2,18 @@ package ru.amk.favorite.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.view.LayoutInflater
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import ru.amk.favorite.ui.candlechart.CandlestickViewFavoriteImpl
 import com.amk.core.entity.FavoriteCompanyShow
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import ru.amk.favorite.R
 import ru.amk.favorite.databinding.ItemFavoriteBinding
 import kotlin.math.abs
 
 
 class FavoriteCompaniesHolder(
     private val binding: ItemFavoriteBinding,
-    private val layoutInflater: LayoutInflater
-) :
-    RecyclerView.ViewHolder(binding.root) {
+) : RecyclerView.ViewHolder(binding.root) {
+
     val onDeleteClick: FloatingActionButton = binding.buttonDelete
-    private val candlestickView: CandlestickViewFavoriteImpl by lazy {
-        layoutInflater.inflate(R.layout.candle_stick_view_favorite, null) as CandlestickViewFavoriteImpl
-    }
 
     @SuppressLint("SetTextI18n")
     fun bind(favorite: FavoriteCompanyShow) {
@@ -34,14 +26,14 @@ class FavoriteCompaniesHolder(
             changePriceAndPercent(favorite.changePricePerWeek, favorite.changePercentPerWeek)
         binding.textChangeMonth.text =
             changePriceAndPercent(favorite.changePricePerMonth, favorite.changePercentPerMonth)
-        binding.candleFavoriteSv.addView(candlestickView)
-        candlestickView.drawCandles(favorite.listEntityCompany)
+
+        binding.candlestickChart.drawCandles(favorite.listEntityCompany)
         binding.favoriteAxisYView.drawAxisY(favorite.listEntityCompany)
         binding.candleFavoriteSv.post {
             binding.candleFavoriteSv.scrollBy(binding.candleFavoriteSv.width, 0)
-            binding.candleFavoriteSv.visibility = View.VISIBLE
         }
-        candlestickView.divScreen = 3.0
+        binding.candlestickChart.divScreen = 1.5
+        binding.favoriteAxisYView.divScreen = 1.5
     }
 
     private fun changePriceAndPercent(changePrice: Double, changePercent: Double): String {
@@ -73,7 +65,6 @@ class FavoriteCompaniesHolder(
         else if (abs(price) > 9) ".2f"
         else if (abs(price) > 1) ".3f"
         else ".4f"
-
 }
 
 
