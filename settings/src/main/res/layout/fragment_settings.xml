@@ -3,12 +3,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="ru.amk.settings.ui.Settings">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/switch_theme_textview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Настройки" />
+        android:layout_height="wrap_content"
+        android:text="Переключить тему приложения"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <RadioGroup
+        android:id="@+id/switch_theme_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/switch_theme_textview"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/light_theme_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Светлая тема" />
+
+        <RadioButton
+                android:id="@+id/dark_theme_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Темная тема"/>
+        <RadioButton
+            android:id="@+id/system_theme_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Тема определяется системой"/>
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
