@@ -3,21 +3,12 @@ package ru.amk.favorite.ui.candlechart
 import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
-import android.widget.Toast
-
 import com.amk.core.entity.EntityCompany
-import ru.amk.favorite.ui.baseviewchart.*
+import ru.amk.favorite.ui.baseviewchart.BaseViewFavorite
 import ru.amk.favorite.ui.baseviewchart.ChartValue.COUNT_OF_VALUE_Y_AXIS
-import ru.amk.favorite.ui.baseviewchart.ChartValue.coordEndXAxis
-import ru.amk.favorite.ui.baseviewchart.ChartValue.coordZeroX
-import ru.amk.favorite.ui.baseviewchart.ChartValue.coordZeroY
-import ru.amk.favorite.ui.baseviewchart.ChartValue.currentX
-import ru.amk.favorite.ui.baseviewchart.ChartValue.heightPerValue
-import ru.amk.favorite.ui.baseviewchart.ChartValue.heightView
-import ru.amk.favorite.ui.baseviewchart.ChartValue.maxValueYAxis
-import ru.amk.favorite.ui.baseviewchart.ChartValue.minValueYAxis
-import ru.amk.favorite.ui.baseviewchart.ChartValue.stepXAxis
-import ru.amk.favorite.ui.baseviewchart.ChartValue.widthPerView
+import ru.amk.favorite.ui.baseviewchart.colorBody
+import ru.amk.favorite.ui.baseviewchart.diffCandlestick
+import ru.amk.favorite.ui.baseviewchart.minCandleList
 
 class CandlestickViewFavoriteImpl @JvmOverloads constructor(
     context: Context,
@@ -32,7 +23,7 @@ class CandlestickViewFavoriteImpl @JvmOverloads constructor(
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         maxValueYAxis = candleList.diffCandlestick()
         minValueYAxis = candleList.minCandleList()
-        ChartValue.stepValueYAxis = maxValueYAxis / COUNT_OF_VALUE_Y_AXIS
+        stepValueYAxis = maxValueYAxis / COUNT_OF_VALUE_Y_AXIS
         coordEndXAxis = widthPerView * candleList.size - coordZeroX
 
         when (widthMode) {
@@ -93,10 +84,5 @@ class CandlestickViewFavoriteImpl @JvmOverloads constructor(
         candleList.addAll(candles)
         requestLayout()
         invalidate()
-    }
-
-
-    fun showNoData() {
-        Toast.makeText(this.context, "Error! No data!", Toast.LENGTH_SHORT).show()
     }
 }
