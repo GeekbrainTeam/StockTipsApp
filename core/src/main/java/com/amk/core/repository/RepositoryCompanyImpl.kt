@@ -128,6 +128,7 @@ class RepositoryCompanyImpl(
                     FavoriteCompanyShow(
                         secId = it,
                         name = changePerDay.first().shortName,
+                        price = graph.last().close,
                         listEntityCompany = graph,
                         changePricePerDay = FavoriteFactory(
                             changePerDay.first(), changePerDay.last()
