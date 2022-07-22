@@ -13,4 +13,5 @@ interface Repository {
         dateFrom: Date,
         dateTill: Date
     ): List<EntityCompany>
+    suspend fun getISIN(secId: String): String
 }

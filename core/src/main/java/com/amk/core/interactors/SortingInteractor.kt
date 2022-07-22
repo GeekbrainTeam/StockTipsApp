@@ -12,4 +12,12 @@ interface SortingInteractor {
     fun getSortingByChangePriceReverse(): List<Company>
     fun getSortingByChangePercent(): List<Company>
     fun getSortingByChangePercentReverse(): List<Company>
+    fun getSortingByFavoriteName(): List<Company>
+    fun getSortingByFavoriteNameReverse(): List<Company>
+    fun getSortingByFavoritePrice(): List<Company>
+    fun getSortingByFavoritePriceReverse(): List<Company>
+    fun getSortingByFavoriteChangePrice(): List<Company>
+    fun getSortingByFavoriteChangePriceReverse(): List<Company>
+    fun getSortingByFavoriteChangePercent(): List<Company>
+    fun getSortingByFavoriteChangePercentReverse(): List<Company>
 }

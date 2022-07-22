@@ -14,5 +14,13 @@ sealed class ListCompanyFragmentState{
     class SortByChangePriceReverse(val data:List<Company>) : ListCompanyFragmentState()
     class SortByChangePercent(val data:List<Company>) : ListCompanyFragmentState()
     class SortByChangePercentReverse(val data:List<Company>) : ListCompanyFragmentState()
+    class SortFavoriteByName(val data:List<Company>) : ListCompanyFragmentState()
+    class SortFavoriteByNameReverse(val data:List<Company>) : ListCompanyFragmentState()
+    class SortFavoriteByPrice(val data:List<Company>) : ListCompanyFragmentState()
+    class SortFavoriteByPriceReverse(val data:List<Company>) : ListCompanyFragmentState()
+    class SortFavoriteByChangePrice(val data:List<Company>) : ListCompanyFragmentState()
+    class SortFavoriteByChangePriceReverse(val data:List<Company>) : ListCompanyFragmentState()
+    class SortFavoriteByChangePercent(val data:List<Company>) : ListCompanyFragmentState()
+    class SortFavoriteByChangePercentReverse(val data:List<Company>) : ListCompanyFragmentState()
     object Empty : ListCompanyFragmentState()
 }
