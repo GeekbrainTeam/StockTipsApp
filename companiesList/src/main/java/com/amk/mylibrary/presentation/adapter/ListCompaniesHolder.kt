@@ -48,9 +48,9 @@ class ListCompaniesHolder(
         val formatChangPrice = formatPrice(company.entityCompany.close)
 
         if (changePrice > 0) {
-            binding.changePrice.setTextColor(Color.GREEN)
+            binding.changePrice.setTextColor(Color.parseColor("#14BD4D"))
         } else if (changePrice < 0) {
-            binding.changePrice.setTextColor(Color.RED)
+            binding.changePrice.setTextColor(Color.parseColor("#FF435A"))
         } else {
             binding.changePrice.setTextColor(Color.GRAY)
         }

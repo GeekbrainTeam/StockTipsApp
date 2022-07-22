@@ -28,4 +28,9 @@
         <item>По возрастанию</item>
         <item>По убыванию</item>
     </string-array>
+
+    <string-array name="filter">
+        <item>По умолчанию</item>
+        <item>Сначала фавориты</item>
+    </string-array>
 </resources>
