@@ -1,7 +1,7 @@
 package com.amk.core.repository
 
 import com.amk.core.entity.Company
-import com.amk.core.entity.FavoriteCompany
+import com.amk.core.entity.FavoriteCompanyShow
 import kotlinx.coroutines.flow.Flow
 
 interface RepositoryCompany {
@@ -14,5 +14,5 @@ interface RepositoryCompany {
 
     suspend fun deleteFavoriteCompany(secId: String)
 
-    suspend fun createFavoriteCompany():  Flow<List<FavoriteCompany>>
+    suspend fun createFavoriteCompany(): Flow<List<FavoriteCompanyShow>>
 }

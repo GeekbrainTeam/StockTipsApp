@@ -72,7 +72,11 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    internal fun chooseSort(directionSort: Direction, typeSort: TypeSort, firstElements: FavoriteState) {
+    internal fun chooseSort(
+        directionSort: Direction,
+        typeSort: TypeSort,
+        firstElements: FavoriteState = this.firstElements
+    ) {
         this.directionSort = directionSort
         this.typeSort = typeSort
         this.firstElements = firstElements
