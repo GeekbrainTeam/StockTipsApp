@@ -19,6 +19,9 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
     private var typeSort: TypeSort = DEFAULT_TYPE_SORT
     private var directionSort: Direction = DEFAULT_DIRECTION_SORT
     private var firstElements: FavoriteState = DEFAULT_FIRST
+    private val statesCompanyListInteractor: StatesCompanyListInteractor by lazy {
+        StatesCompanyListInteractor(binding, coordinator, viewModel)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,9 +31,7 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
             viewModel.chooseSort(directionSort, typeSort, firstElements)
         }
         viewModel.companiesData.observe(viewLifecycleOwner) {
-            val statesCompanyListInteractor =
-                StatesCompanyListInteractor(binding, it, coordinator, viewModel)
-            statesCompanyListInteractor.init()
+            statesCompanyListInteractor.init(it)
         }
 
         binding.bottomSortCompany.setOnClickListener {
