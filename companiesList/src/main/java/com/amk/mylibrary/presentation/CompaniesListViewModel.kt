@@ -33,11 +33,15 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
     private fun updateData() {
         viewModelScope.launch {
             try {
-                companyList.addAll(repository.createListOneDayYesterday())
-                _companiesData.value =
-                    ListCompanyFragmentState.Success(companyList)
-                sortingInteractorImpl = SortingInteractorImpl(companyList)
-                chooseSort(directionSort, typeSort, firstElements)
+                repository.createListOneDayYesterday().collect {
+                    companyList.clear()
+                    companyList.addAll(it)
+                    _companiesData.value =
+                        ListCompanyFragmentState.Success(companyList)
+                    sortingInteractorImpl = SortingInteractorImpl(companyList)
+                    chooseSort(directionSort, typeSort)
+                }
+
             } catch (error: Exception) {
                 _companiesData.value = ListCompanyFragmentState.Failure(error)
             }

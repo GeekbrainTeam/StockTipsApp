@@ -48,4 +48,5 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
             viewModel.chooseSort(directionSort, typeSort, firstElements)
         }
     }
+
 }
