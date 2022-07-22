@@ -50,7 +50,7 @@ class RecyclerViewState(
             }
         recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener, viewModel)
 
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        /*recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy <= 0 && binding.bottomFilterCompany.visibility == View.INVISIBLE) {
                     show(binding.bottomFilterCompany)
@@ -60,10 +60,10 @@ class RecyclerViewState(
                     hide(binding.bottomSortCompany)
                 }
             }
-        })
+        })*/
     }
 
-    private fun hide(fab: ExtendedFloatingActionButton) {
+   /* private fun hide(fab: ExtendedFloatingActionButton) {
         fab.startAnimation(toBottomAnimation)
         fab.startAnimation(toBottomAnimation)
         binding.bottomFilterCompany.visibility = View.INVISIBLE
@@ -75,7 +75,7 @@ class RecyclerViewState(
         fab.startAnimation(fromBottomAnimation)
         binding.bottomFilterCompany.visibility = View.VISIBLE
         binding.bottomSortCompany.visibility = View.VISIBLE
-    }
+    }*/
 
     private val fromBottomAnimation: Animation by lazy {
         AnimationUtils.loadAnimation(

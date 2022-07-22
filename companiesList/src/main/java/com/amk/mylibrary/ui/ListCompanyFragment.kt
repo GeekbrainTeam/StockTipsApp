@@ -25,6 +25,7 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
         childFragmentManager.setFragmentResultListener(KEY, this) { _, bundle ->
             typeSort = bundle.get(TYPE_OF_SORT) as TypeSort
             directionSort = bundle.get(DIRECTION_OF_SORT) as Direction
+            firstElements = bundle.get(FILTER_ORDER) as FavoriteState
             viewModel.chooseSort(directionSort, typeSort, firstElements)
         }
         viewModel.companiesData.observe(viewLifecycleOwner) {
@@ -33,17 +34,17 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
             statesCompanyListInteractor.init()
         }
 
-        binding.bottomSortCompany.setOnClickListener {
+        /*binding.bottomSortCompany.setOnClickListener {
             val dialog = DialogSorting.getInstance()
             dialog.show(childFragmentManager, ARGUMENT_KEY)
-        }
+        }*/
 
         binding.bottomSort.setOnClickListener {
             val dialog = DialogSorting.getInstance()
             dialog.show(childFragmentManager, ARGUMENT_KEY)
         }
 
-        binding.bottomFilterCompany.setOnClickListener {
+        /*binding.bottomFilterCompany.setOnClickListener {
             if (firstElements == DEFAULT_FIRST) {
                 firstElements = FavoriteState.FavoriteUp
                 binding.bottomFilterCompany.setIconResource(com.amk.core.R.drawable.ic_baseline_star_24)
@@ -52,6 +53,6 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
                 binding.bottomFilterCompany.setIconResource(com.amk.core.R.drawable.ic_baseline_star_outline_24)
             }
             viewModel.chooseSort(directionSort, typeSort, firstElements)
-        }
+        }*/
     }
 }

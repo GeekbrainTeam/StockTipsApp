@@ -18,6 +18,7 @@ class DialogSorting : BottomSheetDialogFragment(),
 
     private var typeOfSort: TypeSort = DEFAULT_TYPE_SORT
     private var directionChoose: Direction = DEFAULT_DIRECTION_SORT
+    private var firstElements: FavoriteState = DEFAULT_FIRST
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,9 +43,19 @@ class DialogSorting : BottomSheetDialogFragment(),
         binding.bottomAttachSorting.setOnClickListener {
             setFragmentResult(
                 KEY,
-                bundleOf(TYPE_OF_SORT to typeOfSort, DIRECTION_OF_SORT to directionChoose)
+                bundleOf(
+                    TYPE_OF_SORT to typeOfSort,
+                    DIRECTION_OF_SORT to directionChoose,
+                    FILTER_ORDER to firstElements
+                )
             )
             dismiss()
+        }
+        binding.switchOrder.setOnCheckedChangeListener { _, isChecked ->
+            firstElements = when (isChecked) {
+                true -> FavoriteState.FavoriteUp
+                false -> FavoriteState.FavoriteMix
+            }
         }
     }
 
