@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/style_dialog_sort">
 
 
@@ -10,10 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16"
         android:text="Порядок по умолчанию"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/switch_order"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/switch_order"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/switch_order"
@@ -23,23 +25,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/order_default"
         app:layout_constraintEnd_toStartOf="@id/order_favorite"/>
+
     <TextView
         android:id="@+id/order_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16"
         android:text="Сначала избранные"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/switch_order"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginTop="20dp"
         android:background="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/order_favorite" />
+        app:layout_constraintTop_toBottomOf="@id/order_favorite"
+        tools:layout_editor_absoluteX="1dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -52,6 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/type_of_sorting"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline" />
@@ -60,12 +66,17 @@
         android:id="@+id/up_down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="spinnerItemStyle"
         android:entries="@array/direction"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline" />
 
+
+
     <View
+        android:id="@+id/view2"
         android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/margin_8"
         android:layout_height="2dp"
         android:background="#FFFFFF"
         app:layout_constraintTop_toBottomOf="@id/up_down" />
@@ -77,26 +88,29 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/up_down">
+        app:layout_constraintTop_toBottomOf="@id/view2">
 
         <RadioButton
             android:id="@+id/radio_name_company"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="@string/name_company" />
+            android:text="@string/name_company"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="#FFFFFF"
             app:layout_constraintTop_toBottomOf="@id/radio_name_company" />
+
         <RadioButton
             android:id="@+id/radio_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="@string/price" />
+            android:text="@string/price"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="match_parent"
@@ -109,7 +123,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="@string/change_price" />
+            android:text="@string/change_price"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="match_parent"
@@ -122,16 +137,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="@string/change_percent" />
+            android:text="@string/change_percent"
+            android:textColor="#FFFFFF" />
     </RadioGroup>
 
     <Button
         android:id="@+id/bottom_attach_sorting"
         style="@style/style_bottom_action"
-        app:layout_constraintTop_toBottomOf="@id/radio_group_sorting"
+        android:layout_marginTop="8dp"
+        android:text="@string/action_dialog"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/action_dialog"/>
+        app:layout_constraintTop_toBottomOf="@id/radio_group_sorting" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

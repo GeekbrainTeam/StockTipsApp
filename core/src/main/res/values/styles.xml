@@ -14,7 +14,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/margin_8</item>
         <item name="android:gravity">center</item>
-        <item name="backgroundColor">@color/md_theme_light_primary</item>
+        <item name="android:background">@drawable/rectangle_shape_sort_action</item>
     </style>
 
     <style name="style_bottom_navigation" parent="@style/Widget.MaterialComponents.BottomNavigationView.Colored">
@@ -27,6 +27,10 @@
 
     <style name="sort_button">
         <item name="android:background">@drawable/circle_shape_sort_button</item>
+    </style>
+
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:textColor">#FFFFFF</item>
     </style>
 
 

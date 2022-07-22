@@ -11,7 +11,7 @@
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/companiesList/src/main/res/drawable/baseline_star_24.xml" value="0.176" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/companiesList/src/main/res/drawable/favorite_selector.xml" value="0.176" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/companiesList/src/main/res/layout/dialog_filter.xml" value="0.24615384615384617" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/companiesList/src/main/res/layout/dialog_sort.xml" value="0.14010416666666667" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/companiesList/src/main/res/layout/dialog_sort.xml" value="0.4" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/companiesList/src/main/res/layout/fragment_list_company.xml" value="0.25" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/companiesList/src/main/res/layout/item_company.xml" value="0.25" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/company/src/main/res/layout/fragment_company.xml" value="0.25" />
@@ -30,6 +30,7 @@
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/core/src/main/res/drawable/rectangle_edit_text.xml" value="0.182" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/core/src/main/res/drawable/rectangle_shape.xml" value="0.15" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/core/src/main/res/drawable/rectangle_shape_edit_text.xml" value="0.182" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/core/src/main/res/drawable/rectangle_shape_sort_action.xml" value="0.182" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/favorite/src/main/res/layout/fragment_favorite.xml" value="0.25" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/favorite/src/main/res/layout/item_favorite.xml" value="0.25" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/list-companies/src/main/res/layout/dialog_sort.xml" value="0.25" />
