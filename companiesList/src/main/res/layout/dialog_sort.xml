@@ -5,40 +5,52 @@
 
 
     <TextView
+        android:id="@+id/order_default"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_8"
-        android:text="Порядок"
+        android:layout_marginTop="@dimen/margin_16"
+        android:text="Порядок по умолчанию"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/switch_order"/>
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/favorite_first"
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_8"
-        android:entries="@array/filter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="@dimen/margin_16"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/order_default"
+        app:layout_constraintEnd_toStartOf="@id/order_favorite"/>
+    <TextView
+        android:id="@+id/order_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:text="Сначала избранные"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/switch_order"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#FF435A"
-        app:layout_constraintTop_toBottomOf="@id/favorite_first" />
+        android:layout_marginTop="20dp"
+        android:background="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/order_favorite" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.10" />
+        app:layout_constraintGuide_percent="0.20" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_8"
         android:text="@string/type_of_sorting"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +60,6 @@
         android:id="@+id/up_down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_8"
         android:entries="@array/direction"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline" />
@@ -56,7 +67,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#FF435A"
+        android:background="#FFFFFF"
         app:layout_constraintTop_toBottomOf="@id/up_down" />
 
     <RadioGroup
@@ -78,7 +89,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#FF435A"
+            android:background="#FFFFFF"
             app:layout_constraintTop_toBottomOf="@id/radio_name_company" />
         <RadioButton
             android:id="@+id/radio_price"
@@ -90,7 +101,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#FF435A"
+            android:background="#FFFFFF"
             app:layout_constraintTop_toBottomOf="@id/radio_change_price" />
 
         <RadioButton
@@ -103,7 +114,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#FF435A"
+            android:background="#FFFFFF"
             app:layout_constraintTop_toBottomOf="@id/radio_change_price" />
 
         <RadioButton

@@ -12,8 +12,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_8"
+        android:backgroundTint="#f0f0f1"
         android:hint="Поиск"
-        app:boxBackgroundColor="#767680"
+
         app:boxStrokeColor="#FF435A"
         app:hintTextColor="#FF435A"
         style="@style/search_edit_text"
