@@ -37,6 +37,12 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
             val dialog = DialogSorting.getInstance()
             dialog.show(childFragmentManager, ARGUMENT_KEY)
         }
+
+        binding.bottomSort.setOnClickListener {
+            val dialog = DialogSorting.getInstance()
+            dialog.show(childFragmentManager, ARGUMENT_KEY)
+        }
+
         binding.bottomFilterCompany.setOnClickListener {
             if (firstElements == DEFAULT_FIRST) {
                 firstElements = FavoriteState.FavoriteUp
