@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.amk.core.entity.CashCompanyAfterYesterday
 import com.amk.core.entity.CashCompanyHalfYear
 import com.amk.core.entity.CashCompanyOneDay
-import com.amk.core.entity.FavoriteCompany
+import com.amk.core.entity.EntityFavoriteCompany
 import com.amk.core.utils.*
 import kotlinx.coroutines.flow.Flow
 
@@ -41,12 +41,12 @@ interface CashDao {
     @Query("SELECT * FROM $COMPANY_OF_HALF_YEAR")
     suspend fun getCompanyHalfYear(): List<CashCompanyHalfYear>
 
-    @Insert(entity = FavoriteCompany::class, onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addFavoriteCompany(company: FavoriteCompany)
+    @Insert(entity = EntityFavoriteCompany::class, onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addFavoriteCompany(company: EntityFavoriteCompany)
 
     @Query("DELETE FROM $COMPANY_IS_FAVORITE WHERE $SEC_ID=:secId")
     suspend fun deleteFavoriteCompany(secId: String)
 
     @Query("SELECT * FROM $COMPANY_IS_FAVORITE")
-    fun getFavoriteCompanies(): Flow<List<FavoriteCompany>>
+    fun getFavoriteCompanies(): Flow<List<EntityFavoriteCompany>>
 }

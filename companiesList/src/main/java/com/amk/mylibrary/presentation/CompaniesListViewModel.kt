@@ -36,8 +36,6 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
                 repository.createListOneDayYesterday().collect {
                     companyList.clear()
                     companyList.addAll(it)
-                    _companiesData.value =
-                        ListCompanyFragmentState.Success(companyList)
                     sortingInteractorImpl = SortingInteractorImpl(companyList)
                     chooseSort(directionSort, typeSort)
                 }
@@ -48,24 +46,15 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    fun addFavorite(secId: String) {
+    fun changeStatusFavorite(secId: String) {
         viewModelScope.launch {
             try {
-                repository.addFavoriteCompany(secId)
-                companyList.clear()
-                updateData()
-            } catch (error: Exception) {
-                _companiesData.value = ListCompanyFragmentState.Failure(error)
-            }
-        }
-    }
-
-    fun deleteFavorite(secId: String) {
-        viewModelScope.launch {
-            try {
-                repository.deleteFavoriteCompany(secId)
-                companyList.clear()
-                updateData()
+                val listFavorite = repository.getAllFavorite()
+                if (listFavorite.map { it.secId }.contains(secId)) {
+                    repository.deleteFavoriteCompany(secId)
+                } else {
+                    repository.addFavoriteCompany(secId)
+                }
             } catch (error: Exception) {
                 _companiesData.value = ListCompanyFragmentState.Failure(error)
             }

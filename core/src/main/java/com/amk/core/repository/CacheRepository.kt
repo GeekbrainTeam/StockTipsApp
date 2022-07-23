@@ -1,108 +1,32 @@
 package com.amk.core.repository
 
-import com.amk.core.db.CashDao
 import com.amk.core.entity.*
-import com.amk.core.utils.convertToString
 import kotlinx.coroutines.flow.Flow
 
-class CacheRepository(private val cache: CashDao) {
+interface CacheRepository {
+    suspend fun clearCashCompany()
 
-    suspend fun clearCashCompany() {
-        deleteListCompanyOneDay()
-        deleteListCompanyAfterYesterday()
-        deleteListCompanyHalfYear()
-    }
+    suspend fun addCompanyOneDay(company: List<EntityCompany>)
 
-    suspend fun addCompanyOneDay(company: List<EntityCompany>) {
-        company.forEach {
-            cache.addCompanyOneDay(
-                it.convertToCacheCompanyOneDay()
-            )
-        }
-    }
+    suspend fun addCompanyAfterYesterday(company: List<EntityCompany>)
 
-    suspend fun addCompanyAfterYesterday(company: List<EntityCompany>) {
-        company.forEach {
-            cache.addCompanyAfterYesterday(
-                it.convertToCacheCompanyAfterYesterday()
-            )
-        }
-    }
+    suspend fun addCompanyHalfYear(company: List<EntityCompany>)
 
-    suspend fun addCompanyHalfYear(company: List<EntityCompany>) {
-        company.forEach {
-            cache.addCompanyHalfYear(
-                it.convertToCacheCompanyHalfYear()
-            )
-        }
-    }
+    suspend fun deleteListCompanyHalfYear()
 
-    suspend fun deleteListCompanyHalfYear() {
-        cache.deleteListCompanyHalfYear()
-    }
+    suspend fun deleteListCompanyOneDay()
 
-    suspend fun deleteListCompanyOneDay() {
-        cache.deleteListCompanyOneDay()
-    }
+    suspend fun getCompanyOneDay(): List<CashCompanyOneDay>
 
-    suspend fun getCompanyOneDay(): List<CashCompanyOneDay> {
-        return cache.getCompanyOneDay()
-    }
+    suspend fun deleteListCompanyAfterYesterday()
 
-    suspend fun deleteListCompanyAfterYesterday() {
-        cache.deleteListCompanyAfterYesterday()
-    }
+    suspend fun getCompanyAfterYesterday(): List<CashCompanyAfterYesterday>
 
-    suspend fun getCompanyAfterYesterday(): List<CashCompanyAfterYesterday> {
-        return cache.getCompanyAfterYesterday()
-    }
+    suspend fun getCompanyHalfYear(): List<CashCompanyHalfYear>
 
-    suspend fun getCompanyHalfYear(): List<CashCompanyHalfYear> {
-        return cache.getCompanyHalfYear()
-    }
+    suspend fun addFavoriteCompany(company: EntityFavoriteCompany)
 
-    suspend fun addFavoriteCompany(company: FavoriteCompany) {
-        cache.addFavoriteCompany(company)
-    }
+    suspend fun deleteFavoriteCompany(secId: String)
 
-    suspend fun deleteFavoriteCompany(secId: String) {
-        cache.deleteFavoriteCompany(secId)
-    }
-
-    suspend fun getFavoriteCompanies(): Flow<List<FavoriteCompany>> {
-        return cache.getFavoriteCompanies()
-    }
-
-    private fun EntityCompany.convertToCacheCompanyAfterYesterday(): CashCompanyAfterYesterday =
-        CashCompanyAfterYesterday(
-            secId,
-            tradeDate.convertToString(),
-            shortName,
-            open,
-            low,
-            high,
-            close
-        )
-
-    private fun EntityCompany.convertToCacheCompanyOneDay(): CashCompanyOneDay =
-        CashCompanyOneDay(
-            secId,
-            tradeDate.convertToString(),
-            shortName,
-            open,
-            low,
-            high,
-            close
-        )
-
-    private fun EntityCompany.convertToCacheCompanyHalfYear(): CashCompanyHalfYear =
-        CashCompanyHalfYear(
-            secId,
-            tradeDate.convertToString(),
-            shortName,
-            open,
-            low,
-            high,
-            close
-        )
+    suspend fun getFavoriteCompanies(): Flow<List<EntityFavoriteCompany>>
 }
