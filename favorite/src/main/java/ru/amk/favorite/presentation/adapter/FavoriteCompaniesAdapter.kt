@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.core.entity.Company
 import com.amk.core.entity.FavoriteCompanyShow
+import com.amk.core.entity.FavoriteCompany
 import ru.amk.favorite.databinding.ItemFavoriteBinding
 
 
@@ -23,7 +24,7 @@ class FavoriteCompaniesAdapter(
     }*/
 
     interface FavoriteClickDeleteInterface {
-        fun onDeleteIconClick(favorite: FavoriteCompanyShow)
+        fun onDeleteIconClick(favorite: FavoriteCompany)
     }
     fun submitList(newList: List<FavoriteCompanyShow>) {
         diffUtil.submitList(newList)

@@ -57,13 +57,15 @@ class ListCompaniesAdapter(
                     oldItem: Company,
                     newItem: Company
                 ): Boolean =
-                    oldItem.entityCompany.secId == newItem.entityCompany.secId
+                    oldItem.entityCompany.secId == newItem.entityCompany.secId &&
+                            oldItem.favorite == newItem.favorite
 
                 override fun areContentsTheSame(
                     oldItem: Company,
                     newItem: Company
                 ): Boolean =
-                    oldItem.entityCompany == newItem.entityCompany
+                    oldItem.entityCompany == newItem.entityCompany &&
+                            oldItem.favorite == newItem.favorite
             }
     }
 

@@ -22,10 +22,6 @@ class StatesCompanyListInteractor(
                 recyclerViewState.error()
                 Toast.makeText(binding.root.context, state.toString(), Toast.LENGTH_LONG).show()
             }
-            is ListCompanyFragmentState.Success -> {
-                recyclerViewState.success()
-                recyclerViewState.setRecyclerView(state.data)
-            }
             is ListCompanyFragmentState.SortByName -> {
                 recyclerViewState.success()
                 recyclerViewState.setRecyclerView(state.data)
