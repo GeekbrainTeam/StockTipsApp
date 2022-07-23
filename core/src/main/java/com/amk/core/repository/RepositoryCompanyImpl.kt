@@ -10,6 +10,7 @@ import com.amk.core.utils.changeDay
 import com.amk.core.utils.convertToDate
 import com.amk.core.utils.convertToString
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.util.*
 
@@ -105,17 +106,17 @@ class RepositoryCompanyImpl(
     }
 
     override suspend fun addFavoriteCompany(secId: String) {
-        cacheRepository.addFavoriteCompany(FavoriteCompany(secId))
+        cacheRepository.addFavoriteCompany(EntityFavoriteCompany(secId))
     }
 
     override suspend fun deleteFavoriteCompany(secId: String) {
         cacheRepository.deleteFavoriteCompany(secId)
     }
 
-    override suspend fun createFavoriteCompany(): Flow<List<FavoriteCompanyShow>> {
+    override suspend fun createFavoriteCompany(): Flow<List<FavoriteCompany>> {
         return cacheRepository.getFavoriteCompanies().map { favoriteCompanies ->
             val listFavorite = favoriteCompanies.map { it.secId }.toList()
-            val dataGetReadyIsShow = mutableListOf<FavoriteCompanyShow>()
+            val dataGetReadyIsShow = mutableListOf<FavoriteCompany>()
             val date = Date()
             listFavorite.forEach {
                 val graph = networkRepository.getCompanyCandles(it, date.changeDay(-90), date)
@@ -125,7 +126,7 @@ class RepositoryCompanyImpl(
                 val changePerMonth =
                     networkRepository.getCompanyCandles(it, date.changeDay(-30), date)
                 dataGetReadyIsShow.add(
-                    FavoriteCompanyShow(
+                    FavoriteCompany(
                         secId = it,
                         name = changePerDay.first().shortName,
                         price = graph.last().close,
@@ -156,6 +157,8 @@ class RepositoryCompanyImpl(
         }
     }
 
+    override suspend fun getAllFavorite(): List<EntityFavoriteCompany> =
+        cacheRepository.getFavoriteCompanies().first()
 
     private suspend fun addToCache(
         entityCompaniesOneDay: List<EntityCompany>,

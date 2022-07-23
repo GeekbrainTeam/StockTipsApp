@@ -5,7 +5,6 @@ import com.amk.core.entity.Company
 sealed class ListCompanyFragmentState{
     object Loading : ListCompanyFragmentState()
     class Failure(val msg:Throwable) : ListCompanyFragmentState()
-    class Success(val data:List<Company>) : ListCompanyFragmentState()
     class SortByName(val data:List<Company>) : ListCompanyFragmentState()
     class SortByNameReverse(val data:List<Company>) : ListCompanyFragmentState()
     class SortByPrice(val data:List<Company>) : ListCompanyFragmentState()

@@ -30,7 +30,8 @@ class RecyclerViewState(
             }
         }
     private val adapter = ListCompaniesAdapter(stateClickListener, viewModel)
-    private var position: Int = -1
+    private var position: Int = 0
+    private var isShowFab = true
 
     init {
         recyclerView.layoutManager = LinearLayoutManager(
@@ -38,14 +39,13 @@ class RecyclerViewState(
             LinearLayoutManager.VERTICAL, false
         )
         recyclerView.adapter = ListCompaniesAdapter(stateClickListener, viewModel)
-        position =
-            (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+        position = recyclerView.computeVerticalScrollOffset()
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy <= 0 && binding.bottomFilterCompany.visibility == View.INVISIBLE) {
+                if (isShowFab && dy <= 0 && binding.bottomFilterCompany.visibility == View.GONE) {
                     show(binding.bottomFilterCompany)
                     show(binding.bottomSortCompany)
-                } else if (dy > 0 && binding.bottomFilterCompany.visibility == View.VISIBLE) {
+                } else if (isShowFab && dy > 0 && binding.bottomFilterCompany.visibility == View.VISIBLE) {
                     hide(binding.bottomFilterCompany)
                     hide(binding.bottomSortCompany)
                 }
@@ -54,8 +54,7 @@ class RecyclerViewState(
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 when (newState) {
                     SCROLL_STATE_IDLE -> {
-                        position =
-                            (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                        position = recyclerView.computeVerticalScrollOffset()
                     }
                 }
             }
@@ -80,15 +79,17 @@ class RecyclerViewState(
     internal fun setRecyclerView(list: List<Company>) {
         adapter.submitList(list)
         recyclerView.adapter = adapter
-        recyclerView.scrollToPosition(position)
+        isShowFab = false
+        recyclerView.scrollBy(0, position)
+        isShowFab = true
 
     }
 
     private fun hide(fab: ExtendedFloatingActionButton) {
         fab.startAnimation(toBottomAnimation)
         fab.startAnimation(toBottomAnimation)
-        binding.bottomFilterCompany.visibility = View.INVISIBLE
-        binding.bottomSortCompany.visibility = View.INVISIBLE
+        binding.bottomFilterCompany.visibility = View.GONE
+        binding.bottomSortCompany.visibility = View.GONE
     }
 
     private fun show(fab: ExtendedFloatingActionButton) {

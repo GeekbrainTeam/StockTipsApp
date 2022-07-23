@@ -3,12 +3,12 @@ package ru.amk.favorite.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.amk.core.entity.FavoriteCompanyShow
+import com.amk.core.entity.FavoriteCompany
 import ru.amk.favorite.databinding.ItemFavoriteBinding
 
 
 class FavoriteCompaniesAdapter(
-    private val list: List<FavoriteCompanyShow>,
+    private val list: List<FavoriteCompany>,
     //private val onClickListener: OnStateClickListener,
     private val favoriteClickDeleteInterface: FavoriteClickDeleteInterface
 ) :
@@ -19,7 +19,7 @@ class FavoriteCompaniesAdapter(
     }*/
 
     interface FavoriteClickDeleteInterface {
-        fun onDeleteIconClick(favorite: FavoriteCompanyShow)
+        fun onDeleteIconClick(favorite: FavoriteCompany)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteCompaniesHolder {
@@ -28,7 +28,7 @@ class FavoriteCompaniesAdapter(
     }
 
     override fun onBindViewHolder(holder: FavoriteCompaniesHolder, position: Int) {
-        val favorite: FavoriteCompanyShow = list[position]
+        val favorite: FavoriteCompany = list[position]
         holder.bind(favorite)
         /*holder.itemView.setOnClickListener {
             onClickListener.onStateClick(secId, position)

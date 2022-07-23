@@ -31,13 +31,9 @@ class ListCompaniesHolder(
 
         binding.changePrice.text = changePriceAndPercent(company)
         binding.checkBoxFavorite.isChecked = company.favorite
-        binding.checkBoxFavorite.setOnCheckedChangeListener { _, isChecked ->
+        binding.checkBoxFavorite.setOnCheckedChangeListener { _, _ ->
             if (binding.root.isAttachedToWindow) {
-                if (isChecked) {
-                    viewModel.addFavorite(company.entityCompany.secId)
-                } else {
-                    viewModel.deleteFavorite(company.entityCompany.secId)
-                }
+                viewModel.changeStatusFavorite(company.entityCompany.secId)
             }
         }
     }

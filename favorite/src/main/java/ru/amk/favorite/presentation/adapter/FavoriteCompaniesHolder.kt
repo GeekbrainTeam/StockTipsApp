@@ -3,7 +3,7 @@ package ru.amk.favorite.presentation.adapter
 import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
-import com.amk.core.entity.FavoriteCompanyShow
+import com.amk.core.entity.FavoriteCompany
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.amk.favorite.databinding.ItemFavoriteBinding
 import kotlin.math.abs
@@ -16,7 +16,7 @@ class FavoriteCompaniesHolder(
     val onDeleteClick: FloatingActionButton = binding.buttonDelete
 
     @SuppressLint("SetTextI18n")
-    fun bind(favorite: FavoriteCompanyShow) {
+    fun bind(favorite: FavoriteCompany) {
         binding.briefNameFavoriteTextview.text = favorite.secId
         binding.nameFavoriteTextview.text = favorite.name
         binding.priceFavoriteTextview.text = favorite.price.toString()

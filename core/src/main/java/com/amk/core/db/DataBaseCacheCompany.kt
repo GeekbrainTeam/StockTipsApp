@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.amk.core.entity.CashCompanyAfterYesterday
 import com.amk.core.entity.CashCompanyHalfYear
 import com.amk.core.entity.CashCompanyOneDay
-import com.amk.core.entity.FavoriteCompany
+import com.amk.core.entity.EntityFavoriteCompany
 import com.amk.core.utils.DATABASE_NAME
 
 @Database(
@@ -15,7 +15,7 @@ import com.amk.core.utils.DATABASE_NAME
     entities = [CashCompanyOneDay::class,
         CashCompanyAfterYesterday::class,
         CashCompanyHalfYear::class,
-        FavoriteCompany::class],
+        EntityFavoriteCompany::class],
     exportSchema = false
 )
 abstract class DataBaseCacheCompany : RoomDatabase() {
