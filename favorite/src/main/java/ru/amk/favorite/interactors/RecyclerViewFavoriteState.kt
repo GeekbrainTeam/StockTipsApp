@@ -12,6 +12,29 @@ class RecyclerViewFavoriteState(
     private val binding: FragmentFavoriteBinding,
     private val viewModel: FavoriteViewModel,
 ) : FavoriteCompaniesAdapter.FavoriteClickDeleteInterface {
+
+    private val recyclerView: RecyclerView = binding.recyclerFavoriteCompanies
+    private val adapter = FavoriteCompaniesAdapter(this)
+    private var position: Int = 0
+
+    init {
+        recyclerView.layoutManager = LinearLayoutManager(
+            binding.root.context,
+            LinearLayoutManager.VERTICAL, false
+        )
+        recyclerView.adapter = FavoriteCompaniesAdapter(this)
+        position = recyclerView.computeVerticalScrollOffset()
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                when (newState) {
+                    RecyclerView.SCROLL_STATE_IDLE -> {
+                        position = recyclerView.computeVerticalScrollOffset()
+                    }
+                }
+            }
+        })
+    }
+
     internal fun loading() {
         binding.recyclerFavoriteCompanies.isVisible = false
         binding.progressBarFavorite.isVisible = true
@@ -28,16 +51,9 @@ class RecyclerViewFavoriteState(
     }
 
     internal fun setRecyclerView(listFavorite: List<FavoriteCompany>) {
-        val recyclerView: RecyclerView = binding.recyclerFavoriteCompanies
-        recyclerView.layoutManager = LinearLayoutManager(
-            binding.root.context,
-            LinearLayoutManager.VERTICAL, false
-        )
-
-        recyclerView.adapter = FavoriteCompaniesAdapter(
-            list = listFavorite,
-            favoriteClickDeleteInterface = this
-        )
+        adapter.submitList(listFavorite)
+        recyclerView.adapter = adapter
+        recyclerView.scrollBy(0, position)
     }
 
     override fun onDeleteIconClick(favorite: FavoriteCompany) {

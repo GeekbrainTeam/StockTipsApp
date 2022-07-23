@@ -19,8 +19,8 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 class RecyclerViewState(
     private val binding: FragmentListCompanyBinding,
     private val coordinator: AppNavigation,
-    viewModel: CompaniesListViewModel,
-) {
+    private val viewModel: CompaniesListViewModel,
+) : ListCompaniesAdapter.OnStateCheckBoxListener{
 
     private val recyclerView: RecyclerView = binding.recyclerViewCompanies
     private val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
@@ -29,16 +29,16 @@ class RecyclerViewState(
                 coordinator.execute(Action.ListCompanyToCompany, company.entityCompany.secId)
             }
         }
-    private val adapter = ListCompaniesAdapter(stateClickListener, viewModel)
+    private val adapter = ListCompaniesAdapter(stateClickListener, /*viewModel*/this)
     private var position: Int = 0
-    private var isShowFab = true
+    var isShowFab = true
 
     init {
         recyclerView.layoutManager = LinearLayoutManager(
             binding.root.context,
             LinearLayoutManager.VERTICAL, false
         )
-        recyclerView.adapter = ListCompaniesAdapter(stateClickListener, viewModel)
+        recyclerView.adapter = ListCompaniesAdapter(stateClickListener, /*viewModel*/this)
         position = recyclerView.computeVerticalScrollOffset()
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -111,6 +111,10 @@ class RecyclerViewState(
             binding.root.context,
             R.anim.to_bottom_animation
         )
+    }
+
+    override fun onCheckedChanged(company: Company, isChecked: Boolean) {
+        viewModel.changeStatusFavorite(company.entityCompany.secId)
     }
 
 }

@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.core.entity.Company
 import com.amk.mylibrary.databinding.ItemCompanyBinding
-import com.amk.mylibrary.presentation.CompaniesListViewModel
 
 
 class ListCompaniesAdapter(
     private val onClickListener: OnStateClickListener,
-    private val viewModel: CompaniesListViewModel
+    private val onStateCheckBoxListener: OnStateCheckBoxListener
+    //private val viewModel: CompaniesListViewModel
 ) : RecyclerView.Adapter<ListCompaniesHolder>() {
 
     private val diffUtil = AsyncListDiffer(this, DIFF_CALLBACK)
@@ -21,13 +21,23 @@ class ListCompaniesAdapter(
         fun onStateClick(company: Company, position: Int)
     }
 
+    interface OnStateCheckBoxListener {
+        fun onCheckedChanged(company: Company, isChecked: Boolean)
+    }
+
     fun submitList(newList: List<Company>) {
         diffUtil.submitList(newList)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListCompaniesHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ListCompaniesHolder(ItemCompanyBinding.inflate(inflater, parent, false), viewModel)
+        return ListCompaniesHolder(
+            ItemCompanyBinding.inflate(
+                inflater,
+                parent,
+                false
+            ), /*viewModel*/
+        )
     }
 
     override fun onBindViewHolder(holder: ListCompaniesHolder, position: Int) {
@@ -35,6 +45,9 @@ class ListCompaniesAdapter(
         holder.bind(company)
         holder.itemView.setOnClickListener {
             onClickListener.onStateClick(company, position)
+        }
+        holder.onCheck.setOnClickListener {
+            onStateCheckBoxListener.onCheckedChanged(company, company.favorite)
         }
     }
 
