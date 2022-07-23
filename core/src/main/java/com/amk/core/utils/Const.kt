@@ -7,8 +7,8 @@ const val NO_NULL_ACTIVITY = "Activity cannot be null"
 const val KEY = "sort_key"
 const val KEY_FILTER = "filter_key"
 const val ARGUMENT_KEY = "args_key"
-val DEFAULT_DIRECTION_SORT = Direction.Up
-val DEFAULT_TYPE_SORT = TypeSort.Name
+val DEFAULT_DIRECTION_SORT = Direction.Down
+val DEFAULT_TYPE_SORT = TypeSort.Percent
 val DEFAULT_FIRST = FavoriteState.FavoriteMix
 
 sealed interface Direction : java.io.Serializable {
