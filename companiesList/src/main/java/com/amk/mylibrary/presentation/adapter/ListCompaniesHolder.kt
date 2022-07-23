@@ -10,7 +10,6 @@ import kotlin.math.abs
 
 class ListCompaniesHolder(
     private val binding: ItemCompanyBinding,
-    //private val viewModel: CompaniesListViewModel
 ) :
     RecyclerView.ViewHolder(binding.root) {
     val onCheck = binding.checkBoxFavorite
@@ -29,11 +28,6 @@ class ListCompaniesHolder(
 
         binding.changePrice.text = changePriceAndPercent(company)
         binding.checkBoxFavorite.isChecked = company.favorite
-//        binding.checkBoxFavorite.setOnCheckedChangeListener { _, _ ->
-//            if (binding.root.isAttachedToWindow) {
-//                viewModel.changeStatusFavorite(company.entityCompany.secId)
-//            }
-//        }
     }
 
     private fun changePriceAndPercent(company: Company): String {

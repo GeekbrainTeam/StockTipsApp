@@ -12,7 +12,6 @@ import com.amk.mylibrary.databinding.ItemCompanyBinding
 class ListCompaniesAdapter(
     private val onClickListener: OnStateClickListener,
     private val onStateCheckBoxListener: OnStateCheckBoxListener
-    //private val viewModel: CompaniesListViewModel
 ) : RecyclerView.Adapter<ListCompaniesHolder>() {
 
     private val diffUtil = AsyncListDiffer(this, DIFF_CALLBACK)
