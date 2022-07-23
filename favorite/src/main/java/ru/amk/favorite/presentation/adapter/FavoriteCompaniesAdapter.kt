@@ -10,16 +10,10 @@ import ru.amk.favorite.databinding.ItemFavoriteBinding
 
 
 class FavoriteCompaniesAdapter(
-    //private val list: List<FavoriteCompanyShow>,
-    //private val onClickListener: OnStateClickListener,
     private val favoriteClickDeleteInterface: FavoriteClickDeleteInterface
 ) :
     RecyclerView.Adapter<FavoriteCompaniesHolder>() {
     private val diffUtil = AsyncListDiffer(this, DIFF_CALLBACK)
-
-    /*interface OnStateClickListener {
-        fun onStateClick(secId: String, position: Int)
-    }*/
 
     interface FavoriteClickDeleteInterface {
         fun onDeleteIconClick(favorite: FavoriteCompany)
@@ -36,9 +30,6 @@ class FavoriteCompaniesAdapter(
     override fun onBindViewHolder(holder: FavoriteCompaniesHolder, position: Int) {
         val favorite: FavoriteCompany = diffUtil.currentList[position]
         holder.bind(favorite)
-        /*holder.itemView.setOnClickListener {
-            onClickListener.onStateClick(secId, position)
-        }*/
         holder.onDeleteClick.setOnClickListener {
             favoriteClickDeleteInterface.onDeleteIconClick(favorite)
         }
