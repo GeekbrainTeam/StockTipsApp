@@ -5,8 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.amk.core.entity.Company
-import com.amk.core.entity.FavoriteCompanyShow
 import com.amk.core.entity.FavoriteCompany
 import ru.amk.favorite.databinding.ItemFavoriteBinding
 
@@ -26,7 +24,7 @@ class FavoriteCompaniesAdapter(
     interface FavoriteClickDeleteInterface {
         fun onDeleteIconClick(favorite: FavoriteCompany)
     }
-    fun submitList(newList: List<FavoriteCompanyShow>) {
+    fun submitList(newList: List<FavoriteCompany>) {
         diffUtil.submitList(newList)
     }
 
@@ -36,7 +34,7 @@ class FavoriteCompaniesAdapter(
     }
 
     override fun onBindViewHolder(holder: FavoriteCompaniesHolder, position: Int) {
-        val favorite: FavoriteCompanyShow = diffUtil.currentList[position]
+        val favorite: FavoriteCompany = diffUtil.currentList[position]
         holder.bind(favorite)
         /*holder.itemView.setOnClickListener {
             onClickListener.onStateClick(secId, position)
@@ -50,18 +48,18 @@ class FavoriteCompaniesAdapter(
 
     companion object {
 
-        val DIFF_CALLBACK: DiffUtil.ItemCallback<FavoriteCompanyShow> =
-            object : DiffUtil.ItemCallback<FavoriteCompanyShow>() {
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<FavoriteCompany> =
+            object : DiffUtil.ItemCallback<FavoriteCompany>() {
 
                 override fun areItemsTheSame(
-                    oldItem: FavoriteCompanyShow,
-                    newItem: FavoriteCompanyShow
+                    oldItem: FavoriteCompany,
+                    newItem: FavoriteCompany
                 ): Boolean =
                     oldItem.secId == newItem.secId
 
                 override fun areContentsTheSame(
-                    oldItem: FavoriteCompanyShow,
-                    newItem: FavoriteCompanyShow
+                    oldItem: FavoriteCompany,
+                    newItem: FavoriteCompany
                 ): Boolean =
                     oldItem == newItem
             }

@@ -114,11 +114,7 @@ class RecyclerViewState(
     }
 
     override fun onCheckedChanged(company: Company, isChecked: Boolean) {
-        if (!isChecked) {
-            viewModel.addFavorite(company.entityCompany.secId)
-        } else {
-            viewModel.deleteFavorite(company.entityCompany.secId)
-        }
+        viewModel.changeStatusFavorite(company.entityCompany.secId)
     }
 
 }
