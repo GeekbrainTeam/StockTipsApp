@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.core.entity.Company
 import com.amk.mylibrary.databinding.ItemCompanyBinding
-import com.amk.mylibrary.presentation.CompaniesListViewModel
 
 
 class ListCompaniesAdapter(
@@ -21,10 +20,10 @@ class ListCompaniesAdapter(
     interface OnStateClickListener {
         fun onStateClick(company: Company, position: Int)
     }
-    interface OnStateCheckBoxListener {
-        fun onCheckedChanged (company: Company, isChecked: Boolean)
-    }
 
+    interface OnStateCheckBoxListener {
+        fun onCheckedChanged(company: Company, isChecked: Boolean)
+    }
 
     fun submitList(newList: List<Company>) {
         diffUtil.submitList(newList)
@@ -32,7 +31,13 @@ class ListCompaniesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListCompaniesHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ListCompaniesHolder(ItemCompanyBinding.inflate(inflater, parent, false), /*viewModel*/)
+        return ListCompaniesHolder(
+            ItemCompanyBinding.inflate(
+                inflater,
+                parent,
+                false
+            ), /*viewModel*/
+        )
     }
 
     override fun onBindViewHolder(holder: ListCompaniesHolder, position: Int) {

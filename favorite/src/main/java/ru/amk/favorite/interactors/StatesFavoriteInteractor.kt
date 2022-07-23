@@ -7,11 +7,10 @@ import ru.amk.favorite.presentation.FavoriteViewModel
 
 class StatesFavoriteInteractor(
     private val binding: FragmentFavoriteBinding,
-    private val state: FaforiteFragmentState,
     viewModel: FavoriteViewModel,
 ) {
     private val recyclerViewFavoriteState = RecyclerViewFavoriteState(binding, viewModel)
-    fun init() {
+    fun init(state: FaforiteFragmentState) {
         when (state) {
             is FaforiteFragmentState.Loading -> {
                 recyclerViewFavoriteState.loading()

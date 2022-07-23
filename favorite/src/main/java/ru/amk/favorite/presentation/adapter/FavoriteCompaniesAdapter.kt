@@ -55,7 +55,7 @@ class FavoriteCompaniesAdapter(
                     oldItem: FavoriteCompany,
                     newItem: FavoriteCompany
                 ): Boolean =
-                    oldItem.secId == newItem.secId
+                    oldItem.secId == newItem.secId && oldItem.favorite == newItem.favorite
 
                 override fun areContentsTheSame(
                     oldItem: FavoriteCompany,

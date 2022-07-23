@@ -12,12 +12,14 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
     override fun getViewBinding() = FragmentFavoriteBinding.inflate(layoutInflater)
     override fun getVModelClass() = FavoriteViewModel::class.java
 
+    private val statesFavoriteInteractor: StatesFavoriteInteractor by lazy {
+        StatesFavoriteInteractor(binding, viewModel)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.companiesData.observe(viewLifecycleOwner) {
-            val statesFavoriteInteractor = StatesFavoriteInteractor(binding, it, viewModel)
-            statesFavoriteInteractor.init()
+            statesFavoriteInteractor.init(it)
         }
     }
 
