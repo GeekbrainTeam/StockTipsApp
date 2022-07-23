@@ -29,9 +29,9 @@ class FavoriteCompaniesHolder(
 
         binding.candlestickChart.drawCandles(favorite.listEntityCompany)
         binding.favoriteAxisYView.drawAxisY(favorite.listEntityCompany)
-        binding.candleFavoriteSv.post {
-            binding.candleFavoriteSv.scrollBy(binding.candleFavoriteSv.width, 0)
-        }
+//        binding.candleFavoriteSv.post {
+//            binding.candleFavoriteSv.scrollBy(binding.candleFavoriteSv.width, 0)
+//        }
         binding.candlestickChart.divScreen = 1.5
         binding.favoriteAxisYView.divScreen = 1.5
     }
