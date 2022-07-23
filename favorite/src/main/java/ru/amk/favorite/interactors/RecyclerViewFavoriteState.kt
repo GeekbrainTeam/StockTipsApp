@@ -28,6 +28,7 @@ class RecyclerViewFavoriteState(
     }
 
     internal fun setRecyclerView(listFavorite: List<FavoriteCompanyShow>) {
+        val adapter = FavoriteCompaniesAdapter(this)
         val recyclerView: RecyclerView = binding.recyclerFavoriteCompanies
         recyclerView.layoutManager = LinearLayoutManager(
             binding.root.context,
@@ -35,9 +36,11 @@ class RecyclerViewFavoriteState(
         )
 
         recyclerView.adapter = FavoriteCompaniesAdapter(
-            list = listFavorite,
+            //submitList = listFavorite,
             favoriteClickDeleteInterface = this
         )
+        adapter.submitList(listFavorite)
+        recyclerView.adapter = adapter
     }
 
     override fun onDeleteIconClick(favorite: FavoriteCompanyShow) {
