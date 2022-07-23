@@ -8,7 +8,7 @@ const val KEY = "sort_key"
 const val KEY_FILTER = "filter_key"
 const val ARGUMENT_KEY = "args_key"
 val DEFAULT_DIRECTION_SORT = Direction.Up
-val DEFAULT_TYPE_SORT = TypeSort.Name
+val DEFAULT_TYPE_SORT = TypeSort.ChangePrice
 val DEFAULT_FIRST = FavoriteState.FavoriteMix
 
 sealed interface Direction : java.io.Serializable {
