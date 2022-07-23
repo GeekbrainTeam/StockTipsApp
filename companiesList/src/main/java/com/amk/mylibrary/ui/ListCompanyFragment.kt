@@ -50,4 +50,10 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.companiesData.observe(viewLifecycleOwner) {
+            statesCompanyListInteractor.init(it)
+        }
+    }
 }
