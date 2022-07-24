@@ -8,16 +8,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.amk.company.R
 import com.amk.company.databinding.FragmentCompanyBinding
-import com.amk.company.getinfo.coil.loadSvgOrOther
 import com.amk.company.presentation.CompanyViewModel
 import com.amk.company.ui.candlechart.CandlestickViewImpl
 import com.amk.company.ui.linechart.LineChart
 import com.amk.company.ui.threelinebreak.ThreeLineBreakView
 import com.amk.core.entity.EntityCompany
 import com.amk.core.ui.BaseFragment
-import com.amk.core.utils.changePrice
-import com.amk.core.utils.formatPrice
-import com.amk.core.utils.percent
+import com.amk.core.utils.*
 
 @SuppressLint("InflateParams")
 class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>() {
@@ -48,7 +45,6 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
         super.onViewCreated(view, savedInstanceState)
         val secId = this.arguments?.getString("SECID")
         viewModel.getCompanyCandles(secId ?: "")
-        viewModel.getCompanyInfo(secId ?: "")
         binding.candleSv.addView(lineChart)
         viewModel.candlesListData.observe(viewLifecycleOwner) { companyList ->
             (activity as AppCompatActivity).supportActionBar?.title =
@@ -66,12 +62,9 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
             }
         }
 
-        viewModel.companyInfoData.observe(viewLifecycleOwner) { companyInfo ->
-            binding.descriptionTextView.text = companyInfo.description
-            if(companyInfo.imageURL != "no image") {
-                binding.logoView.loadSvgOrOther(companyInfo.imageURL)
-            }
-        }
+        binding.descriptionTextView.text = secId?.let { getInfoFromAssets(it, requireActivity()) }
+        val drawable = secId?.let { getDrawableFromAssets(it, requireActivity()) }
+        binding.logoView.setImageDrawable(drawable)
 
         viewModel.errorData.observe(viewLifecycleOwner) {
             Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
