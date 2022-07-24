@@ -30,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
+            android:enabled="false"
             android:text="Светлая тема" />
 
         <RadioButton
@@ -37,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
+            android:enabled="false"
             android:text="Темная тема" />
 
         <RadioButton
@@ -44,6 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
+            android:enabled="false"
             android:text="Тема определяется системой" />
     </RadioGroup>
 
