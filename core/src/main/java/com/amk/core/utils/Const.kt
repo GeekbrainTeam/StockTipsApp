@@ -2,10 +2,11 @@ package com.amk.mylibrary.utils
 
 const val TYPE_OF_SORT = "Type_sort"
 const val DIRECTION_OF_SORT = "Direction_sort"
-const val FILTER_ORDER = "order"
-const val NO_NULL_ACTIVITY = "Activity cannot be null"
+const val TYPE_SORT = "sort"
+const val TYPE_DIRECTION = "direction"
+const val TYPE_FAVORITE = "favorite"
 const val KEY = "sort_key"
-const val KEY_FILTER = "filter_key"
+const val KEY_PREF_THEME = "key_pref_theme"
 const val ARGUMENT_KEY = "args_key"
 val DEFAULT_DIRECTION_SORT = Direction.Down
 val DEFAULT_TYPE_SORT = TypeSort.Percent
