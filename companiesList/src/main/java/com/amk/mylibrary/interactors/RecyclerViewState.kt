@@ -6,6 +6,7 @@ import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.amk.core.entity.Company
 import com.amk.core.navigation.Action
 import com.amk.core.navigation.AppNavigation
@@ -19,7 +20,46 @@ class RecyclerViewState(
     private val binding: FragmentListCompanyBinding,
     private val coordinator: AppNavigation,
     private val viewModel: CompaniesListViewModel,
-) {
+) : ListCompaniesAdapter.OnStateCheckBoxListener{
+
+    private val recyclerView: RecyclerView = binding.recyclerViewCompanies
+    private val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
+        object : ListCompaniesAdapter.OnStateClickListener {
+            override fun onStateClick(company: Company, position: Int) {
+                coordinator.execute(Action.ListCompanyToCompany, company.entityCompany.secId)
+            }
+        }
+    private val adapter = ListCompaniesAdapter(stateClickListener, /*viewModel*/this)
+    private var position: Int = 0
+    var isShowFab = true
+
+    init {
+        recyclerView.layoutManager = LinearLayoutManager(
+            binding.root.context,
+            LinearLayoutManager.VERTICAL, false
+        )
+        recyclerView.adapter = ListCompaniesAdapter(stateClickListener, /*viewModel*/this)
+        position = recyclerView.computeVerticalScrollOffset()
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (isShowFab && dy <= 0 && binding.bottomFilterCompany.visibility == View.GONE) {
+                    show(binding.bottomFilterCompany)
+                    show(binding.bottomSortCompany)
+                } else if (isShowFab && dy > 0 && binding.bottomFilterCompany.visibility == View.VISIBLE) {
+                    hide(binding.bottomFilterCompany)
+                    hide(binding.bottomSortCompany)
+                }
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                when (newState) {
+                    SCROLL_STATE_IDLE -> {
+                        position = recyclerView.computeVerticalScrollOffset()
+                    }
+                }
+            }
+        })
+    }
 
     internal fun loading() {
         binding.recyclerViewCompanies.isVisible = false
@@ -37,37 +77,19 @@ class RecyclerViewState(
     }
 
     internal fun setRecyclerView(list: List<Company>) {
-        val recyclerView: RecyclerView = binding.recyclerViewCompanies
-        recyclerView.layoutManager = LinearLayoutManager(
-            binding.root.context,
-            LinearLayoutManager.VERTICAL, false
-        )
-        val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
-            object : ListCompaniesAdapter.OnStateClickListener {
-                override fun onStateClick(company: Company, position: Int) {
-                    coordinator.execute(Action.ListCompanyToCompany, company.entityCompany.secId)
-                }
-            }
-        recyclerView.adapter = ListCompaniesAdapter(list, stateClickListener, viewModel)
+        adapter.submitList(list)
+        recyclerView.adapter = adapter
+        isShowFab = false
+        recyclerView.scrollBy(0, position)
+        isShowFab = true
 
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy <= 0 && binding.bottomFilterCompany.visibility == View.INVISIBLE) {
-                    show(binding.bottomFilterCompany)
-                    show(binding.bottomSortCompany)
-                } else if (dy > 0 && binding.bottomFilterCompany.visibility == View.VISIBLE) {
-                    hide(binding.bottomFilterCompany)
-                    hide(binding.bottomSortCompany)
-                }
-            }
-        })
     }
 
     private fun hide(fab: ExtendedFloatingActionButton) {
         fab.startAnimation(toBottomAnimation)
         fab.startAnimation(toBottomAnimation)
-        binding.bottomFilterCompany.visibility = View.INVISIBLE
-        binding.bottomSortCompany.visibility = View.INVISIBLE
+        binding.bottomFilterCompany.visibility = View.GONE
+        binding.bottomSortCompany.visibility = View.GONE
     }
 
     private fun show(fab: ExtendedFloatingActionButton) {
@@ -89,6 +111,10 @@ class RecyclerViewState(
             binding.root.context,
             R.anim.to_bottom_animation
         )
+    }
+
+    override fun onCheckedChanged(company: Company, isChecked: Boolean) {
+        viewModel.changeStatusFavorite(company.entityCompany.secId)
     }
 
 }

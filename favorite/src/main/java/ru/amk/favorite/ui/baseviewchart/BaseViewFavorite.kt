@@ -9,15 +9,6 @@ import com.amk.core.utils.convertForXAxis
 import ru.amk.favorite.ui.baseviewchart.ChartValue.COUNT_OF_VALUE_Y_AXIS
 import ru.amk.favorite.ui.baseviewchart.ChartValue.OFFSET_AXIS_Y
 import ru.amk.favorite.ui.baseviewchart.ChartValue.SEGMENT_LENGTH
-import ru.amk.favorite.ui.baseviewchart.ChartValue.coordEndXAxis
-import ru.amk.favorite.ui.baseviewchart.ChartValue.coordEndYAxis
-import ru.amk.favorite.ui.baseviewchart.ChartValue.coordZeroX
-import ru.amk.favorite.ui.baseviewchart.ChartValue.coordZeroY
-import ru.amk.favorite.ui.baseviewchart.ChartValue.currentX
-import ru.amk.favorite.ui.baseviewchart.ChartValue.heightView
-import ru.amk.favorite.ui.baseviewchart.ChartValue.stepYAxis
-import ru.amk.favorite.ui.baseviewchart.ChartValue.widthPerView
-import java.time.LocalDate
 import java.util.*
 
 abstract class BaseViewFavorite @JvmOverloads constructor(
@@ -26,17 +17,31 @@ abstract class BaseViewFavorite @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
     internal var divScreen: Double = 3.5
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
-        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
-        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
+    protected var coordZeroX = 0f// начало оси X
+    protected var coordEndXAxis = 0f//Конец оси X
+    protected var stepYAxis = 0f//Расстояние между сигнатурами оси Y
+    protected var maxValueYAxis = 0.0//максимально значение по оси Y
+    protected var heightView = 0
+    protected val widthPerView: Int = 50
+    protected var coordZeroY = 1f// начало оси Y
+    protected var coordEndYAxis = 0f//Конец оси Yinternal
+    protected var heightPerValue: Double = 0.0
+    protected var currentX: Int = 0
+    protected var widthSize = 0
+    protected var stepXAxis = 0f//Расстояние между подписями оси X
+    protected var minValueYAxis: Double = 0.0
+    protected var stepValueYAxis =
+        maxValueYAxis / COUNT_OF_VALUE_Y_AXIS//шаг значение по оси
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
         heightView = (heightSize / divScreen).toInt()
         coordZeroY = heightView - OFFSET_AXIS_Y
 
         stepYAxis = coordZeroY / COUNT_OF_VALUE_Y_AXIS.toFloat()
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        ChartValue.widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        this.widthSize = MeasureSpec.getSize(widthMeasureSpec)
     }
 
     fun onDrawXAxisSignatures(canvas: Canvas, date: Date, index: Int) {
@@ -96,14 +101,5 @@ internal fun List<EntityCompany>.min(): Double {
         (min - min / 50)
     } else {
         0.0
-    }
-}
-
-fun String.convertDate(): String {
-    val localDate = LocalDate.parse(this)
-    return if (localDate.monthValue < 10) {
-        "${localDate.dayOfMonth}.0${localDate.monthValue}"
-    } else {
-        "${localDate.dayOfMonth}.${localDate.monthValue}"
     }
 }

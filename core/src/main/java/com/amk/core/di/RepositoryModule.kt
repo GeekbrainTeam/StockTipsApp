@@ -12,7 +12,7 @@ val repoModule = module {
 
     single<Repository> { NetworkRepository(get()) }
 
-    single { CacheRepository(get()) }
+    single<CacheRepository> { CacheRepositoryRoom(get()) }
 
     single { DataBaseCacheCompany.getDatabase(get()) }
 

@@ -33,42 +33,39 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
     private fun updateData() {
         viewModelScope.launch {
             try {
-                companyList.addAll(repository.createListOneDayYesterday())
-                _companiesData.value =
-                    ListCompanyFragmentState.Success(companyList)
-                sortingInteractorImpl = SortingInteractorImpl(companyList)
-                chooseSort(directionSort, typeSort, firstElements)
+                repository.createListOneDayYesterday().collect {
+                    companyList.clear()
+                    companyList.addAll(it)
+                    sortingInteractorImpl = SortingInteractorImpl(companyList)
+                    chooseSort(directionSort, typeSort)
+                }
+
             } catch (error: Exception) {
                 _companiesData.value = ListCompanyFragmentState.Failure(error)
             }
         }
     }
 
-    fun addFavorite(secId: String) {
+    fun changeStatusFavorite(secId: String) {
         viewModelScope.launch {
             try {
-                repository.addFavoriteCompany(secId)
-                companyList.clear()
-                updateData()
+                val listFavorite = repository.getAllFavorite()
+                if (listFavorite.map { it.secId }.contains(secId)) {
+                    repository.deleteFavoriteCompany(secId)
+                } else {
+                    repository.addFavoriteCompany(secId)
+                }
             } catch (error: Exception) {
                 _companiesData.value = ListCompanyFragmentState.Failure(error)
             }
         }
     }
 
-    fun deleteFavorite(secId: String) {
-        viewModelScope.launch {
-            try {
-                repository.deleteFavoriteCompany(secId)
-                companyList.clear()
-                updateData()
-            } catch (error: Exception) {
-                _companiesData.value = ListCompanyFragmentState.Failure(error)
-            }
-        }
-    }
-
-    internal fun chooseSort(directionSort: Direction, typeSort: TypeSort, firstElements: FavoriteState) {
+    internal fun chooseSort(
+        directionSort: Direction,
+        typeSort: TypeSort,
+        firstElements: FavoriteState = this.firstElements
+    ) {
         this.directionSort = directionSort
         this.typeSort = typeSort
         this.firstElements = firstElements

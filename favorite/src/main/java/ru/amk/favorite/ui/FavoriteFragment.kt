@@ -1,24 +1,26 @@
 package ru.amk.favorite.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.amk.core.ui.BaseFragment
 import ru.amk.favorite.databinding.FragmentFavoriteBinding
+import ru.amk.favorite.interactors.StatesFavoriteInteractor
+import ru.amk.favorite.presentation.FavoriteViewModel
 
-class FavoriteFragment : Fragment() {
-    private var _binding: FragmentFavoriteBinding? = null
-    private val binding get() = _binding!!
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
-        return binding.root
+class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel>() {
+
+    override fun getViewBinding() = FragmentFavoriteBinding.inflate(layoutInflater)
+    override fun getVModelClass() = FavoriteViewModel::class.java
+
+    private val statesFavoriteInteractor: StatesFavoriteInteractor by lazy {
+        StatesFavoriteInteractor(binding, viewModel)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.companiesData.observe(viewLifecycleOwner) {
+            statesFavoriteInteractor.init(it)
+        }
     }
+
 }

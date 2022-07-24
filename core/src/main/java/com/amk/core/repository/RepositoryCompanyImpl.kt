@@ -2,14 +2,16 @@ package com.amk.core.repository
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import com.amk.core.entity.BaseCashCompany
-import com.amk.core.entity.Company
-import com.amk.core.entity.EntityCompany
-import com.amk.core.entity.FavoriteCompany
+import com.amk.core.entity.*
 import com.amk.core.interactors.CompanyFactory
+import com.amk.core.interactors.FavoriteFactory
 import com.amk.core.utils.DATA_LOAD
+import com.amk.core.utils.changeDay
 import com.amk.core.utils.convertToDate
 import com.amk.core.utils.convertToString
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import java.util.*
 
 class RepositoryCompanyImpl(
@@ -21,11 +23,26 @@ class RepositoryCompanyImpl(
     private val sharedPref = context.getSharedPreferences(DATA_LOAD, MODE_PRIVATE)
     private val lastData = sharedPref.getString(DATA_LOAD, "")
     private val todayData = Date().convertToString()
+    private var currentFavorite = -1
 
-    override suspend fun createListOneDayYesterday(): List<Company> {
-        val listFavorite = cacheRepository.getFavoriteCompanies().map { it.secId }.toList()
-        val dataGetReadyIsShow = mutableListOf<Company>()
+    override suspend fun createListOneDayYesterday(): Flow<Set<Company>> {
+        return cacheRepository.getFavoriteCompanies().map { favoriteCompanies ->
+            val dataGetReadyIsShow = mutableSetOf<Company>()
+            val listFavorite = favoriteCompanies.map { it.secId }.toList()
+            if (currentFavorite != -1 && currentFavorite == favoriteCompanies.size) {
+                updateFavorite(favoriteCompanies, listFavorite, dataGetReadyIsShow)
+                dataGetReadyIsShow
+            } else {
+                updateListCompanies(dataGetReadyIsShow, listFavorite, favoriteCompanies)
+            }
+        }
+    }
 
+    private suspend fun updateListCompanies(
+        dataGetReadyIsShow: MutableSet<Company>,
+        listFavorite: List<String>,
+        favoriteCompanies: List<EntityFavoriteCompany>
+    ): MutableSet<Company> {
         if (lastData == todayData) {
             getDataFromCash(
                 dataGetReadyIsShow = dataGetReadyIsShow,
@@ -33,29 +50,59 @@ class RepositoryCompanyImpl(
                 listCompanyFromPreviousPeriod = cacheRepository.getCompanyAfterYesterday()
             )
         } else {
-            getDataFromNetwork(dataGetReadyIsShow = dataGetReadyIsShow, listFavorite = listFavorite)
-        }
-        return dataGetReadyIsShow
-    }
-
-    override suspend fun createListOneDayHalfYear(): List<Company> {
-        val listFavorite = cacheRepository.getFavoriteCompanies().map { it.secId }.toList()
-        val dataGetReadyIsShow = mutableListOf<Company>()
-
-        if (lastData == todayData) {
-            getDataFromCash(
+            fillDataFromNetwork(
                 dataGetReadyIsShow = dataGetReadyIsShow,
-                listFavorite = listFavorite,
-                listCompanyFromPreviousPeriod = cacheRepository.getCompanyHalfYear()
+                listFavorite = listFavorite
             )
-        } else {
-            getDataFromNetwork(dataGetReadyIsShow = dataGetReadyIsShow, listFavorite = listFavorite)
         }
+        currentFavorite = favoriteCompanies.size
         return dataGetReadyIsShow
     }
 
-    private suspend fun getDataFromNetwork(
-        dataGetReadyIsShow: MutableList<Company>,
+    private suspend fun updateFavorite(
+        favoriteCompanies: List<EntityFavoriteCompany>,
+        listFavorite: List<String>,
+        dataGetReadyIsShow: MutableSet<Company>
+    ) {
+        val listCompanyNetworkOneDay = cacheRepository.getCompanyOneDay()
+        val listCompanyNetworkAfterYesterday = cacheRepository.getCompanyAfterYesterday()
+        val listCompanyNetworkNetworkHalfYear = cacheRepository.getCompanyHalfYear()
+        favoriteCompanies.map { favorite ->
+            CompanyFactory(
+                listOf(listCompanyNetworkOneDay.first { it.secId == favorite.secId }
+                    .convertToEntityCompany()),
+                listOf(listCompanyNetworkAfterYesterday.first { it.secId == favorite.secId }
+                    .convertToEntityCompany()),
+                listFavorite
+            ).getCompanies().first()
+        }.forEach {
+            dataGetReadyIsShow.add(it)
+        }
+    }
+
+    override suspend fun createListOneDayHalfYear(): Flow<Set<Company>> {
+        return cacheRepository.getFavoriteCompanies().map { favoriteCompanies ->
+            val listFavorite = favoriteCompanies.map { it.secId }.toList()
+            val dataGetReadyIsShow = mutableSetOf<Company>()
+
+            if (lastData == todayData) {
+                getDataFromCash(
+                    dataGetReadyIsShow = dataGetReadyIsShow,
+                    listFavorite = listFavorite,
+                    listCompanyFromPreviousPeriod = cacheRepository.getCompanyAfterYesterday()
+                )
+            } else {
+                fillDataFromNetwork(
+                    dataGetReadyIsShow = dataGetReadyIsShow,
+                    listFavorite = listFavorite
+                )
+            }
+            dataGetReadyIsShow
+        }
+    }
+
+    private suspend fun fillDataFromNetwork(
+        dataGetReadyIsShow: MutableSet<Company>,
         listFavorite: List<String>,
     ) {
         val listCompanyNetworkOneDay = networkRepository.getCompaniesLastDate()
@@ -79,7 +126,7 @@ class RepositoryCompanyImpl(
     }
 
     private suspend fun getDataFromCash(
-        dataGetReadyIsShow: MutableList<Company>,
+        dataGetReadyIsShow: MutableSet<Company>,
         listFavorite: List<String>,
         listCompanyFromPreviousPeriod: List<BaseCashCompany>,
     ) {
@@ -94,12 +141,30 @@ class RepositoryCompanyImpl(
     }
 
     override suspend fun addFavoriteCompany(secId: String) {
-        cacheRepository.addFavoriteCompany(FavoriteCompany(secId))
+        cacheRepository.addFavoriteCompany(EntityFavoriteCompany(secId))
     }
 
     override suspend fun deleteFavoriteCompany(secId: String) {
         cacheRepository.deleteFavoriteCompany(secId)
     }
+
+    override suspend fun createFavoriteCompany(): Flow<List<FavoriteCompany>> {
+        return cacheRepository.getFavoriteCompanies().map { favoriteCompanies ->
+            val listFavorite = favoriteCompanies.map { it.secId }.toList()
+            val dataGetReadyIsShow = mutableListOf<FavoriteCompany>()
+            val date = Date()
+            listFavorite.forEach {
+                val graph = networkRepository.getCompanyCandles(it, date.changeDay(-90), date)
+                dataGetReadyIsShow.add(
+                    FavoriteFactory(graph).getFavoriteCompany()
+                )
+            }
+            dataGetReadyIsShow
+        }
+    }
+
+    override suspend fun getAllFavorite(): List<EntityFavoriteCompany> =
+        cacheRepository.getFavoriteCompanies().first()
 
     private suspend fun addToCache(
         entityCompaniesOneDay: List<EntityCompany>,

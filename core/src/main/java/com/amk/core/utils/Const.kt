@@ -8,8 +8,8 @@ const val TYPE_FAVORITE = "favorite"
 const val KEY = "sort_key"
 const val KEY_PREF_THEME = "key_pref_theme"
 const val ARGUMENT_KEY = "args_key"
-val DEFAULT_DIRECTION_SORT = Direction.Up
-val DEFAULT_TYPE_SORT = TypeSort.Name
+val DEFAULT_DIRECTION_SORT = Direction.Down
+val DEFAULT_TYPE_SORT = TypeSort.Percent
 val DEFAULT_FIRST = FavoriteState.FavoriteMix
 
 sealed interface Direction : java.io.Serializable {

@@ -7,13 +7,13 @@ import com.amk.mylibrary.presentation.CompaniesListViewModel
 
 class StatesCompanyListInteractor(
     private val binding: FragmentListCompanyBinding,
-    private val state: ListCompanyFragmentState,
     coordinator: AppNavigation,
     viewModel: CompaniesListViewModel,
 ) {
 
     private val recyclerViewState = RecyclerViewState(binding, coordinator, viewModel)
-    fun init() {
+
+    fun init(state: ListCompanyFragmentState) {
         when (state) {
             is ListCompanyFragmentState.Loading -> {
                 recyclerViewState.loading()
@@ -21,10 +21,6 @@ class StatesCompanyListInteractor(
             is ListCompanyFragmentState.Failure -> {
                 recyclerViewState.error()
                 Toast.makeText(binding.root.context, state.toString(), Toast.LENGTH_LONG).show()
-            }
-            is ListCompanyFragmentState.Success -> {
-                recyclerViewState.success()
-                recyclerViewState.setRecyclerView(state.data)
             }
             is ListCompanyFragmentState.SortByName -> {
                 recyclerViewState.success()
