@@ -50,7 +50,7 @@ class RepositoryCompanyImpl(
                 listCompanyFromPreviousPeriod = cacheRepository.getCompanyAfterYesterday()
             )
         } else {
-            getDataFromNetwork(
+            fillDataFromNetwork(
                 dataGetReadyIsShow = dataGetReadyIsShow,
                 listFavorite = listFavorite
             )
@@ -92,7 +92,7 @@ class RepositoryCompanyImpl(
                     listCompanyFromPreviousPeriod = cacheRepository.getCompanyAfterYesterday()
                 )
             } else {
-                getDataFromNetwork(
+                fillDataFromNetwork(
                     dataGetReadyIsShow = dataGetReadyIsShow,
                     listFavorite = listFavorite
                 )
@@ -101,7 +101,7 @@ class RepositoryCompanyImpl(
         }
     }
 
-    private suspend fun getDataFromNetwork(
+    private suspend fun fillDataFromNetwork(
         dataGetReadyIsShow: MutableSet<Company>,
         listFavorite: List<String>,
     ) {
@@ -155,37 +155,8 @@ class RepositoryCompanyImpl(
             val date = Date()
             listFavorite.forEach {
                 val graph = networkRepository.getCompanyCandles(it, date.changeDay(-90), date)
-                val changePerDay = networkRepository.getCompanyCandles(it, date.changeDay(-1), date)
-                val changePerWeek =
-                    networkRepository.getCompanyCandles(it, date.changeDay(-7), date)
-                val changePerMonth =
-                    networkRepository.getCompanyCandles(it, date.changeDay(-30), date)
                 dataGetReadyIsShow.add(
-                    FavoriteCompany(
-                        secId = it,
-                        name = changePerDay.first().shortName,
-                        price = graph.last().close,
-                        listEntityCompany = graph,
-                        changePricePerDay = FavoriteFactory(
-                            changePerDay.first(), changePerDay.last()
-                        ).changePriceFavorite(),
-                        changePercentPerDay = FavoriteFactory(
-                            changePerDay.first(), changePerDay.last()
-                        ).changePercentFavorite(),
-                        changePricePerWeek = FavoriteFactory(
-                            changePerWeek.first(), changePerWeek.last()
-                        ).changePriceFavorite(),
-                        changePercentPerWeek = FavoriteFactory(
-                            changePerWeek.first(), changePerWeek.last()
-                        ).changePercentFavorite(),
-                        changePricePerMonth = FavoriteFactory(
-                            changePerMonth.first(), changePerMonth.last()
-                        ).changePriceFavorite(),
-                        changePercentPerMonth = FavoriteFactory(
-                            changePerMonth.first(), changePerMonth.last()
-                        ).changePercentFavorite(),
-                        favorite = true
-                    )
+                    FavoriteFactory(graph).getFavoriteCompany()
                 )
             }
             dataGetReadyIsShow
