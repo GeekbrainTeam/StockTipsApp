@@ -2,24 +2,23 @@ package ru.amk.settings.ui
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.amk.core.navigation.AppNavigation
 import com.amk.mylibrary.utils.KEY_PREF_THEME
-import com.amk.mylibrary.utils.KEY_THEME
-import org.koin.android.ext.android.inject
+import com.amk.mylibrary.utils.TYPE_DIRECTION
+import com.amk.mylibrary.utils.TYPE_FAVORITE
+import com.amk.mylibrary.utils.TYPE_SORT
 import ru.amk.settings.R
 import ru.amk.settings.databinding.FragmentSettingsBinding
 
 class Settings : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
-    private val coordinator: AppNavigation by inject()
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,7 +29,7 @@ class Settings : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //initTheme()
+        setRadioButton()
         binding.switchThemeGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.light_theme_button -> sendData(1)
@@ -38,40 +37,64 @@ class Settings : Fragment() {
                 R.id.system_theme_button -> sendData(3)
             }
         }
-    }
-
-    private fun sendData(key: Int) {
-        val sharedPrefs =
-            requireContext().getSharedPreferences(KEY_PREF_THEME, Context.MODE_PRIVATE)
-        sharedPrefs.edit().putInt(KEY_PREF_THEME, key).apply()
-        val intent = Intent(requireActivity().baseContext, requireActivity()::class.java)
-        requireActivity().startActivity(intent)
-    }
-
-    private fun initTheme() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            binding.systemThemeButton.visibility = View.VISIBLE
-        } else {
-            binding.systemThemeButton.visibility = View.GONE
+        binding.switchTypeSortDefault.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.name_default -> sendTypeDefault(TYPE_SORT, 1)
+                R.id.price_default -> sendTypeDefault(TYPE_SORT, 2)
+                R.id.change_price_default -> sendTypeDefault(TYPE_SORT, 3)
+                R.id.change_percent_default -> sendTypeDefault(TYPE_SORT, 4)
+            }
         }
-        when (getSavedTheme()) {
-            1 -> binding.lightThemeButton.isChecked = true
-            2 -> binding.darkThemeButton.isChecked = true
-            3 -> binding.systemThemeButton.isChecked = true
-            0 -> {
-                when (resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)) {
-                    Configuration.UI_MODE_NIGHT_NO -> binding.lightThemeButton.isChecked = true
-                    Configuration.UI_MODE_NIGHT_YES -> binding.darkThemeButton.isChecked = true
-                    Configuration.UI_MODE_NIGHT_UNDEFINED -> binding.lightThemeButton.isChecked =
-                        true
-                }
+        binding.switchTypeDirectionDefault.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.direction_up_default -> sendTypeDefault(TYPE_DIRECTION, 1)
+                R.id.direction_down_default -> sendTypeDefault(TYPE_DIRECTION, 2)
+            }
+        }
+        binding.switchFavoriteDefault.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.favorite_default -> sendTypeDefault(TYPE_FAVORITE, 1)
+                R.id.mix_default -> sendTypeDefault(TYPE_FAVORITE, 2)
             }
         }
     }
 
-    private fun getSavedTheme(): Int {
-        val sharedPrefs =
+    private fun sendData(key: Int) {
+        val sharedPrefsThemes =
             requireContext().getSharedPreferences(KEY_PREF_THEME, Context.MODE_PRIVATE)
-        return sharedPrefs.getInt(KEY_THEME, 0)
+        sharedPrefsThemes.edit().putInt(KEY_PREF_THEME, key).apply()
+        val intent = Intent(requireContext(), requireActivity()::class.java)
+        requireActivity().startActivity(intent)
+    }
+
+    private fun sendTypeDefault(type: String, key: Int) {
+        val sharedPrefs =
+            requireContext().getSharedPreferences(type, Context.MODE_PRIVATE)
+        sharedPrefs.edit().putInt(type, key).apply()
+    }
+
+    private fun setRadioButton() {
+        val sharedPrefsSort = requireContext().getSharedPreferences(TYPE_SORT, Context.MODE_PRIVATE)
+        val sharedPrefsDirection =
+            requireContext().getSharedPreferences(TYPE_DIRECTION, Context.MODE_PRIVATE)
+        val sharedPrefsFavorite =
+            requireContext().getSharedPreferences(TYPE_FAVORITE, Context.MODE_PRIVATE)
+        val sort = sharedPrefsSort.getInt(TYPE_SORT, 0)
+        val direction = sharedPrefsDirection.getInt(TYPE_DIRECTION, 0)
+        val favorite = sharedPrefsFavorite.getInt(TYPE_FAVORITE, 0)
+        when (sort) {
+            1 -> binding.nameDefault.isChecked = true
+            2 -> binding.priceDefault.isChecked = true
+            3 -> binding.changePriceDefault.isChecked = true
+            4 -> binding.changePercentDefault.isChecked = true
+        }
+        when (direction) {
+            1 -> binding.directionUpDefault.isChecked = true
+            2 -> binding.directionDownDefault.isChecked = true
+        }
+        when (favorite) {
+            1 -> binding.favoriteDefault.isChecked = true
+            2 -> binding.mixDefault.isChecked = true
+        }
     }
 }

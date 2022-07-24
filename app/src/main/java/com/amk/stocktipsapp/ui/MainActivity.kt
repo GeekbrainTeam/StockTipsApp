@@ -1,7 +1,6 @@
 package com.amk.stocktipsapp.ui
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -10,14 +9,12 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.amk.core.navigation.AppNavigation
-import com.amk.mylibrary.ui.ListCompanyFragment
 import com.amk.mylibrary.utils.KEY_PREF_THEME
 import com.amk.stocktipsapp.R
 import com.amk.stocktipsapp.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -69,12 +66,6 @@ class MainActivity : AppCompatActivity() {
     }
     private fun hideBottomNav() {
         navView.visibility = View.GONE
-    }
-
-    override fun onPostResume() {
-        coordinator.navController.navigate(R.id.nav_graph)
-        super.onPostResume()
-
     }
 }
 

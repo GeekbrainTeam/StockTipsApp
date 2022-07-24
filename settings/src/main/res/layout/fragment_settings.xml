@@ -13,6 +13,7 @@
         android:text="Переключить тему приложения"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:layout_marginStart="@dimen/margin_8"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -20,6 +21,7 @@
         android:id="@+id/switch_theme_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
         app:layout_constraintTop_toBottomOf="@id/switch_theme_textview"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -27,19 +29,123 @@
             android:id="@+id/light_theme_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12sp"
             android:text="Светлая тема" />
 
         <RadioButton
-                android:id="@+id/dark_theme_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Темная тема"/>
+            android:id="@+id/dark_theme_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Темная тема" />
+
         <RadioButton
             android:id="@+id/system_theme_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Тема определяется системой"/>
+            android:textSize="12sp"
+            android:text="Тема определяется системой" />
     </RadioGroup>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/switch_default_sort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Установить сортировку по умолчению"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/margin_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/switch_theme_group" />
+    <RadioGroup
+        android:id="@+id/switch_type_sort_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        app:layout_constraintTop_toBottomOf="@id/switch_default_sort"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/name_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Название" />
+
+        <RadioButton
+            android:id="@+id/price_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Цена" />
+
+        <RadioButton
+            android:id="@+id/change_price_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Изменение в цене" />
+
+        <RadioButton
+            android:id="@+id/change_percent_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Изменение в процентах"/>
+    </RadioGroup>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <RadioGroup
+        android:id="@+id/switch_type_direction_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        app:layout_constraintTop_toBottomOf="@id/switch_default_sort"
+        app:layout_constraintStart_toEndOf="@id/guideline2">
+
+        <RadioButton
+            android:id="@+id/direction_up_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="По возрастнаию" />
+
+        <RadioButton
+            android:id="@+id/direction_down_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="По убыванию" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/switch_favorite_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        app:layout_constraintTop_toBottomOf="@id/switch_type_direction_default"
+        app:layout_constraintStart_toEndOf="@id/guideline2">
+
+        <RadioButton
+            android:id="@+id/favorite_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Сначала фавориты" />
+
+        <RadioButton
+            android:id="@+id/mix_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Без учета фаворитов" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
