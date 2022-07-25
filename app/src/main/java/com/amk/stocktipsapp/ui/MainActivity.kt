@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navView: BottomNavigationView
     private val coordinator: AppNavigation by inject { parametersOf(this) }
-    private val sharedPrefs by lazy {  getSharedPreferences(KEY_PREF_THEME, Context.MODE_PRIVATE) }
+    private val sharedPrefs by lazy { getSharedPreferences(KEY_PREF_THEME, Context.MODE_PRIVATE) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
     private fun showBottomNav() {
         navView.visibility = View.VISIBLE
     }
+
     private fun hideBottomNav() {
         navView.visibility = View.GONE
     }
