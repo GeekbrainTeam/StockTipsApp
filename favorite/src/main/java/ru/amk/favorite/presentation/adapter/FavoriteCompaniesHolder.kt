@@ -1,9 +1,11 @@
 package ru.amk.favorite.presentation.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.core.entity.FavoriteCompany
+import com.amk.core.utils.getDrawableFromAssets
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.amk.favorite.databinding.ItemFavoriteBinding
 import kotlin.math.abs
@@ -11,6 +13,7 @@ import kotlin.math.abs
 
 class FavoriteCompaniesHolder(
     private val binding: ItemFavoriteBinding,
+    private val context: Context
 ) : RecyclerView.ViewHolder(binding.root) {
 
     val onDeleteClick: FloatingActionButton = binding.buttonDelete
@@ -31,6 +34,8 @@ class FavoriteCompaniesHolder(
         binding.favoriteAxisYView.drawAxisY(favorite.listEntityCompany)
         binding.candlestickChart.divScreen = 1.5
         binding.favoriteAxisYView.divScreen = 1.5
+        val drawable = getDrawableFromAssets(favorite.secId, context)
+        binding.logo.setImageDrawable(drawable)
     }
 
     private fun changePriceAndPercent(changePrice: Double, changePercent: Double): String {

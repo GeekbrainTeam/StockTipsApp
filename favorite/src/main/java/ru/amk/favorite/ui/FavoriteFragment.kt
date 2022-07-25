@@ -13,7 +13,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
     override fun getVModelClass() = FavoriteViewModel::class.java
 
     private val statesFavoriteInteractor: StatesFavoriteInteractor by lazy {
-        StatesFavoriteInteractor(binding, viewModel)
+        StatesFavoriteInteractor(binding, viewModel, requireActivity())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

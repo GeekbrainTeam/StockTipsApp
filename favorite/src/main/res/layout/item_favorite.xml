@@ -14,20 +14,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/brief_name_favorite_textview"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/brief_name_favorite_textview"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Brief name"
             android:textColor="@color/md_theme_light_outline"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/logo"
+            app:layout_constraintEnd_toStartOf="@id/name_favorite_textview"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/name_favorite_textview"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"
             android:text="Name"
@@ -35,6 +47,7 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
             app:layout_constraintStart_toEndOf="@id/brief_name_favorite_textview"
+            app:layout_constraintEnd_toStartOf="@id/price_favorite_textview"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -61,6 +74,7 @@
             android:textColor="@color/md_theme_light_outline"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/name_favorite_textview"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
             app:layout_constraintEnd_toStartOf="@id/guideline"
             app:layout_constraintTop_toTopOf="parent" />

@@ -1,5 +1,6 @@
 package ru.amk.favorite.presentation.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -10,7 +11,8 @@ import ru.amk.favorite.databinding.ItemFavoriteBinding
 
 
 class FavoriteCompaniesAdapter(
-    private val favoriteClickDeleteInterface: FavoriteClickDeleteInterface
+    private val favoriteClickDeleteInterface: FavoriteClickDeleteInterface,
+    private val context: Context
 ) :
     RecyclerView.Adapter<FavoriteCompaniesHolder>() {
     private val diffUtil = AsyncListDiffer(this, DIFF_CALLBACK)
@@ -24,7 +26,7 @@ class FavoriteCompaniesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteCompaniesHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return FavoriteCompaniesHolder(ItemFavoriteBinding.inflate(inflater, parent, false))
+        return FavoriteCompaniesHolder(ItemFavoriteBinding.inflate(inflater, parent, false), context)
     }
 
     override fun onBindViewHolder(holder: FavoriteCompaniesHolder, position: Int) {

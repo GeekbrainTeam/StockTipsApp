@@ -1,5 +1,6 @@
 package ru.amk.favorite.interactors
 
+import android.content.Context
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,10 +12,11 @@ import ru.amk.favorite.presentation.adapter.FavoriteCompaniesAdapter
 class RecyclerViewFavoriteState(
     private val binding: FragmentFavoriteBinding,
     private val viewModel: FavoriteViewModel,
+    context: Context
 ) : FavoriteCompaniesAdapter.FavoriteClickDeleteInterface {
 
     private val recyclerView: RecyclerView = binding.recyclerFavoriteCompanies
-    private val adapter = FavoriteCompaniesAdapter(this)
+    private val adapter = FavoriteCompaniesAdapter(this, context)
     private var position: Int = 0
 
     init {
@@ -22,7 +24,7 @@ class RecyclerViewFavoriteState(
             binding.root.context,
             LinearLayoutManager.VERTICAL, false
         )
-        recyclerView.adapter = FavoriteCompaniesAdapter(this)
+        recyclerView.adapter = FavoriteCompaniesAdapter(this, context)
         position = recyclerView.computeVerticalScrollOffset()
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
