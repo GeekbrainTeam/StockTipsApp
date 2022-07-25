@@ -1,15 +1,18 @@
 package com.amk.mylibrary.presentation.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.core.entity.Company
+import com.amk.core.utils.getDrawableFromAssets
 import com.amk.mylibrary.databinding.ItemCompanyBinding
 import kotlin.math.abs
 
 
 class ListCompaniesHolder(
     private val binding: ItemCompanyBinding,
+    private val context: Context
 ) :
     RecyclerView.ViewHolder(binding.root) {
     val onCheck = binding.checkBoxFavorite
@@ -28,6 +31,8 @@ class ListCompaniesHolder(
 
         binding.changePrice.text = changePriceAndPercent(company)
         binding.checkBoxFavorite.isChecked = company.favorite
+        val drawable = getDrawableFromAssets(company.entityCompany.secId, context)
+        binding.logo.setImageDrawable(drawable)
     }
 
     private fun changePriceAndPercent(company: Company): String {

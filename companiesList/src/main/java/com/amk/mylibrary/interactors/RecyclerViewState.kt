@@ -1,5 +1,6 @@
 package com.amk.mylibrary.interactors
 
+import android.content.Context
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -20,6 +21,7 @@ class RecyclerViewState(
     private val binding: FragmentListCompanyBinding,
     private val coordinator: AppNavigation,
     private val viewModel: CompaniesListViewModel,
+    context: Context
 ) : ListCompaniesAdapter.OnStateCheckBoxListener{
 
     private val recyclerView: RecyclerView = binding.recyclerViewCompanies
@@ -29,7 +31,7 @@ class RecyclerViewState(
                 coordinator.execute(Action.ListCompanyToCompany, company.entityCompany.secId)
             }
         }
-    private val adapter = ListCompaniesAdapter(stateClickListener, /*viewModel*/this)
+    private val adapter = ListCompaniesAdapter(stateClickListener, /*viewModel*/this, context)
     private var position: Int = 0
     var isShowFab = true
 
@@ -38,7 +40,7 @@ class RecyclerViewState(
             binding.root.context,
             LinearLayoutManager.VERTICAL, false
         )
-        recyclerView.adapter = ListCompaniesAdapter(stateClickListener, /*viewModel*/this)
+        recyclerView.adapter = ListCompaniesAdapter(stateClickListener, /*viewModel*/this, context)
         position = recyclerView.computeVerticalScrollOffset()
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

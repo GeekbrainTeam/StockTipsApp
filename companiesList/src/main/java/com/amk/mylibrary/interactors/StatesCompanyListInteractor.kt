@@ -1,5 +1,6 @@
 package com.amk.mylibrary.interactors
 
+import android.content.Context
 import android.widget.Toast
 import com.amk.core.navigation.AppNavigation
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
@@ -9,9 +10,10 @@ class StatesCompanyListInteractor(
     private val binding: FragmentListCompanyBinding,
     coordinator: AppNavigation,
     viewModel: CompaniesListViewModel,
+    context: Context
 ) {
 
-    private val recyclerViewState = RecyclerViewState(binding, coordinator, viewModel)
+    private val recyclerViewState = RecyclerViewState(binding, coordinator, viewModel, context)
 
     fun init(state: ListCompanyFragmentState) {
         when (state) {
