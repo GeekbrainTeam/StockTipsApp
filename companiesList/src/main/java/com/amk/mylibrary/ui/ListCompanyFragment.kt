@@ -26,7 +26,7 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
     private var directionSort: Direction = DEFAULT_DIRECTION_SORT
     private var firstElements: FavoriteState = DEFAULT_FIRST
     private val statesCompanyListInteractor: StatesCompanyListInteractor by lazy {
-        StatesCompanyListInteractor(binding, coordinator, viewModel)
+        StatesCompanyListInteractor(binding, coordinator, viewModel, requireActivity())
     }
 
 

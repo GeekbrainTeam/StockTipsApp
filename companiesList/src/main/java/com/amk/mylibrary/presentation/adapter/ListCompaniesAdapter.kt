@@ -1,5 +1,6 @@
 package com.amk.mylibrary.presentation.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -11,7 +12,8 @@ import com.amk.mylibrary.databinding.ItemCompanyBinding
 
 class ListCompaniesAdapter(
     private val onClickListener: OnStateClickListener,
-    private val onStateCheckBoxListener: OnStateCheckBoxListener
+    private val onStateCheckBoxListener: OnStateCheckBoxListener,
+    private val context: Context
 ) : RecyclerView.Adapter<ListCompaniesHolder>() {
 
     private val diffUtil = AsyncListDiffer(this, DIFF_CALLBACK)
@@ -36,6 +38,7 @@ class ListCompaniesAdapter(
                 parent,
                 false
             ), /*viewModel*/
+        context
         )
     }
 
