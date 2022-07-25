@@ -18,7 +18,7 @@ class FilterFactory(
                 )
             })
         }
-        return when (listCompanyFragmentState) {
+        when (listCompanyFragmentState) {
             is ListCompanyFragmentState.SortByName -> {
                 return ListCompanyFragmentState.SortByName(result)
             }
