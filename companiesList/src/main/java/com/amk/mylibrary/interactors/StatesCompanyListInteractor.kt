@@ -86,7 +86,7 @@ class StatesCompanyListInteractor(
                 recyclerViewState.success()
                 recyclerViewState.setRecyclerView(state.data)
             }
-            is ListCompanyFragmentState.Filter -> {
+            is ListCompanyFragmentState.Filtered -> {
                 recyclerViewState.success()
                 recyclerViewState.setRecyclerView(state.data)
             }

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amk.core.entity.Company
-import com.amk.core.interactors.FilterFactory
+import com.amk.mylibrary.interactors.FilterFactory
 import com.amk.core.interactors.SortingInteractorImpl
 import com.amk.core.repository.RepositoryCompany
 import com.amk.mylibrary.interactors.ListCompanyFragmentState
@@ -22,7 +22,7 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
     private var firstElements: FavoriteState = DEFAULT_FIRST
 
     private var sortingInteractorImpl: SortingInteractorImpl = SortingInteractorImpl(companyList)
-    private var filterFactory: FilterFactory = FilterFactory(companyList)
+    //private var filterFactory: FilterFactory = FilterFactory(companyList)
     private val _companiesData =
         MutableLiveData<ListCompanyFragmentState>(ListCompanyFragmentState.Empty)
     val companiesData = _companiesData
@@ -65,7 +65,9 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
     }
 
     fun filteredList(search: CharSequence?) {
-        _companiesData.value = ListCompanyFragmentState.Filter(filterFactory.searchFilter(search))
+        val tmpList = FilterFactory(_companiesData.value, search, companyList).searchFilter()
+        _companiesData.value = tmpList
+        //_companiesData.value = ListCompanyFragmentState.Filtered(filterFactory.searchFilter(search))
     }
 
     internal fun chooseSort(

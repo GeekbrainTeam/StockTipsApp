@@ -21,6 +21,6 @@ sealed class ListCompanyFragmentState{
     class SortFavoriteByChangePriceReverse(val data:List<Company>) : ListCompanyFragmentState()
     class SortFavoriteByChangePercent(val data:List<Company>) : ListCompanyFragmentState()
     class SortFavoriteByChangePercentReverse(val data:List<Company>) : ListCompanyFragmentState()
-    class Filter (val data:List<Company>) : ListCompanyFragmentState()
+    class Filtered (val data:List<Company>) : ListCompanyFragmentState()
     object Empty : ListCompanyFragmentState()
 }
