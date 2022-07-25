@@ -1,5 +1,6 @@
 package ru.amk.favorite.interactors
 
+import android.content.Context
 import android.widget.Toast
 import com.amk.core.entity.FaforiteFragmentState
 import ru.amk.favorite.databinding.FragmentFavoriteBinding
@@ -8,8 +9,9 @@ import ru.amk.favorite.presentation.FavoriteViewModel
 class StatesFavoriteInteractor(
     private val binding: FragmentFavoriteBinding,
     viewModel: FavoriteViewModel,
+    context: Context
 ) {
-    private val recyclerViewFavoriteState = RecyclerViewFavoriteState(binding, viewModel)
+    private val recyclerViewFavoriteState = RecyclerViewFavoriteState(binding, viewModel, context)
     fun init(state: FaforiteFragmentState) {
         when (state) {
             is FaforiteFragmentState.Loading -> {
