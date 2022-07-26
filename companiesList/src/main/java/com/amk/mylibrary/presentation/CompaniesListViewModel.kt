@@ -65,7 +65,8 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
     }
 
     fun filteredList(search: CharSequence?) {
-        val tmpList = FilterFactory(_companiesData.value, search, companyList).searchFilter()
+
+        val tmpList = FilterFactory(_companiesData.value, search, sortingInteractorImpl).searchFilter()
         _companiesData.value = tmpList
         //_companiesData.value = ListCompanyFragmentState.Filtered(filterFactory.searchFilter(search))
     }
