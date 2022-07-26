@@ -2,7 +2,10 @@ package com.amk.mylibrary.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import androidx.core.widget.addTextChangedListener
 import com.amk.core.navigation.AppNavigation
 import com.amk.core.ui.BaseFragment
 import com.amk.core.utils.DATA_LOAD
@@ -57,6 +60,14 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
             }
             viewModel.chooseSort(directionSort, typeSort, firstElements)
         }
+        binding.searchInputText.addTextChangedListener (object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.filteredList(s)
+            }
+        })
     }
     private fun getSettingsOfSort() {
         val sharedPrefsSort =  requireContext().getSharedPreferences(TYPE_SORT, Context.MODE_PRIVATE)

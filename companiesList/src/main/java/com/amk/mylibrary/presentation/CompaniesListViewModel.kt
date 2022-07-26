@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.amk.core.entity.Company
 import com.amk.core.interactors.SortingInteractorImpl
 import com.amk.core.repository.RepositoryCompany
+import com.amk.mylibrary.interactors.FilterFactory
 import com.amk.mylibrary.interactors.ListCompanyFragmentState
 import com.amk.mylibrary.utils.*
 import kotlinx.coroutines.launch
@@ -21,30 +22,33 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
     private var firstElements: FavoriteState = DEFAULT_FIRST
 
     private var sortingInteractorImpl: SortingInteractorImpl = SortingInteractorImpl(companyList)
+    private val filterFactory: FilterFactory = FilterFactory(repository)
+    private var searchQuery = ""
+
     private val _companiesData =
         MutableLiveData<ListCompanyFragmentState>(ListCompanyFragmentState.Empty)
     val companiesData = _companiesData
 
     init {
         _companiesData.value = ListCompanyFragmentState.Loading
-        updateData()
-    }
-
-    private fun updateData() {
         viewModelScope.launch {
             try {
-                repository.createListOneDayYesterday().collect {
-                    companyList.clear()
-                    companyList.addAll(it)
-                    sortingInteractorImpl = SortingInteractorImpl(companyList)
-                    chooseSort(directionSort, typeSort)
+                filterFactory.getFilterCompany(searchQuery).collect {
+                    updateData(it)
                 }
-
             } catch (error: Exception) {
                 _companiesData.value = ListCompanyFragmentState.Failure(error)
             }
         }
     }
+
+    private fun updateData(companies: Set<Company>) {
+        companyList.clear()
+        companyList.addAll(companies)
+        sortingInteractorImpl = SortingInteractorImpl(companyList)
+        chooseSort(directionSort, typeSort)
+    }
+
 
     fun changeStatusFavorite(secId: String) {
         viewModelScope.launch {
@@ -59,6 +63,11 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
                 _companiesData.value = ListCompanyFragmentState.Failure(error)
             }
         }
+    }
+
+    fun filteredList(search: CharSequence?) {
+        searchQuery = search.toString()
+        updateData(filterFactory.filter(searchQuery))
     }
 
     internal fun chooseSort(
