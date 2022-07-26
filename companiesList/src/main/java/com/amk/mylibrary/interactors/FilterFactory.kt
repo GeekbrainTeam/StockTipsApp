@@ -8,16 +8,7 @@ class FilterFactory(
     private val sourceCompanies: List<Company>
 ) {
     fun searchFilter(): ListCompanyFragmentState {
-        val result = mutableListOf<Company>()
-        if (charSequence == null || charSequence.isEmpty()) {
-            result.addAll(sourceCompanies)
-        } else {
-            result.addAll(sourceCompanies.filter {
-                it.shortName.contains(charSequence) || it.entityCompany.secId.contains(
-                    charSequence
-                )
-            })
-        }
+        val result = filterList()
         when (listCompanyFragmentState) {
             is ListCompanyFragmentState.SortByName -> {
                 return ListCompanyFragmentState.SortByName(result)
@@ -73,5 +64,10 @@ class FilterFactory(
             }
         }
 
+    }
+
+    private fun filterList(): List<Company> = sourceCompanies.filter {
+        it.entityCompany.secId.contains(charSequence.toString(), true) ||
+                it.entityCompany.shortName.contains(charSequence.toString(), true)
     }
 }
