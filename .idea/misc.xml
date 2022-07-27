@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Study/Android/StockTipsApp/companiesList/src/main/res/layout/item_company.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/companiesList/src/main/res/layout/fragment_list_company.xml" value="0.25" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/favorite/src/main/res/layout/fragment_favorite.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/baseline_settings_24.xml" value="0.303" />
         <entry key="app/src/main/res/drawable/baseline_star_24.xml" value="0.303" />
         <entry key="app/src/main/res/drawable/color_selector.xml" value="0.101" />
