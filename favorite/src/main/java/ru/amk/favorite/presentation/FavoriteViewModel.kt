@@ -24,6 +24,7 @@ class FavoriteViewModel : ViewModel(), KoinComponent {
         viewModelScope.launch {
             try {
                 cacheRepository.createFavoriteCompany().collect {
+
                     _companiesData.value =
                         FaforiteFragmentState.Success(it)
                 }
@@ -33,7 +34,28 @@ class FavoriteViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    fun deleteFavoriteCompany (secId : String) {
+    fun filteredFavoriteCompany(search: CharSequence?) {
+        if (search.isNullOrBlank()) {
+            viewModelScope.launch {
+                cacheRepository.createFavoriteCompany().collect {
+                    _companiesData.value =
+                        FaforiteFragmentState.Success(it)
+                }
+            }
+        } else {
+            viewModelScope.launch {
+                cacheRepository.createFavoriteCompany().collect {
+                    _companiesData.value =
+                        FaforiteFragmentState.Success(it.filter {
+                            (it.secId.contains(search, true) ||
+                                    it.name.contains(search, true))
+                        })
+                }
+            }
+        }
+    }
+
+    fun deleteFavoriteCompany(secId: String) {
         viewModelScope.launch {
             cacheRepository.deleteFavoriteCompany(secId)
             getFavoriteCompanyIsShow()
