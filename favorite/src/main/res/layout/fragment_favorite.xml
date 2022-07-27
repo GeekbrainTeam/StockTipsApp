@@ -6,14 +6,32 @@
     android:layout_height="match_parent"
     tools:context="ru.amk.favorite.ui.FavoriteFragment">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_edit_favorite_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        android:focusable="false"
+        android:hint="Введите тикер или название компании"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:startIconDrawable="@drawable/ic_baseline_search_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_input_favorite_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_favorite_companies"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
         android:elevation="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/search_edit_favorite_text" />
 
     <ProgressBar
         android:id="@+id/progress_bar_favorite"
@@ -23,7 +41,6 @@
         tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/search_edit_favorite_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
