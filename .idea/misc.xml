@@ -5,6 +5,10 @@
       <map>
         <entry key="..\:/Study/Android/StockTipsApp/companiesList/src/main/res/layout/item_company.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.2271794871794872" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/splash_scene_first.xml" value="0.1" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/appbar_menu.xml" value="0.24166666666666667" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.2271794871794872" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/companiesList/src/main/res/layout/fragment_list_company.xml" value="0.25" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/company/src/main/res/layout/fragment_company.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/company/src/main/res/layout/view_candlestick.xml" value="0.24166666666666667" />
@@ -15,6 +19,7 @@
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/core/src/main/res/drawable/rectangle_dialog_sort.xml" value="0.1795" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/core/src/main/res/drawable/rectangle_shape.xml" value="0.1795" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/favorite/src/main/res/layout/fragment_favorite.xml" value="0.25" />
+        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/favorite/src/main/res/menu/menu_appbar.xml" value="0.1" />
         <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/settings/src/main/res/layout/fragment_settings.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/baseline_settings_24.xml" value="0.303" />
         <entry key="app/src/main/res/drawable/baseline_star_24.xml" value="0.303" />

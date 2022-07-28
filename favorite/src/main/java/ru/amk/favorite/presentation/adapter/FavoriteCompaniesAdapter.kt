@@ -3,6 +3,8 @@ package ru.amk.favorite.presentation.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +16,7 @@ class FavoriteCompaniesAdapter(
     private val favoriteClickDeleteInterface: FavoriteClickDeleteInterface,
     private val context: Context
 ) :
-    RecyclerView.Adapter<FavoriteCompaniesHolder>() {
+    RecyclerView.Adapter<FavoriteCompaniesHolder>(){
     private val diffUtil = AsyncListDiffer(this, DIFF_CALLBACK)
 
     interface FavoriteClickDeleteInterface {

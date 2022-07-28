@@ -34,7 +34,7 @@ class FavoriteViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    fun filteredFavoriteCompany(search: CharSequence?) {
+    fun filteredFavoriteCompany(search: String?) {
         if (search.isNullOrBlank()) {
             viewModelScope.launch {
                 cacheRepository.createFavoriteCompany().collect {
