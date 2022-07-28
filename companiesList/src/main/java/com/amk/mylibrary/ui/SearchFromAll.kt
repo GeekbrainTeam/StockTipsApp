@@ -1,4 +1,4 @@
-package com.amk.stocktipsapp.UI
+package com.amk.mylibrary.ui
 
 import androidx.lifecycle.LiveData
 

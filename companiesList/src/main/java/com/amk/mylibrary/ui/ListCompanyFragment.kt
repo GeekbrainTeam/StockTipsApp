@@ -60,14 +60,18 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
             }
             viewModel.chooseSort(directionSort, typeSort, firstElements)
         }
-        binding.searchInputText.addTextChangedListener (object : TextWatcher {
+        val getDataFromActivity = requireActivity() as SearchFromAll
+        getDataFromActivity.getQueryCompany().observe(viewLifecycleOwner) {
+            viewModel.filteredList(it)
+        }
+        /*binding.searchInputText.addTextChangedListener (object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.filteredList(s)
             }
-        })
+        })*/
     }
     private fun getSettingsOfSort() {
         val sharedPrefsSort =  requireContext().getSharedPreferences(TYPE_SORT, Context.MODE_PRIVATE)
