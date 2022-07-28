@@ -45,15 +45,25 @@ class ThreeLineBreakView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         if (threeLineBreaks.isNotEmpty()) {
             currentX = 0
-
             canvas?.let { onDrawCoordinateGrid(canvas) }
-            for ((index, item) in threeLineBreaks.withIndex()) {
-                canvas?.let {
-                    onDrawXAxisSignatures(canvas, item.date, index)
-                    onDrawBody(canvas, item)
+            if (threeLineBreaks.size < 270) {
+                for ((index, item) in threeLineBreaks.withIndex()) {
+                    canvas?.let {
+                        onDrawXAxisSignaturesLessYear(canvas, item.date, index)
+                        onDrawBody(canvas, item)
+                    }
+                    currentX += widthPerView
                 }
-                currentX += widthPerView
+            } else {
+                for ((index, item) in threeLineBreaks.withIndex()) {
+                    canvas?.let {
+                        onDrawXAxisSignaturesMoreYear(canvas, item.date, index)
+                        onDrawBody(canvas, item)
+                    }
+                    currentX += widthPerView
+                }
             }
+
         }
     }
 

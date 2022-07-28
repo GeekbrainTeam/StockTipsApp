@@ -20,7 +20,13 @@ fun Date.changeDay(days: Int): Date {
     return c.time
 }
 
-fun Date.convertForXAxis(): String {
-    val sdf = SimpleDateFormat("dd-MM", Locale.getDefault())
+fun Date.convertForXAxisLessYear(): String {
+    val sdf = SimpleDateFormat(SHORT_FARMAT_DATA, Locale.getDefault())
     return sdf.format(this)
 }
+
+fun Date.convertForXAxisMoreYear(): String {
+    val sdf = SimpleDateFormat(FORMAT_DATA, Locale.getDefault())
+    return sdf.format(this)
+}
+

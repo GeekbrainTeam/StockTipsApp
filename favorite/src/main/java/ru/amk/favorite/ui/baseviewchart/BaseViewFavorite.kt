@@ -5,7 +5,7 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.View
 import com.amk.core.entity.EntityCompany
-import com.amk.core.utils.convertForXAxis
+import com.amk.core.utils.convertForXAxisLessYear
 import ru.amk.favorite.ui.baseviewchart.ChartValue.COUNT_OF_VALUE_Y_AXIS
 import ru.amk.favorite.ui.baseviewchart.ChartValue.OFFSET_AXIS_Y
 import ru.amk.favorite.ui.baseviewchart.ChartValue.SEGMENT_LENGTH
@@ -52,7 +52,7 @@ abstract class BaseViewFavorite @JvmOverloads constructor(
         canvas.drawLine(positionX, startY, positionX, stopY, Paints.paintAxis)
         canvas.drawLine(positionX, stopY, positionX, coordEndYAxis, Paints.paintAxisDottedLine)
         if (index % 2 == 0) {
-            canvas.drawText(date.convertForXAxis(), positionX - 40f, stopY + 30f, Paints.paintText)
+            canvas.drawText(date.convertForXAxisLessYear(), positionX - 40f, stopY + 30f, Paints.paintText)
         }
     }
 

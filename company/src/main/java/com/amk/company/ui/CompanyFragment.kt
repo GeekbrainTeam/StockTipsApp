@@ -15,6 +15,7 @@ import com.amk.company.ui.threelinebreak.ThreeLineBreakView
 import com.amk.core.entity.EntityCompany
 import com.amk.core.ui.BaseFragment
 import com.amk.core.utils.*
+import java.util.*
 
 @SuppressLint("InflateParams")
 class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>() {
@@ -43,8 +44,10 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val secId = this.arguments?.getString("SECID")
-        viewModel.getCompanyCandles(secId ?: "")
+        viewModel.getCompanyCandles90(secId ?: "")
+
         binding.candleSv.addView(lineChart)
         viewModel.candlesListData.observe(viewLifecycleOwner) { companyList ->
             (activity as AppCompatActivity).supportActionBar?.title =
@@ -52,13 +55,27 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
             binding.priceTextview.text = "${companyList.last().close} ₽"
             binding.changePriceTextview.text =
                 changePriceAndPercent(companyList.last(), companyList[companyList.size - 2])
+
             theeLineBreackView.drawThreeLine(companyList)
             candlestickView.drawCandles(companyList)
             lineChart.drawLine(companyList)
             binding.axisYView.drawAxisY(companyList)
+
             binding.candleSv.post {
                 binding.candleSv.scrollBy(binding.candleSv.width, 0)
                 binding.candleSv.visibility = View.VISIBLE
+            }
+            binding.data90.setOnClickListener {
+                viewModel.getCompanyCandles90(secId ?: "")
+            }
+            binding.dataHalfYear.setOnClickListener {
+                viewModel.getCompanyCandlesHalfYear(secId ?: "")
+            }
+            binding.data5Year.setOnClickListener {
+                viewModel.getCompanyCandles5Year(secId ?: "")
+            }
+            binding.dataAll.setOnClickListener {
+                viewModel.getCompanyCandlesAll(secId ?: "")
             }
         }
 

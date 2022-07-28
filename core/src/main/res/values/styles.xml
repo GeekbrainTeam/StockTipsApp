@@ -21,4 +21,8 @@
         <item name="android:background">@color/md_theme_light_primary</item>
     </style>
 
+    <style name="style_data">
+        <item name="android:background">@drawable/rectangle_data_period</item>
+    </style>
+
 </resources>
