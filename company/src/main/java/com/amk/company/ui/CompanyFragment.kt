@@ -15,7 +15,6 @@ import com.amk.company.ui.threelinebreak.ThreeLineBreakView
 import com.amk.core.entity.EntityCompany
 import com.amk.core.ui.BaseFragment
 import com.amk.core.utils.*
-import java.util.*
 
 @SuppressLint("InflateParams")
 class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>() {
@@ -69,7 +68,7 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
                 viewModel.getCompanyCandles90(secId ?: "")
             }
             binding.dataHalfYear.setOnClickListener {
-                viewModel.getCompanyCandlesHalfYear(secId ?: "")
+                viewModel.getCompanyCandlesYear(secId ?: "")
             }
             binding.data5Year.setOnClickListener {
                 viewModel.getCompanyCandles5Year(secId ?: "")

@@ -36,7 +36,7 @@
         style="@style/style_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Полгода"
+        android:text="1 год"
         android:textSize="8sp"
         app:layout_constraintEnd_toStartOf="@id/data_5_year"
         app:layout_constraintStart_toEndOf="@id/data_90"
