@@ -16,7 +16,8 @@ import com.amk.company.ui.baseviewchart.ChartValue.heightView
 import com.amk.company.ui.baseviewchart.ChartValue.stepYAxis
 import com.amk.company.ui.baseviewchart.ChartValue.widthPerView
 import com.amk.core.entity.EntityCompany
-import com.amk.core.utils.convertForXAxis
+import com.amk.core.utils.convertForXAxisLessYear
+import com.amk.core.utils.convertForXAxisMoreYear
 import java.util.*
 
 abstract class BaseView @JvmOverloads constructor(
@@ -37,7 +38,7 @@ abstract class BaseView @JvmOverloads constructor(
         ChartValue.widthSize = MeasureSpec.getSize(widthMeasureSpec)
     }
 
-    fun onDrawXAxisSignatures(canvas: Canvas, date: Date, index: Int) {
+    fun onDrawXAxisSignaturesLessYear(canvas: Canvas, date: Date, index: Int) {
         val positionX = (currentX + widthPerView / 2).toFloat()
         //Рисование сигнатуры на оси Х
         val startY = coordZeroY - SEGMENT_LENGTH
@@ -45,7 +46,19 @@ abstract class BaseView @JvmOverloads constructor(
         canvas.drawLine(positionX, startY, positionX, stopY, Paints.paintAxis)
         canvas.drawLine(positionX, stopY, positionX, coordEndYAxis, Paints.paintAxisDottedLine)
         if (index % 2 == 0) {
-            canvas.drawText(date.convertForXAxis(), positionX - 40f, stopY + 30f, Paints.paintText)
+            canvas.drawText(date.convertForXAxisLessYear(), positionX - 40f, stopY + 30f, Paints.paintText)
+        }
+    }
+
+    fun onDrawXAxisSignaturesMoreYear(canvas: Canvas, date: Date, index: Int) {
+        val positionX = (currentX + widthPerView / 2).toFloat()
+        //Рисование сигнатуры на оси Х
+        val startY = coordZeroY - SEGMENT_LENGTH
+        val stopY = coordZeroY + SEGMENT_LENGTH
+        canvas.drawLine(positionX, startY, positionX, stopY, Paints.paintAxis)
+        canvas.drawLine(positionX, stopY, positionX, coordEndYAxis, Paints.paintAxisDottedLine)
+        if (index % 4 == 0) {
+            canvas.drawText(date.convertForXAxisMoreYear(), positionX - 40f, stopY + 30f, Paints.paintText)
         }
     }
 

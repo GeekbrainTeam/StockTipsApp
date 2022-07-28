@@ -55,11 +55,12 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
             binding.priceTextview.text = "${companyList.last().close} ₽"
             binding.changePriceTextview.text =
                 changePriceAndPercent(companyList.last(), companyList[companyList.size - 2])
-            theeLineBreackView.drawThreeLine(companyList)
 
+            theeLineBreackView.drawThreeLine(companyList)
             candlestickView.drawCandles(companyList)
             lineChart.drawLine(companyList)
             binding.axisYView.drawAxisY(companyList)
+
             binding.candleSv.post {
                 binding.candleSv.scrollBy(binding.candleSv.width, 0)
                 binding.candleSv.visibility = View.VISIBLE

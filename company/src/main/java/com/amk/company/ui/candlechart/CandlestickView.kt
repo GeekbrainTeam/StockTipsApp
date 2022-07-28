@@ -50,15 +50,25 @@ class CandlestickViewImpl @JvmOverloads constructor(
         if (candleList.isNotEmpty()) {
             currentX = 0
             heightPerValue = coordZeroY / candleList.diffCandlestick()
-
             canvas?.let { onDrawCoordinateGrid(canvas) }
-            for ((index, item) in candleList.withIndex()) {
-                canvas?.let {
-                    onDrawXAxisSignatures(canvas, item.tradeDate, index)
-                    onDrawShadow(canvas, item)
-                    onDrawBody(canvas, item)
+            if (candleList.size < 270) {
+                for ((index, item) in candleList.withIndex()) {
+                    canvas?.let {
+                        onDrawXAxisSignaturesLessYear(canvas, item.tradeDate, index)
+                        onDrawShadow(canvas, item)
+                        onDrawBody(canvas, item)
+                    }
+                    currentX += widthPerView
                 }
-                currentX += widthPerView
+            } else {
+                for ((index, item) in candleList.withIndex()) {
+                    canvas?.let {
+                        onDrawXAxisSignaturesMoreYear(canvas, item.tradeDate, index)
+                        onDrawShadow(canvas, item)
+                        onDrawBody(canvas, item)
+                    }
+                    currentX += widthPerView
+                }
             }
         }
     }

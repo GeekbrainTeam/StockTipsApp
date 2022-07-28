@@ -46,20 +46,32 @@ class LineChart @JvmOverloads constructor(
         if (companiesByDate.isNotEmpty()) {
             ChartValue.currentX = 0
             ChartValue.heightPerValue = ChartValue.coordZeroY / companiesByDate.diffCandlestick()
-
             canvas?.let { onDrawCoordinateGrid(canvas) }
             var previousCompanyByDate = companiesByDate.first()
             val color: ColorCandle =
                 if (companiesByDate.last().open < companiesByDate.last().close) ColorCandle.PriceUp() else ColorCandle.PriceDown()
-            for ((index, item) in companiesByDate.withIndex()) {
-                if (index == 0) continue
-                canvas?.let {
-                    onDrawXAxisSignatures(canvas, item.tradeDate, index)
-                    onDrawLine(canvas, item, previousCompanyByDate, color)
-                    previousCompanyByDate = item
+            if (companiesByDate.size < 270) {
+                for ((index, item) in companiesByDate.withIndex()) {
+                    if (index == 0) continue
+                    canvas?.let {
+                        onDrawXAxisSignaturesLessYear(canvas, item.tradeDate, index)
+                        onDrawLine(canvas, item, previousCompanyByDate, color)
+                        previousCompanyByDate = item
+                    }
+                    ChartValue.currentX += ChartValue.widthPerView
                 }
-                ChartValue.currentX += ChartValue.widthPerView
+            } else {
+                for ((index, item) in companiesByDate.withIndex()) {
+                    if (index == 0) continue
+                    canvas?.let {
+                        onDrawXAxisSignaturesMoreYear(canvas, item.tradeDate, index)
+                        onDrawLine(canvas, item, previousCompanyByDate, color)
+                        previousCompanyByDate = item
+                    }
+                    ChartValue.currentX += ChartValue.widthPerView
+                }
             }
+
         }
     }
 
