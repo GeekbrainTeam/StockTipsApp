@@ -35,7 +35,6 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
     private val lineChart: LineChart by lazy {
         layoutInflater.inflate(R.layout.view_linechart, null) as LineChart
     }
-    //private val candleSvScroll = binding.candleSv
 
     override fun onPause() {
         super.onPause()
@@ -47,8 +46,7 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
         super.onViewCreated(view, savedInstanceState)
 
         val secId = this.arguments?.getString("SECID")
-        val date = Date()
-        viewModel.getCompanyCandles(secId ?: "", date)
+        viewModel.getCompanyCandles90(secId ?: "")
 
         binding.candleSv.addView(lineChart)
         viewModel.candlesListData.observe(viewLifecycleOwner) { companyList ->
@@ -62,16 +60,21 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
             candlestickView.drawCandles(companyList)
             lineChart.drawLine(companyList)
             binding.axisYView.drawAxisY(companyList)
-            var count = 0
-            binding.candleSv.setOnScrollChangeListener { p0, scrollX, scrollY, oldscrollX, oldscrollY ->
-                if (scrollX == 0) {
-                    count -= 90
-                    viewModel.getCompanyCandles(secId ?: "", date.changeDay(count))
-                }
-            }
             binding.candleSv.post {
                 binding.candleSv.scrollBy(binding.candleSv.width, 0)
                 binding.candleSv.visibility = View.VISIBLE
+            }
+            binding.data90.setOnClickListener {
+                viewModel.getCompanyCandles90(secId ?: "")
+            }
+            binding.dataHalfYear.setOnClickListener {
+                viewModel.getCompanyCandlesHalfYear(secId ?: "")
+            }
+            binding.data5Year.setOnClickListener {
+                viewModel.getCompanyCandles5Year(secId ?: "")
+            }
+            binding.dataAll.setOnClickListener {
+                viewModel.getCompanyCandlesAll(secId ?: "")
             }
         }
 

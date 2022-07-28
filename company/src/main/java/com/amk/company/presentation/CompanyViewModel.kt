@@ -30,13 +30,36 @@ class CompanyViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    fun getCompanyCandles(secId: String, date: Date) {
+    fun getCompanyCandles90(secId: String) {
         scope.launch {
-            //val date = Date()
-            val candlesList = repository.getCompanyCandles(secId, date.changeDay(-90), date)
+            val date = Date()
+            val candlesList = repository.getCompanyCandles(secId, date.changeDay(-91), date)
             candlesListData.postValue(candlesList)
         }
     }
+    fun getCompanyCandlesHalfYear(secId: String) {
+        scope.launch {
+            val date = Date()
+            val candlesList = repository.getCompanyCandles(secId, date.changeDay(-182), date)
+            candlesListData.postValue(candlesList)
+        }
+    }
+    fun getCompanyCandles5Year(secId: String) {
+        scope.launch {
+            val date = Date()
+            val candlesList = repository.getCompanyCandles(secId, date.changeDay(-1825), date)
+            candlesListData.postValue(candlesList)
+        }
+    }
+    fun getCompanyCandlesAll(secId: String) {
+        scope.launch {
+            val date = Date()
+            val candlesList = repository.getCompanyCandles(secId, date.changeDay(-7300), date)
+            candlesListData.postValue(candlesList)
+        }
+    }
+
+
 
     override fun onCleared() {
         super.onCleared()
