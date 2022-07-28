@@ -15,6 +15,7 @@ import com.amk.company.ui.threelinebreak.ThreeLineBreakView
 import com.amk.core.entity.EntityCompany
 import com.amk.core.ui.BaseFragment
 import com.amk.core.utils.*
+import java.util.*
 
 @SuppressLint("InflateParams")
 class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>() {
@@ -34,6 +35,7 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
     private val lineChart: LineChart by lazy {
         layoutInflater.inflate(R.layout.view_linechart, null) as LineChart
     }
+    //private val candleSvScroll = binding.candleSv
 
     override fun onPause() {
         super.onPause()
@@ -43,8 +45,11 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val secId = this.arguments?.getString("SECID")
-        viewModel.getCompanyCandles(secId ?: "")
+        val date = Date()
+        viewModel.getCompanyCandles(secId ?: "", date)
+
         binding.candleSv.addView(lineChart)
         viewModel.candlesListData.observe(viewLifecycleOwner) { companyList ->
             (activity as AppCompatActivity).supportActionBar?.title =
@@ -53,9 +58,17 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
             binding.changePriceTextview.text =
                 changePriceAndPercent(companyList.last(), companyList[companyList.size - 2])
             theeLineBreackView.drawThreeLine(companyList)
+
             candlestickView.drawCandles(companyList)
             lineChart.drawLine(companyList)
             binding.axisYView.drawAxisY(companyList)
+            var count = 0
+            binding.candleSv.setOnScrollChangeListener { p0, scrollX, scrollY, oldscrollX, oldscrollY ->
+                if (scrollX == 0) {
+                    count -= 90
+                    viewModel.getCompanyCandles(secId ?: "", date.changeDay(count))
+                }
+            }
             binding.candleSv.post {
                 binding.candleSv.scrollBy(binding.candleSv.width, 0)
                 binding.candleSv.visibility = View.VISIBLE

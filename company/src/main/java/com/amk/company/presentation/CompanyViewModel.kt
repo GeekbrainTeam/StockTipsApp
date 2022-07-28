@@ -30,9 +30,9 @@ class CompanyViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    fun getCompanyCandles(secId: String) {
+    fun getCompanyCandles(secId: String, date: Date) {
         scope.launch {
-            val date = Date()
+            //val date = Date()
             val candlesList = repository.getCompanyCandles(secId, date.changeDay(-90), date)
             candlesListData.postValue(candlesList)
         }
