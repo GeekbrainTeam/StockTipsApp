@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.amk.company.R
 import com.amk.company.databinding.FragmentCompanyBinding
 import com.amk.company.presentation.CompanyViewModel
@@ -15,6 +16,8 @@ import com.amk.company.ui.threelinebreak.ThreeLineBreakView
 import com.amk.core.entity.EntityCompany
 import com.amk.core.ui.BaseFragment
 import com.amk.core.utils.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @SuppressLint("InflateParams")
 class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>() {
@@ -75,6 +78,20 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
             }
             binding.dataAll.setOnClickListener {
                 viewModel.getCompanyCandlesAll(secId ?: "")
+            }
+
+            lifecycleScope.launch(Dispatchers.Default) {
+                val maxDrop = companyList.calculateMaxPriceDrop() * 100
+                var str = "\nМаксимальное падение ${String.format("%.2f", maxDrop)}%"
+                val yield = companyList.calculateYield() * 100
+                str += "\nДоходность ${String.format("%.2f", yield)}%"
+                val volatile = companyList.calculateVolatile() * 100
+                str += "\nВолатильность ${String.format("%.2f", volatile)}%"
+                val minPrice = companyList.minPrice()
+                str += "\nМинимальная цена ${String.format("%.2f", minPrice)}Р"
+                val maxPrice = companyList.maxPrice()
+                str += "\nМаксимальная цена ${String.format("%.2f", maxPrice)}Р"
+                binding.indicatorsTextView.post { binding.indicatorsTextView.text = str }
             }
         }
 
