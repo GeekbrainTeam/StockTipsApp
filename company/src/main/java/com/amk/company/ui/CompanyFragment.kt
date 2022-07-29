@@ -64,14 +64,14 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
                 binding.candleSv.scrollBy(binding.candleSv.width, 0)
                 binding.candleSv.visibility = View.VISIBLE
             }
-            binding.data90.setOnClickListener {
+            binding.data3Months.setOnClickListener {
                 viewModel.getCompanyCandles90(secId ?: "")
             }
             binding.dataHalfYear.setOnClickListener {
-                viewModel.getCompanyCandlesYear(secId ?: "")
+                viewModel.getCompanyCandlesHalfYear(secId ?: "")
             }
-            binding.data5Year.setOnClickListener {
-                viewModel.getCompanyCandles5Year(secId ?: "")
+            binding.dataYear.setOnClickListener {
+                viewModel.getCompanyCandlesYear(secId ?: "")
             }
             binding.dataAll.setOnClickListener {
                 viewModel.getCompanyCandlesAll(secId ?: "")

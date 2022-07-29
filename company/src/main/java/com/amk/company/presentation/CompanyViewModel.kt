@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.amk.core.entity.EntityCompany
 import com.amk.core.repository.Repository
 import com.amk.core.utils.changeDay
+import com.amk.core.utils.convertToDate
 import kotlinx.coroutines.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -16,8 +17,8 @@ class CompanyViewModel : ViewModel(), KoinComponent {
 
     val candlesListData = MutableLiveData<List<EntityCompany>>()
     private val candlesListDataCache90 = mutableListOf<EntityCompany>()
+    private val candlesListDataCacheHalfYear = mutableListOf<EntityCompany>()
     private val candlesListDataCacheYear = mutableListOf<EntityCompany>()
-    private val candlesListDataCacheFiveYear = mutableListOf<EntityCompany>()
     private val candlesListDataCacheAllPermission = mutableListOf<EntityCompany>()
 
     val errorData = MutableLiveData<String>()
@@ -49,12 +50,26 @@ class CompanyViewModel : ViewModel(), KoinComponent {
         }
     }
 
+    fun getCompanyCandlesHalfYear(secId: String) {
+        scope.launch {
+            if (candlesListDataCacheHalfYear.isEmpty() || candlesListDataCacheHalfYear.first().secId != secId) {
+                candlesListDataCacheHalfYear.clear()
+                val date = Date()
+                val candlesList = repository.getCompanyCandles(secId, date.changeDay(-183), date)
+                candlesListData.postValue(candlesList)
+                candlesListDataCacheHalfYear.addAll(candlesList)
+            } else {
+                candlesListData.postValue(candlesListDataCacheHalfYear)
+            }
+        }
+    }
+
     fun getCompanyCandlesYear(secId: String) {
         scope.launch {
             if (candlesListDataCacheYear.isEmpty() || candlesListDataCacheYear.first().secId != secId) {
                 candlesListDataCacheYear.clear()
                 val date = Date()
-                val candlesList = repository.getCompanyCandles(secId, date.changeDay(-192), date)
+                val candlesList = repository.getCompanyCandles(secId, date.changeDay(-366), date)
                 candlesListData.postValue(candlesList)
                 candlesListDataCacheYear.addAll(candlesList)
             } else {
@@ -62,25 +77,14 @@ class CompanyViewModel : ViewModel(), KoinComponent {
             }
         }
     }
-    fun getCompanyCandles5Year(secId: String) {
-        scope.launch {
-            if (candlesListDataCacheFiveYear.isEmpty() || candlesListDataCacheFiveYear.first().secId != secId) {
-                candlesListDataCacheFiveYear.clear()
-                val date = Date()
-                val candlesList = repository.getCompanyCandles(secId, date.changeDay(-1825), date)
-                candlesListData.postValue(candlesList)
-                candlesListDataCacheFiveYear.addAll(candlesList)
-            } else {
-                candlesListData.postValue(candlesListDataCacheFiveYear)
-            }
-        }
-    }
+
     fun getCompanyCandlesAll(secId: String) {
         scope.launch {
             if (candlesListDataCacheAllPermission.isEmpty() || candlesListDataCacheAllPermission.first().secId != secId) {
                 candlesListDataCacheAllPermission.clear()
                 val date = Date()
-                val candlesList = repository.getCompanyCandles(secId, date.changeDay(-7300), date)
+                val candlesList =
+                    repository.getCompanyCandles(secId, "1970-01-01".convertToDate(), date)
                 candlesListData.postValue(candlesList)
                 candlesListDataCacheAllPermission.addAll(candlesList)
             } else {
@@ -88,8 +92,6 @@ class CompanyViewModel : ViewModel(), KoinComponent {
             }
         }
     }
-
-
 
     override fun onCleared() {
         super.onCleared()
