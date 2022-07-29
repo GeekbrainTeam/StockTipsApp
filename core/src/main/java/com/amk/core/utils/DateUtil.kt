@@ -1,6 +1,8 @@
 package com.amk.core.utils
 
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.ZoneId
 import java.util.*
 
 fun Date.convertToString(): String {
@@ -24,3 +26,7 @@ fun Date.convertForXAxis(): String {
     val sdf = SimpleDateFormat("dd-MM", Locale.getDefault())
     return sdf.format(this)
 }
+
+fun Date.convertToLocalDate(): LocalDate = this.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+
+fun LocalDate.convertToDate(): Date = Date.from(this.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
