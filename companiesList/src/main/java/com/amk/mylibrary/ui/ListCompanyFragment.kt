@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import androidx.core.widget.addTextChangedListener
+import androidx.core.os.bundleOf
 import com.amk.core.navigation.AppNavigation
 import com.amk.core.ui.BaseFragment
-import com.amk.core.utils.DATA_LOAD
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
 import com.amk.mylibrary.interactors.StatesCompanyListInteractor
 import com.amk.mylibrary.presentation.CompaniesListViewModel
@@ -21,9 +20,6 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
     override fun getVModelClass() = CompaniesListViewModel::class.java
 
     private val coordinator: AppNavigation by inject()
-
-
-
 
     private var typeSort: TypeSort = DEFAULT_TYPE_SORT
     private var directionSort: Direction = DEFAULT_DIRECTION_SORT
@@ -47,9 +43,9 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
         }
 
         binding.bottomSortCompany.setOnClickListener {
-            val dialog = DialogSorting.getInstance()
-            dialog.show(childFragmentManager, ARGUMENT_KEY)
+            showDialogSortCompany()
         }
+
         binding.bottomFilterCompany.setOnClickListener {
             if (firstElements == DEFAULT_FIRST) {
                 firstElements = FavoriteState.FavoriteUp
@@ -60,7 +56,7 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
             }
             viewModel.chooseSort(directionSort, typeSort, firstElements)
         }
-        binding.searchInputText.addTextChangedListener (object : TextWatcher {
+        binding.searchInputText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -69,10 +65,20 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
             }
         })
     }
+
+    private fun showDialogSortCompany() {
+        val dialog = DialogSorting.getInstance()
+        val bundle = bundleOf(TYPE_OF_SORT to typeSort, DIRECTION_OF_SORT to directionSort)
+        dialog.arguments = bundle
+        dialog.show(childFragmentManager, ARGUMENT_KEY)
+    }
+
     private fun getSettingsOfSort() {
-        val sharedPrefsSort =  requireContext().getSharedPreferences(TYPE_SORT, Context.MODE_PRIVATE)
-        val sharedPrefsDirection =  requireContext().getSharedPreferences(TYPE_DIRECTION, Context.MODE_PRIVATE)
-        val sharedPrefsFavorite =  requireContext().getSharedPreferences(TYPE_FAVORITE, Context.MODE_PRIVATE)
+        val sharedPrefsSort = requireContext().getSharedPreferences(TYPE_SORT, Context.MODE_PRIVATE)
+        val sharedPrefsDirection =
+            requireContext().getSharedPreferences(TYPE_DIRECTION, Context.MODE_PRIVATE)
+        val sharedPrefsFavorite =
+            requireContext().getSharedPreferences(TYPE_FAVORITE, Context.MODE_PRIVATE)
         val sort = sharedPrefsSort.getInt(TYPE_SORT, 0)
         val direction = sharedPrefsDirection.getInt(TYPE_DIRECTION, 0)
         val favorite = sharedPrefsFavorite.getInt(TYPE_FAVORITE, 0)
