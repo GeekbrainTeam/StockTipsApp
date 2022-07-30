@@ -85,8 +85,9 @@ class CompanyFragment : BaseFragment<FragmentCompanyBinding, CompanyViewModel>()
             }
 
             lifecycleScope.launch(Dispatchers.Default) {
+                var str = "${companyList.first().tradeDate.convertToString()} - ${companyList.last().tradeDate.convertToString()}"
                 val maxDrop = companyList.calculateMaxPriceDrop() * 100
-                var str = "\nМаксимальное падение ${String.format("%.2f", maxDrop)}%"
+                str += "\nМаксимальное падение ${String.format("%.2f", maxDrop)}%"
                 val yield = companyList.calculateYield() * 100
                 str += "\nДоходность ${String.format("%.2f", yield)}%"
                 val volatile = companyList.calculateVolatile() * 100
