@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import com.amk.core.navigation.AppNavigation
 import com.amk.core.ui.BaseFragment
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
+import com.amk.mylibrary.interactors.StatePosition
 import com.amk.mylibrary.interactors.StatesCompanyListInteractor
 import com.amk.mylibrary.presentation.CompaniesListViewModel
 import com.amk.mylibrary.utils.*
@@ -28,14 +29,18 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
         StatesCompanyListInteractor(binding, coordinator, viewModel, requireActivity())
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getSettingsOfSort()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getSettingsOfSort()
 
         childFragmentManager.setFragmentResultListener(KEY, this) { _, bundle ->
             typeSort = bundle.get(TYPE_OF_SORT) as TypeSort
             directionSort = bundle.get(DIRECTION_OF_SORT) as Direction
+            statesCompanyListInteractor.setStatePosition(StatePosition.MoveToUp)
             viewModel.chooseSort(directionSort, typeSort, firstElements)
         }
         viewModel.companiesData.observe(viewLifecycleOwner) {
@@ -47,6 +52,7 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
         }
 
         binding.bottomFilterCompany.setOnClickListener {
+            statesCompanyListInteractor.setStatePosition(StatePosition.MoveToUp)
             if (firstElements == DEFAULT_FIRST) {
                 firstElements = FavoriteState.FavoriteUp
                 binding.bottomFilterCompany.setIconResource(com.amk.core.R.drawable.ic_baseline_star_24)
@@ -73,12 +79,16 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
         dialog.show(childFragmentManager, ARGUMENT_KEY)
     }
 
+
+    override fun onStart() {
+        statesCompanyListInteractor.setStatePosition(StatePosition.NotMove)
+        super.onStart()
+    }
+
     private fun getSettingsOfSort() {
-        val sharedPrefsSort = requireContext().getSharedPreferences(TYPE_SORT, Context.MODE_PRIVATE)
-        val sharedPrefsDirection =
-            requireContext().getSharedPreferences(TYPE_DIRECTION, Context.MODE_PRIVATE)
-        val sharedPrefsFavorite =
-            requireContext().getSharedPreferences(TYPE_FAVORITE, Context.MODE_PRIVATE)
+        val sharedPrefsSort =  requireContext().getSharedPreferences(TYPE_SORT, Context.MODE_PRIVATE)
+        val sharedPrefsDirection =  requireContext().getSharedPreferences(TYPE_DIRECTION, Context.MODE_PRIVATE)
+        val sharedPrefsFavorite =  requireContext().getSharedPreferences(TYPE_FAVORITE, Context.MODE_PRIVATE)
         val sort = sharedPrefsSort.getInt(TYPE_SORT, 0)
         val direction = sharedPrefsDirection.getInt(TYPE_DIRECTION, 0)
         val favorite = sharedPrefsFavorite.getInt(TYPE_FAVORITE, 0)
