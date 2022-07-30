@@ -21,12 +21,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/data_90"
+        android:id="@+id/data_3_months"
         style="@style/style_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="3 месяца"
-        android:textSize="8sp"
         app:layout_constraintEnd_toStartOf="@id/data_half_year"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/axisYView" />
@@ -36,19 +35,17 @@
         style="@style/style_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1 год"
-        android:textSize="8sp"
-        app:layout_constraintEnd_toStartOf="@id/data_5_year"
-        app:layout_constraintStart_toEndOf="@id/data_90"
+        android:text="6 месяцев"
+        app:layout_constraintEnd_toStartOf="@id/data_year"
+        app:layout_constraintStart_toEndOf="@id/data_3_months"
         app:layout_constraintTop_toBottomOf="@id/axisYView" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/data_5_year"
+        android:id="@+id/data_year"
         style="@style/style_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5 лет"
-        android:textSize="8sp"
+        android:text="1 год"
         app:layout_constraintEnd_toStartOf="@+id/data_all"
         app:layout_constraintStart_toEndOf="@id/data_half_year"
         app:layout_constraintTop_toBottomOf="@id/axisYView" />
@@ -59,9 +56,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Все данные"
-        android:textSize="8sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/data_5_year"
+        app:layout_constraintStart_toEndOf="@id/data_year"
         app:layout_constraintTop_toBottomOf="@id/axisYView" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -102,25 +98,33 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/logo_view"
-        android:layout_width="match_parent"
+        android:layout_width="120dp"
         android:layout_height="120dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="@dimen/margin_8"
         android:src="@drawable/ic_no_image_foreground"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/data_half_year" />
 
-    <androidx.core.widget.NestedScrollView
+    <TextView
+        android:id="@+id/indicators_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Загрузка..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logo_view"
+        app:layout_constraintTop_toTopOf="@id/logo_view" />
+
+    <TextView
+        android:id="@+id/description_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/logo_view">
-        <TextView
-            android:id="@+id/description_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="description"/>
-    </androidx.core.widget.NestedScrollView>
-
-
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="description"
+        app:layout_constraintTop_toBottomOf="@id/logo_view" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/change_chart_fab"
@@ -134,5 +138,4 @@
         app:layout_behavior="com.amk.stocktipsapp.ui.FabBehavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

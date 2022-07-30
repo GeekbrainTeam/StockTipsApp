@@ -39,8 +39,6 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
         } ?: emptyList()
     }
 
-
-
     override suspend fun getCompaniesByDate(date: Date): List<EntityCompany> {
         val companiesList = mutableListOf<EntityCompany>()
         var index = 0L
@@ -76,6 +74,7 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
             dateTill = dateTill.convertToString(),
             start = index
         )
+
         while (response.history.data.isNotEmpty()) {
             addToList(response, companiesList)
             index += pageSize
@@ -104,7 +103,7 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
                         open = companyInfo[6].toDouble(),
                         low = companyInfo[7].toDouble(),
                         high = companyInfo[8].toDouble(),
-                        close = companyInfo[9].toDouble()
+                        close = companyInfo[11].toDouble()
                     )
                 )
             }
@@ -114,9 +113,4 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
     private fun isContainsNulls(companyInfo: List<String?>) =
         companyInfo[6] == null || companyInfo[7] == null
                 || companyInfo[8] == null || companyInfo[11] == null
-
-    override suspend fun getISIN(secId: String): String {
-        val response = apiService.getISIN(secId)
-        return response.securities.data[0][5] ?: "?"
-    }
 }

@@ -1,5 +1,6 @@
 package com.amk.core.retrofit
 
+import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -23,10 +24,4 @@ interface MoexApiService {
         @Query("till") dateTill: String,
         @Query("start") start: Long = 0
     ): GsonCompaniesPageResponseStructure
-
-    @GET("securities.json")
-    suspend fun getISIN(
-        @Query("q") secId: String,
-        @Query("limit") limit: Int = 0,
-    ): GsonISINResponseStructure
 }
