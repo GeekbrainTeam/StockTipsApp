@@ -5,6 +5,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
@@ -16,13 +17,16 @@ import com.amk.mylibrary.databinding.FragmentListCompanyBinding
 import com.amk.mylibrary.presentation.CompaniesListViewModel
 import com.amk.mylibrary.presentation.adapter.ListCompaniesAdapter
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class RecyclerViewState(
     private val binding: FragmentListCompanyBinding,
     private val coordinator: AppNavigation,
     private val viewModel: CompaniesListViewModel,
     context: Context
-) : ListCompaniesAdapter.OnStateCheckBoxListener{
+) : ListCompaniesAdapter.OnStateCheckBoxListener {
 
     private val recyclerView: RecyclerView = binding.recyclerViewCompanies
     private val stateClickListener: ListCompaniesAdapter.OnStateClickListener =
@@ -33,6 +37,7 @@ class RecyclerViewState(
         }
     private val adapter = ListCompaniesAdapter(stateClickListener, /*viewModel*/this, context)
     private var position: Int = 0
+    private var statePosition: StatePosition = StatePosition.MoveToOffset
     var isShowFab = true
 
     init {
@@ -79,12 +84,28 @@ class RecyclerViewState(
     }
 
     internal fun setRecyclerView(list: List<Company>) {
-        adapter.submitList(list)
+        adapter.submitList(newList = list)
         recyclerView.adapter = adapter
-        isShowFab = false
-        recyclerView.scrollBy(0, position)
-        isShowFab = true
+        setStatePosition(size = list.size)
+    }
 
+    private fun setStatePosition(size: Int) {
+        when (statePosition) {
+            StatePosition.MoveToOffset -> {
+                isShowFab = false
+                recyclerView.scrollBy(0, position)
+                isShowFab = true
+            }
+            StatePosition.MoveToUp -> {
+                viewModel.viewModelScope.launch(Dispatchers.Main) {
+                    delay(200)
+                    if (size > 1) {
+                        recyclerView.layoutManager?.scrollToPosition(0)
+                    }
+                }
+            }
+            StatePosition.NotMove -> {}
+        }
     }
 
     private fun hide(fab: ExtendedFloatingActionButton) {
@@ -116,7 +137,18 @@ class RecyclerViewState(
     }
 
     override fun onCheckedChanged(company: Company, isChecked: Boolean) {
+        statePosition = StatePosition.MoveToOffset
         viewModel.changeStatusFavorite(company.entityCompany.secId)
     }
 
+    fun setStatePosition(statePosition: StatePosition) {
+        this.statePosition = statePosition
+    }
+
+}
+
+sealed interface StatePosition {
+    object MoveToUp : StatePosition
+    object MoveToOffset : StatePosition
+    object NotMove : StatePosition
 }

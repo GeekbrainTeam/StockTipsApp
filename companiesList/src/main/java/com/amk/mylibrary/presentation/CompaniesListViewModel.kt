@@ -46,9 +46,8 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
         companyList.clear()
         companyList.addAll(companies)
         sortingInteractorImpl = SortingInteractorImpl(companyList)
-        chooseSort(directionSort, typeSort)
+        chooseSort(directionSort, typeSort, firstElements)
     }
-
 
     fun changeStatusFavorite(secId: String) {
         viewModelScope.launch {
@@ -73,7 +72,7 @@ class CompaniesListViewModel : ViewModel(), KoinComponent {
     internal fun chooseSort(
         directionSort: Direction,
         typeSort: TypeSort,
-        firstElements: FavoriteState = this.firstElements
+        firstElements: FavoriteState
     ) {
         this.directionSort = directionSort
         this.typeSort = typeSort

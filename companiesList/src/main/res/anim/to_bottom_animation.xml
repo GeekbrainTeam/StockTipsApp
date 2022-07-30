@@ -5,7 +5,7 @@
     <translate
         android:duration="600"
         android:fromYDelta="0%"
-        android:toYDelta="300%" />
+        android:toYDelta="600%" />
 
     <scale
         android:pivotY="50%"

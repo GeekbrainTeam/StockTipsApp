@@ -3,7 +3,7 @@
 
     <translate
         android:duration="600"
-        android:fromYDelta="300%"
+        android:fromYDelta="600%"
         android:toYDelta="0%" />
 
     <scale

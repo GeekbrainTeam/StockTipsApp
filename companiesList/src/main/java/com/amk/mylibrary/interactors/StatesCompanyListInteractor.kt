@@ -15,6 +15,10 @@ class StatesCompanyListInteractor(
 
     private val recyclerViewState = RecyclerViewState(binding, coordinator, viewModel, context)
 
+    fun setStatePosition(statePosition: StatePosition) {
+        recyclerViewState.setStatePosition(statePosition)
+    }
+
     fun init(state: ListCompanyFragmentState) {
         when (state) {
             is ListCompanyFragmentState.Loading -> {
@@ -97,6 +101,4 @@ class StatesCompanyListInteractor(
             }
         }
     }
-
-
 }

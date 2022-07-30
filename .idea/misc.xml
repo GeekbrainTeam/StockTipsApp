@@ -3,10 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Study/Android/StockTipsApp/companiesList/src/main/res/layout/item_company.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/companiesList/src/main/res/layout/fragment_list_company.xml" value="0.25" />
-        <entry key="..\:/Users/hayarovy/AndroidStudioProjects/StockTipsApp/favorite/src/main/res/layout/fragment_favorite.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/baseline_settings_24.xml" value="0.303" />
         <entry key="app/src/main/res/drawable/baseline_star_24.xml" value="0.303" />
         <entry key="app/src/main/res/drawable/color_selector.xml" value="0.101" />
@@ -23,8 +19,13 @@
         <entry key="app/src/main/res/drawable/rectangle_dialog_sort.xml" value="0.303" />
         <entry key="app/src/main/res/drawable/rectangle_shape.xml" value="0.1585" />
         <entry key="app/src/main/res/drawable/settings_selector.xml" value="0.303" />
+        <entry key="app/src/main/res/drawable/splash_up_anim.xml" value="0.228" />
+        <entry key="app/src/main/res/drawable/up_first2.xml" value="0.188" />
         <entry key="app/src/main/res/layout-v26/activity_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-v26/activity_splash_screen_another_scene.xml" value="0.18" />
+        <entry key="app/src/main/res/layout-v26/splash_scene_second.xml" value="0.15625" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.34103260869565216" />
         <entry key="app/src/main/res/layout/dialog_filter.xml" value="0.2625" />
         <entry key="app/src/main/res/layout/dialog_sort.xml" value="0.16847826086956522" />
         <entry key="app/src/main/res/layout/fragment_company.xml" value="0.22708333333333333" />
@@ -32,12 +33,16 @@
         <entry key="app/src/main/res/layout/fragment_list_company.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.21822916666666667" />
         <entry key="app/src/main/res/layout/item_company.xml" value="0.3194444444444444" />
+        <entry key="app/src/main/res/layout/splash_scene_first.xml" value="0.15625" />
+        <entry key="app/src/main/res/layout/toolbar.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_company.xml" value="0.2625" />
         <entry key="app/src/main/res/menu/menu_favorite.xml" value="0.2625" />
         <entry key="app/src/main/res/menu/menu_home.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/menu/toolbar_menu.xml" value="0.24166666666666667" />
         <entry key="companiesList/src/main/res/layout/fragment_list_company.xml" value="0.25" />
         <entry key="companiesList/src/main/res/layout/item_company.xml" value="0.2798913043478261" />
+        <entry key="companiesList/src/main/res/layout/toolbar.xml" value="0.19706180344478216" />
         <entry key="company/src/main/res/drawable/icon.xml" value="0.229" />
         <entry key="company/src/main/res/layout/fragment_company.xml" value="0.33" />
         <entry key="company/src/main/res/layout/view_candlestick.xml" value="0.2554347826086957" />
@@ -46,6 +51,9 @@
         <entry key="core/src/main/res/drawable/checkbox_favorite_selector.xml" value="0.282" />
         <entry key="core/src/main/res/drawable/ic_baseline_filter_list_24.xml" value="0.282" />
         <entry key="core/src/main/res/drawable/rectangle_dialog_sort.xml" value="0.303" />
+        <entry key="core/src/main/res/drawable/rectangle_shape.xml" value="0.1" />
+        <entry key="core/src/main/res/menu/toolbar_menu.xml" value="0.24166666666666667" />
+        <entry key="core/src/main/res/menu/toolbar_menu_default.xml" value="0.24166666666666667" />
         <entry key="favorite/src/main/res/layout/candle_stick_view_favorite.xml" value="0.25815217391304346" />
         <entry key="favorite/src/main/res/layout/fragment_favorite.xml" value="0.1" />
         <entry key="favorite/src/main/res/layout/item_favorite.xml" value="0.335" />
@@ -53,6 +61,7 @@
         <entry key="list-companies/src/main/res/layout/dialog_sort.xml" value="0.28396739130434784" />
         <entry key="list-companies/src/main/res/layout/fragment_list_company.xml" value="0.1" />
         <entry key="list-companies/src/main/res/layout/item_company.xml" value="0.2644927536231884" />
+        <entry key="settings/src/main/res/layout/fragment_settings.xml" value="0.1" />
       </map>
     </option>
   </component>
