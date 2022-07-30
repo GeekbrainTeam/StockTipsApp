@@ -26,7 +26,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="3 месяца"
-        android:textSize="8sp"
         app:layout_constraintEnd_toStartOf="@id/data_half_year"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/axisYView" />
@@ -37,7 +36,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="6 месяцев"
-        android:textSize="8sp"
         app:layout_constraintEnd_toStartOf="@id/data_year"
         app:layout_constraintStart_toEndOf="@id/data_3_months"
         app:layout_constraintTop_toBottomOf="@id/axisYView" />
@@ -48,7 +46,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1 год"
-        android:textSize="8sp"
         app:layout_constraintEnd_toStartOf="@+id/data_all"
         app:layout_constraintStart_toEndOf="@id/data_half_year"
         app:layout_constraintTop_toBottomOf="@id/axisYView" />
@@ -59,7 +56,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Все данные"
-        android:textSize="8sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/data_year"
         app:layout_constraintTop_toBottomOf="@id/axisYView" />
@@ -142,5 +138,4 @@
         app:layout_behavior="com.amk.stocktipsapp.ui.FabBehavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

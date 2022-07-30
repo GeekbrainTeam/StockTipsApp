@@ -6,7 +6,6 @@ fun List<EntityCompany>.daysListToWeeksList(): List<EntityCompany> {
     val workList = this.toMutableList()
     val newList = mutableListOf<EntityCompany>()
     val weekList = mutableListOf<EntityCompany>()
-
     var startWeek = workList.last().tradeDate.convertToLocalDate()
     val numberDayOfWeek = startWeek.dayOfWeek.value
 
@@ -18,11 +17,14 @@ fun List<EntityCompany>.daysListToWeeksList(): List<EntityCompany> {
 
     while (workList.isNotEmpty()) {
         weekList.clear()
-        while (workList.size > 0 && workList.last().tradeDate > startWeek.convertToDate()) {
+        while (workList.isNotEmpty() && workList.last().tradeDate > startWeek.convertToDate()) {
             weekList.add(workList.removeLast())
         }
-        weekList.reverse()
-        newList.add(weekToEntityCompany(weekList))
+
+        if (weekList.isNotEmpty()) {
+            weekList.reverse()
+            newList.add(listToEntityCompany(weekList))
+        }
         startWeek = startWeek.minusWeeks(1)
     }
     newList.reverse()
@@ -32,26 +34,29 @@ fun List<EntityCompany>.daysListToWeeksList(): List<EntityCompany> {
 fun List<EntityCompany>.daysListToMonthsList(): List<EntityCompany> {
     val workList = this.toMutableList()
     val newList = mutableListOf<EntityCompany>()
-    val weekList = mutableListOf<EntityCompany>()
+    val mothList = mutableListOf<EntityCompany>()
 
     var startMonth = workList.last().tradeDate.convertToLocalDate()
     val numberDayOfMonth = startMonth.dayOfMonth
     startMonth = startMonth.minusDays((numberDayOfMonth).toLong())
 
     while (workList.isNotEmpty()) {
-        weekList.clear()
-        while (workList.size > 0 && workList.last().tradeDate > startMonth.convertToDate()) {
-            weekList.add(workList.removeLast())
+        mothList.clear()
+        while (workList.isNotEmpty() && workList.last().tradeDate > startMonth.convertToDate()) {
+            mothList.add(workList.removeLast())
         }
-        weekList.reverse()
-        newList.add(weekToEntityCompany(weekList))
+
+        if (mothList.isNotEmpty()) {
+            mothList.reverse()
+            newList.add(listToEntityCompany(mothList))
+        }
         startMonth = startMonth.minusMonths(1)
     }
     newList.reverse()
     return newList
 }
 
-private fun weekToEntityCompany(weekList: List<EntityCompany>): EntityCompany {
+private fun listToEntityCompany(weekList: List<EntityCompany>): EntityCompany {
     return EntityCompany(
         weekList.last().tradeDate,
         weekList.first().shortName,
