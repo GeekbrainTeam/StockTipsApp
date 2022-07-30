@@ -76,7 +76,6 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
         )
 
         while (response.history.data.isNotEmpty()) {
-            println("NR: inside while before request")
             addToList(response, companiesList)
             index += pageSize
             response = apiService.getCompanyCandlesPage(
@@ -85,9 +84,6 @@ class NetworkRepository(private val apiService: MoexApiService) : Repository {
                 dateTill = dateTill.convertToString(),
                 start = index
             )
-
-            println("NR: r: ${response.history.data.size} i: $index")
-
         }
         return companiesList
     }

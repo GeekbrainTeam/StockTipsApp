@@ -71,9 +71,6 @@ class CompanyViewModel : ViewModel(), KoinComponent {
                 candlesListDataCacheYear.clear()
                 val date = Date()
                 val candlesList = repository.getCompanyCandles(secId, date.changeDay(-366), date)
-
-                println("VM: list ${candlesList.size}")
-
                 val weeksList = candlesList.daysListToWeeksList()
                 candlesListData.postValue(weeksList)
                 candlesListDataCacheYear.addAll(weeksList)
