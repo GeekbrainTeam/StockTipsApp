@@ -29,7 +29,10 @@ class DialogSorting : BottomSheetDialogFragment(),
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        typeOfSort = arguments?.get(TYPE_OF_SORT) as TypeSort
+        directionChoose = arguments?.get(DIRECTION_OF_SORT) as Direction
         super.onViewCreated(view, savedInstanceState)
+        setSelected()
         binding.radioGroupSorting.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radio_name_company -> typeOfSort = TypeSort.Name
@@ -38,13 +41,38 @@ class DialogSorting : BottomSheetDialogFragment(),
                 R.id.radio_change_percent -> typeOfSort = TypeSort.Percent
             }
         }
-        binding.upDown.onItemSelectedListener = this
+        binding.upDown.setOnClickListener {
+            when (directionChoose) {
+                Direction.Down -> {
+                    directionChoose = Direction.Up
+                    binding.upDown.text = "По возрастанию"
+                }
+                Direction.Up -> {
+                    directionChoose = Direction.Down
+                    binding.upDown.text = "По убыванию"
+                }
+            }
+        }
         binding.bottomAttachSorting.setOnClickListener {
             setFragmentResult(
                 KEY,
                 bundleOf(TYPE_OF_SORT to typeOfSort, DIRECTION_OF_SORT to directionChoose)
             )
             dismiss()
+        }
+    }
+
+    private fun setSelected() {
+        when (typeOfSort) {
+            TypeSort.ChangePrice -> binding.radioChangePrice.isChecked = true
+            TypeSort.Name -> binding.radioNameCompany.isChecked = true
+            TypeSort.Percent -> binding.radioChangePercent.isChecked = true
+            TypeSort.Price -> binding.radioPrice.isChecked = true
+        }
+
+        when (directionChoose) {
+            Direction.Down -> binding.upDown.text = "По убыванию"
+            Direction.Up -> binding.upDown.text = "По возрастанию"
         }
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.os.bundleOf
 import com.amk.core.navigation.AppNavigation
 import com.amk.core.ui.BaseFragment
 import com.amk.mylibrary.databinding.FragmentListCompanyBinding
@@ -47,9 +48,9 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
         }
 
         binding.bottomSortCompany.setOnClickListener {
-            val dialog = DialogSorting.getInstance()
-            dialog.show(childFragmentManager, ARGUMENT_KEY)
+            showDialogSortCompany()
         }
+
         binding.bottomFilterCompany.setOnClickListener {
             statesCompanyListInteractor.setStatePosition(StatePosition.MoveToUp)
             if (firstElements == DEFAULT_FIRST) {
@@ -71,17 +72,23 @@ class ListCompanyFragment : BaseFragment<FragmentListCompanyBinding, CompaniesLi
         })
     }
 
+    private fun showDialogSortCompany() {
+        val dialog = DialogSorting.getInstance()
+        val bundle = bundleOf(TYPE_OF_SORT to typeSort, DIRECTION_OF_SORT to directionSort)
+        dialog.arguments = bundle
+        dialog.show(childFragmentManager, ARGUMENT_KEY)
+    }
+
+
     override fun onStart() {
         statesCompanyListInteractor.setStatePosition(StatePosition.NotMove)
         super.onStart()
     }
 
     private fun getSettingsOfSort() {
-        val sharedPrefsSort = requireContext().getSharedPreferences(TYPE_SORT, Context.MODE_PRIVATE)
-        val sharedPrefsDirection =
-            requireContext().getSharedPreferences(TYPE_DIRECTION, Context.MODE_PRIVATE)
-        val sharedPrefsFavorite =
-            requireContext().getSharedPreferences(TYPE_FAVORITE, Context.MODE_PRIVATE)
+        val sharedPrefsSort =  requireContext().getSharedPreferences(TYPE_SORT, Context.MODE_PRIVATE)
+        val sharedPrefsDirection =  requireContext().getSharedPreferences(TYPE_DIRECTION, Context.MODE_PRIVATE)
+        val sharedPrefsFavorite =  requireContext().getSharedPreferences(TYPE_FAVORITE, Context.MODE_PRIVATE)
         val sort = sharedPrefsSort.getInt(TYPE_SORT, 0)
         val direction = sharedPrefsDirection.getInt(TYPE_DIRECTION, 0)
         val favorite = sharedPrefsFavorite.getInt(TYPE_FAVORITE, 0)
